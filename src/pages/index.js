@@ -8,24 +8,21 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <div><h3>Posts</h3></div>
       <div>
         {edges.map(edge => {
-          const { frontmatter } = edge.node;
-          console.log(edge)
+          const { frontmatter } = edge.node
           return (
             <div key={frontmatter.path}>
               <Link to={frontmatter.path}>{frontmatter.title}</Link>
-							&nbsp;
+              &nbsp;
               <small>
-                {' '}
+                {" "}
                 <em>published on</em> {frontmatter.date}
               </small>
               <p>{frontmatter.excerpt}</p>
-
               <br />
             </div>
-          );
+          )
         })}
       </div>
     </Layout>
