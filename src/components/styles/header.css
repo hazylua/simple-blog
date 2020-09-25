@@ -1,0 +1,17 @@
+.header-container {
+  background: rebeccapurple;
+}
+
+.header-box {
+  max-width: 960px;
+  padding: 1rem 10rem;
+}
+
+.header-box a {
+  color: white;
+  text-decoration: none;
+}
+
+.header-box h1 {
+  margin: 0;
+}

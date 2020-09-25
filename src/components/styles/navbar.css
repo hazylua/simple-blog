@@ -1,0 +1,27 @@
+.navbar-container {
+  background-color: black;
+  margin-bottom: 1.45rem;
+}
+
+.navbar-box {
+  max-width: 960px;
+  padding: 1rem 10rem;
+}
+
+.navbar-box ul {
+  list-style-type: none;
+  margin: 0 auto;
+  margin: 0;
+  max-width: 960px;
+  padding: 0;
+}
+
+.navbar-box ul li {
+  display: inline;
+  margin: auto;
+}
+
+.navbar-box a {
+  color: white;
+  text-decoration: none;
+}

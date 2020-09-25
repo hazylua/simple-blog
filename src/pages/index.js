@@ -2,17 +2,17 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
 
 const IndexPage = ({ data }) => {
   const { edges } = data.allMarkdownRemark
 
   return (
     <Layout>
+      <div><h3>Posts</h3></div>
       <div>
         {edges.map(edge => {
           const { frontmatter } = edge.node;
+          console.log(edge)
           return (
             <div key={frontmatter.path}>
               <Link to={frontmatter.path}>{frontmatter.title}</Link>
@@ -22,6 +22,7 @@ const IndexPage = ({ data }) => {
                 <em>published on</em> {frontmatter.date}
               </small>
               <p>{frontmatter.excerpt}</p>
+
               <br />
             </div>
           );
