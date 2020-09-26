@@ -10,6 +10,8 @@ const Header = ({ siteTitle }) => (
       <h1>
         <Link to="/">{siteTitle}</Link>
       </h1>
+
+      {/* <input className="search-field" /> */}
     </div>
   </header>
 )

@@ -4,19 +4,8 @@
 
 .main-box {
   display: flex;
-
-  margin: 0 auto;
-  max-width: 960;
+  justify-content: space-between;
   padding: 0 10rem 1rem;
-}
-
-.main-posts {
-  max-width: 75%;
-}
-
-.main-panel {
-  margin-left: auto;
-  max-width: 25%;
 }
 
 footer {

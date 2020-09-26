@@ -602,3 +602,54 @@ pre tt:after {
 /* * {
   border: 1px solid grey;
 } */
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.box {
+  max-width: 60%;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
+    -1px -2px 2px rgba(0, 0, 0, 0.05);
+}
+
+.box__title {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: rgb(243, 243, 243);
+  border-bottom: 2px solid rgb(105, 105, 105);
+}
+
+.box__body {
+  padding: 1rem;
+}
+
+/* Separate styles for pages. */
+/* src/pages/home.js  */
+
+.home-landing {
+  min-width: 65%;
+  margin-right: auto;
+}
+
+.home-history {
+  min-width: 30%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.13), 1px 2px 2px rgba(0, 0, 0, 0.1),
+    -1px -2px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* src/pages/blog.js */

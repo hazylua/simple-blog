@@ -4,21 +4,21 @@
 }
 
 .navbar-box {
-  max-width: 960px;
-  padding: 1rem 10rem;
+  max-width: 1000px;
+  padding: 0 10rem;
 }
 
 .navbar-box ul {
+  display: flex;
+  flex-direction: row;
   list-style-type: none;
-  margin: 0 auto;
   margin: 0;
-  max-width: 960px;
   padding: 0;
 }
 
 .navbar-box ul li {
-  display: inline;
-  margin: auto;
+  margin: 0 3rem 0 0;
+  padding: 1rem 0;
 }
 
 .navbar-box a {

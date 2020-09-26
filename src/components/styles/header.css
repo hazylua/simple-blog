@@ -3,8 +3,9 @@
 }
 
 .header-box {
-  max-width: 960px;
-  padding: 1rem 10rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 10rem 1rem;
 }
 
 .header-box a {
@@ -13,5 +14,11 @@
 }
 
 .header-box h1 {
+  display: inline-block;
+  text-align: left;
   margin: 0;
+}
+
+.search-field {
+  max-height: 2rem;
 }

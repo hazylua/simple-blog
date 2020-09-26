@@ -1,0 +1,15 @@
+import React from "react"
+import Layout from "../components/layout"
+
+const Blog = () => {
+  return (
+    <Layout>
+      <div>
+        <h3>Blog</h3>
+        <button style={{ width: "120px" }}>Add Post</button>
+      </div>
+    </Layout>
+  )
+}
+
+export default Blog
