@@ -6,6 +6,7 @@
 }
 
 .navbar-box {
+  border-bottom: 3px solid lightgray;
   display: inline-block;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 20px;
@@ -18,7 +19,6 @@
   padding-bottom: 1rem;
   padding: 1rem 0px;
   text-decoration: none;
-
   transition: 0.15s;
 }
 
@@ -27,5 +27,5 @@
 }
 
 .active-link {
-  border-bottom: 3px solid rebeccapurple;
+  border-bottom: 3px solid rgb(126, 72, 180);
 }

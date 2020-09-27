@@ -659,4 +659,20 @@ pre tt:after {
   width: auto;
 }
 
-/* src/pages/blog.js */
+/* src/pages/merch.js */
+
+.merch-title {
+  text-align: center;
+}
+
+.merch-body {
+  display: flex;
+  margin: 0 auto;
+  justify-content: space-between;
+}
+
+.merch-item {
+  min-width: 20%;
+  min-height: 15%;
+  background: black;
+}
