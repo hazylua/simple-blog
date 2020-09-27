@@ -10,7 +10,8 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       <div className="container">
-        <div className="row">
+        <div className="box banner" />
+        <div className="row home">
           <div className="box home-landing">
             <h3 className="box__title">Home</h3>
             <div className="box__body">
@@ -35,7 +36,7 @@ const IndexPage = ({ data }) => {
               </p>
             </div>
           </div>
-          <div className="box">
+          <div className="box home-history">
             <h3 className="box__title">Post History</h3>
             <div className="box__body">
               <div>

@@ -1,11 +1,12 @@
 .main-container {
   background-color: white;
+  height: 100%;
 }
 
 .main-box {
   display: flex;
   justify-content: space-between;
-  padding: 0 10rem 1rem;
+  padding: 0 15% 1rem;
 }
 
 footer {

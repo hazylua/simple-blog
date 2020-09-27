@@ -1,11 +1,14 @@
 .header-container {
   background: rebeccapurple;
+  border-bottom: 3px solid rgb(73, 35, 110);
 }
 
 .header-box {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 10rem 1rem;
+  max-width: 1000px;
+
+  padding: 1rem 15% 1rem;
 }
 
 .header-box a {

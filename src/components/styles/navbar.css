@@ -1,27 +1,31 @@
 .navbar-container {
   background-color: black;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 1.45rem;
 }
 
 .navbar-box {
-  max-width: 1000px;
-  padding: 0 10rem;
-}
-
-.navbar-box ul {
-  display: flex;
-  flex-direction: row;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-box ul li {
-  margin: 0 3rem 0 0;
-  padding: 1rem 0;
+  display: inline-block;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  padding: 1rem 15% 1rem;
 }
 
 .navbar-box a {
   color: white;
+  margin-right: 20px;
+  padding-bottom: 1rem;
+  padding: 1rem 0px;
   text-decoration: none;
+
+  transition: 0.15s;
+}
+
+.navbar-box a:hover {
+  border-bottom: 3px solid rebeccapurple;
+}
+
+.active-link {
+  border-bottom: 3px solid rebeccapurple;
 }

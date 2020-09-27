@@ -8,23 +8,21 @@ const Navbar = () => {
   return (
     <nav className="navbar-container">
       <div className="navbar-box">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/blog">Blog</Link>
-          </li>
-          <li>
-            <Link to="/merch">Merch</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact</Link>
-          </li>
-        </ul>
+        <Link activeClassName="active-link" to="/">
+          Home
+        </Link>
+        <Link activeClassName="active-link" to="/blog">
+          Blog
+        </Link>
+        <Link activeClassName="active-link" to="/merch">
+          Merch
+        </Link>
+        <Link activeClassName="active-link" to="/about">
+          About
+        </Link>
+        <Link activeClassName="active-link" to="/contact">
+          Contact
+        </Link>
       </div>
     </nav>
   )
