@@ -17,9 +17,10 @@
 }
 
 .header-box h1 {
+  -webkit-text-stroke-width: 1px;
   display: inline-block;
-  text-align: left;
   margin: 0;
+  text-align: left;
 }
 
 .search-field {
