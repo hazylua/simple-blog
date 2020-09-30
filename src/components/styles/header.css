@@ -1,28 +1,38 @@
 .header-container {
-  background: rebeccapurple;
-  border-bottom: 3px solid rgb(73, 35, 110);
-}
-
-.header-box {
+  background: linear-gradient(90deg, rgb(100, 50, 150), rgb(70, 30, 150));
+  border-bottom: 3px solid rgb(70, 30, 110);
+  width: 100%;
+  padding: 1rem 10% 1rem;
   display: flex;
   justify-content: space-between;
-  max-width: 1000px;
-
-  padding: 1rem 15% 1rem;
 }
 
-.header-box a {
-  color: white;
+.header-title {
+  color: rgb(245, 245, 245);
   text-decoration: none;
 }
 
-.header-box h1 {
-  -webkit-text-stroke-width: 1px;
-  display: inline-block;
-  margin: 0;
-  text-align: left;
+.header-search-input {
+  background-color: rgb(245, 245, 245);
+  border: none;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 10px;
 }
 
-.search-field {
-  max-height: 2rem;
+.header-search-wrapper {
+  display: flex;
+  background-color: rgb(245, 245, 245);
+}
+
+.header-search-icon {
+}
+
+@media (max-width: 630px) {
+  .header-container {
+    padding: 1rem 10% 1rem;
+  }
+
+  .header-search {
+    display: none;
+  }
 }

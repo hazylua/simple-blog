@@ -2,6 +2,8 @@ import React from "react"
 import Layout from "../components/layout"
 import PostBuilder from "../components/postbuilder"
 
+import "../components/styles/main.css"
+
 const Blog = () => {
   return (
     <Layout>

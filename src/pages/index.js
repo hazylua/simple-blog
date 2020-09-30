@@ -6,14 +6,15 @@ import Layout from "../components/layout"
 const IndexPage = ({ data }) => {
   const { edges } = data.allMarkdownRemark
   const { title, description } = data.site.siteMetadata
+  const image = data.image.publicURL
 
   return (
     <Layout>
+      <img className="banner" src={image} />
       <div className="container">
-        <div className="box banner" />
         <div className="row home">
           <div className="box home-landing">
-            <h3 className="box__title">Home</h3>
+            <h3 className="box__title">Home - {title}</h3>
             <div className="box__body">
               <p>{description}</p>
               <p>
@@ -86,6 +87,9 @@ export const query = graphql`
         title
         description
       }
+    }
+    image: file(base: { eq: "banner.jpg" }) {
+      publicURL
     }
   }
 `
