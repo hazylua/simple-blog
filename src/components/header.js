@@ -2,7 +2,7 @@ import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
 
-import { AiOutlineSearch } from "react-icons/ai"
+import { AiOutlineSearch, AiOutlineBars } from "react-icons/ai"
 
 import "./styles/header.css"
 
@@ -14,10 +14,26 @@ const Header = ({ siteTitle }) => (
       </Link>
     </h1>
     <div className="header-search-wrapper">
-      <input placeholder="Search..." className="header-search-input" />
-      <h3 className="header-search-icon">
-        <AiOutlineSearch />
-      </h3>
+      <input className="header-search-input" />
+      <div id="header-search-icon">
+        <AiOutlineSearch
+          style={{
+            display: "block",
+            margin: "auto",
+          }}
+          size={30}
+        />
+      </div>
+      <div id="header-mobile-nav">
+        <AiOutlineBars
+          style={{
+            display: "block",
+            margin: "auto",
+          }}
+          color={"white"}
+          size={30}
+        />
+      </div>
     </div>
   </header>
 )
