@@ -629,6 +629,16 @@ pre tt:after {
   padding: 1rem;
 }
 
+/* :root {
+  --black-soft: rgb(15, 15, 15);
+  --gradient-primary: linear-gradient(
+    90deg,
+    rgb(100, 50, 150),
+    rgb(70, 30, 150)
+  );
+  --speed: 500ms;
+} */
+
 /* Separate styles for pages. */
 /* src/pages/home.js  */
 
