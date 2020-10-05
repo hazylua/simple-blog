@@ -12,7 +12,7 @@ const IndexPage = ({ data }) => {
     <Layout>
       <img className="banner" src={image} />
       <div className="container">
-        <div className="row home">
+        <div className="row">
           <div className="box home-landing">
             <h3 className="box__title">Home - {title}</h3>
             <div className="box__body">

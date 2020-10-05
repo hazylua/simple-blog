@@ -24,6 +24,7 @@
 
 .navbar-link:hover {
   border-bottom: 3px solid rgb(70, 30, 110);
+  transition: ease-in 100ms;
 }
 
 .active-link {

@@ -40,7 +40,7 @@ const NavbarMenu = props => {
   )
 }
 
-const MobNavToggle = props => {
+const MobNavToggle = () => {
   return (
     <>
       <div id="header-mobile-nav">
