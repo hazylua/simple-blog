@@ -11,10 +11,11 @@ import "./styles/layout.css"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
+    query metadataQuery {
       site {
         siteMetadata {
           title
+          repo
         }
       }
     }
@@ -22,7 +23,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Header siteTitle={data.site.siteMetadata.title} />
       <Navbar />
       <div
         style={{
@@ -33,7 +34,10 @@ const Layout = ({ children }) => {
         }}
       >
         <Main children={children} />
-        <Footer />
+        <Footer
+          siteTitle={data.site.siteMetadata.title}
+          siteRepo={data.site.siteMetadata.repo}
+        />
       </div>
     </>
   )
