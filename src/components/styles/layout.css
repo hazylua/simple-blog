@@ -591,6 +591,7 @@ pre tt:before,
 pre tt:after {
   content: "";
 }
+
 @media only screen and (max-width: 480px) {
   html {
     font-size: 100%;
@@ -640,43 +641,10 @@ pre tt:after {
   object-fit: cover;
 }
 
-.home-landing {
-  width: 75%;
-  margin-right: 2.5%;
-}
-
-.home-history {
-  width: auto;
-}
-
 /* src/pages/merch.js */
-
-.merch-title {
-  text-align: center;
-}
-
-.merch-body {
-  display: flex;
-  margin: 0 auto;
-  justify-content: space-between;
-}
-
-.merch-item {
-  min-width: 20%;
-  min-height: 15%;
-  background: black;
-}
 
 @media (max-width: 768px) {
   .row {
     flex-direction: column;
-  }
-
-  .box {
-    margin-bottom: 1.25rem;
-  }
-
-  .home-landing {
-    width: 100%;
   }
 }

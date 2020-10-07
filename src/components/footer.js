@@ -3,7 +3,7 @@ import { AiFillGithub } from "react-icons/ai"
 
 const Links = props => {
   return (
-    <div>
+    <div style={{ margin: "0.75rem 0" }}>
       <a
         style={{ textDecoration: "none", color: "rgb(245, 245, 245)" }}
         href={props.repo}

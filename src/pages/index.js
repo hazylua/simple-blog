@@ -3,6 +3,44 @@ import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
 
+const AboutSite = ({ title, description }) => {
+  return (
+    <div style={{ maxWidth: "35%" }}>
+      <h3>Home - {title}</h3>
+      <div>
+        <p>{description}</p>
+      </div>
+    </div>
+  )
+}
+
+const PostHistory = ({ edges }) => {
+  return (
+    <div style={{ flewGrow: "1.7" }}>
+      <h3>Post History</h3>
+      <div>
+        <div>
+          {edges.map(edge => {
+            const { frontmatter } = edge.node
+            return (
+              <div key={frontmatter.path}>
+                <Link to={frontmatter.path}>{frontmatter.title}</Link>
+                &nbsp;
+                <small>
+                  {" "}
+                  <em>published on</em> {frontmatter.date}
+                </small>
+                <p>{frontmatter.excerpt}</p>
+                <br />
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const IndexPage = ({ data }) => {
   const { edges } = data.allMarkdownRemark
   const { title, description } = data.site.siteMetadata
@@ -10,56 +48,13 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <img className="banner" src={image} />
-      <div className="container">
-        <div className="row">
-          <div className="box home-landing">
-            <h3 className="box__title">Home - {title}</h3>
-            <div className="box__body">
-              <p>{description}</p>
-              <p>
-                Et cillum ipsum Lorem sunt aliqua sunt amet cupidatat eiusmod
-                nostrud.
-              </p>
-              <p>
-                Laborum officia veniam ullamco esse qui. Reprehenderit ea
-                ullamco est veniam aliquip veniam adipisicing duis. Laborum quis
-                magna mollit dolore in nisi mollit culpa in nostrud.
-              </p>
-              <p>
-                Excepteur eiusmod laboris minim nisi sint excepteur occaecat
-                cillum ex pariatur non eiusmod. Nisi adipisicing nostrud
-                exercitation ipsum cillum labore enim excepteur qui Lorem. Eu et
-                tempor tempor duis sunt sunt. Aute ea voluptate eiusmod non qui
-                quis fugiat ad. Labore esse cillum et ut est exercitation. Non
-                aliqua ea est dolor ea velit in elit consequat reprehenderit
-                mollit.
-              </p>
-            </div>
-          </div>
-          <div className="box home-history">
-            <h3 className="box__title">Post History</h3>
-            <div className="box__body">
-              <div>
-                {edges.map(edge => {
-                  const { frontmatter } = edge.node
-                  return (
-                    <div key={frontmatter.path}>
-                      <Link to={frontmatter.path}>{frontmatter.title}</Link>
-                      &nbsp;
-                      <small>
-                        {" "}
-                        <em>published on</em> {frontmatter.date}
-                      </small>
-                      <p>{frontmatter.excerpt}</p>
-                      <br />
-                    </div>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
+      <img className="banner" alt="home_banner" src={image} />
+      <div className="container" style={{ maxWidth: "1000px", margin: "auto" }}>
+        {/* <div className="row">
+          {" "} */}
+        <AboutSite title={title} description={description} />
+        <PostHistory edges={edges} />
+        {/* </div> */}
       </div>
     </Layout>
   )
