@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 
 const AboutSite = ({ title, description }) => {
   return (
-    <div style={{ maxWidth: "35%" }}>
+    <div style={{ flexGrow: "1.7" }}>
       <h3>Home - {title}</h3>
       <div>
         <p>{description}</p>
@@ -16,7 +16,7 @@ const AboutSite = ({ title, description }) => {
 
 const PostHistory = ({ edges }) => {
   return (
-    <div style={{ flewGrow: "1.7" }}>
+    <div style={{ flewGrow: "1" }}>
       <h3>Post History</h3>
       <div>
         <div>
@@ -50,10 +50,10 @@ const IndexPage = ({ data }) => {
     <Layout>
       <img className="banner" alt="home_banner" src={image} />
       <div className="container" style={{ maxWidth: "1000px", margin: "auto" }}>
-        {/* <div className="row">
-          {" "} */}
-        <AboutSite title={title} description={description} />
-        <PostHistory edges={edges} />
+        <div className="row">
+          <AboutSite title={title} description={description} />
+          <PostHistory edges={edges} />
+        </div>
         {/* </div> */}
       </div>
     </Layout>
