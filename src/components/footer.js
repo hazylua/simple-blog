@@ -27,16 +27,18 @@ const Footer = ({ siteTitle, siteRepo }) => {
   return (
     <div
       style={{
-        background: "rebeccapurple",
+        background: "#562996",
         borderTop: "3px solid rgb(51, 19, 82)",
         color: "rgb(245, 245, 245)",
         marginTop: "1.45rem",
         padding: "1.45rem 2rem",
       }}
     >
-      {siteTitle}
-      <Links repo={siteRepo} />
-      <Copyright />
+      <div style={{ margin: "auto", maxWidth: "80%" }}>
+        {siteTitle}
+        <Links repo={siteRepo} />
+        <Copyright />
+      </div>
     </div>
   )
 }

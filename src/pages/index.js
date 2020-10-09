@@ -5,10 +5,21 @@ import Layout from "../components/layout"
 
 const AboutSite = ({ title, description }) => {
   return (
-    <div style={{ flexGrow: "1.7" }}>
+    <div style={{ maxWidth: "70%", marginRight: "2rem" }}>
       <h3>Home - {title}</h3>
       <div>
         <p>{description}</p>
+        <p>
+          Reprehenderit id dolore aliquip aute ex commodo non sint elit ad magna
+          consequat sunt Lorem.
+        </p>
+        <p>
+          Reprehenderit qui deserunt aliqua dolore nostrud laboris. Amet veniam
+          voluptate quis eiusmod culpa. Irure aliqua fugiat nisi sint labore
+          non. Est qui eu nulla aliquip labore qui aliquip. Laboris deserunt
+          voluptate non aute. Duis do aliquip voluptate reprehenderit mollit
+          laborum excepteur amet elit ea occaecat pariatur.
+        </p>
       </div>
     </div>
   )
@@ -16,7 +27,7 @@ const AboutSite = ({ title, description }) => {
 
 const PostHistory = ({ edges }) => {
   return (
-    <div style={{ flewGrow: "1" }}>
+    <div>
       <h3>Post History</h3>
       <div>
         <div>
@@ -41,6 +52,21 @@ const PostHistory = ({ edges }) => {
   )
 }
 
+const Banner = ({ image }) => {
+  return (
+    <img
+      alt="home_banner"
+      src={image}
+      style={{
+        height: "15%",
+        width: "100%",
+        backgroundColor: "rgb(241, 241, 241)",
+        objectFit: "cover",
+      }}
+    />
+  )
+}
+
 const IndexPage = ({ data }) => {
   const { edges } = data.allMarkdownRemark
   const { title, description } = data.site.siteMetadata
@@ -48,8 +74,8 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <img className="banner" alt="home_banner" src={image} />
-      <div className="container" style={{ maxWidth: "1000px", margin: "auto" }}>
+      <Banner image={image} />
+      <div className="container" style={{ maxWidth: "80%", margin: "auto" }}>
         <div className="row">
           <AboutSite title={title} description={description} />
           <PostHistory edges={edges} />
