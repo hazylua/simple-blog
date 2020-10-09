@@ -10,16 +10,28 @@ const AboutSite = ({ title, description }) => {
       <div>
         <p>{description}</p>
         <p>
-          Reprehenderit id dolore aliquip aute ex commodo non sint elit ad magna
-          consequat sunt Lorem.
+          The posts are written in markdown and generated dynamically using
+          Gatsby and React.
         </p>
         <p>
-          Reprehenderit qui deserunt aliqua dolore nostrud laboris. Amet veniam
-          voluptate quis eiusmod culpa. Irure aliqua fugiat nisi sint labore
-          non. Est qui eu nulla aliquip labore qui aliquip. Laboris deserunt
-          voluptate non aute. Duis do aliquip voluptate reprehenderit mollit
-          laborum excepteur amet elit ea occaecat pariatur.
+          If you've ever seen a git repository before, you most likely have
+          already seen a markdown file in the form of a "README.md". Markdown is
+          easy to learn and to write, and it's contents can be converted to
+          HTML, which is what this webpage does for each blog post.
         </p>
+        <p>With markdown we can have:</p>
+        <ul>
+          <li>Paragraphs;</li>
+          <li>Headings (h1, h2, h3...);</li>
+          <li>
+            Text decoration (<b>bold</b>, <em>italics</em>,{" "}
+            <del>strikethrough</del>)
+          </li>
+          <li>Links;</li>
+          <li>Images;</li>
+          <li>Listings;</li>
+          <li>Code blocks;</li>
+        </ul>
       </div>
     </div>
   )
