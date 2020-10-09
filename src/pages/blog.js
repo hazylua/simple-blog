@@ -12,17 +12,12 @@ const Post = ({ title, date, excerpt, path, key }) => {
       style={{
         borderBottom: "1px dotted rgb(15, 15, 15)",
         marginBottom: "1.45rem",
+        paddingBottom: "1rem",
       }}
     >
-      <Link
-        to={path}
-        style={{
-          textDecoration: "none",
-          color: "rebbecapurple",
-        }}
-      >
-        <h3 style={{ marginBottom: "1rem" }}>{title}</h3>
-      </Link>
+      <h3 style={{ marginBottom: "1rem", color: "rgb(15, 15, 15)" }}>
+        {title}
+      </h3>
 
       <p>
         <small>
@@ -31,6 +26,15 @@ const Post = ({ title, date, excerpt, path, key }) => {
         <br />
         {excerpt}
       </p>
+      <Link
+        to={path}
+        style={{
+          textDecoration: "none",
+          color: "rebbecapurple",
+        }}
+      >
+        Read More
+      </Link>
     </div>
   )
 }
@@ -38,15 +42,21 @@ const Post = ({ title, date, excerpt, path, key }) => {
 const PostList = ({ edges }) => {
   return (
     <div>
-      <h3
+      <div
         style={{
+          borderBottom: "2px solid rgb(15, 15, 15)",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
           marginBottom: "1.45rem",
           paddingBottom: "1.45rem",
-          borderBottom: "2px solid rgb(15, 15, 15)",
         }}
       >
-        Blog
-      </h3>
+        <h3 style={{ margin: "0" }}>Blog</h3>
+        <Link to="/postbuilder">
+          <h3 style={{ margin: "0" }}>Add Post</h3>
+        </Link>
+      </div>
       <div>
         {edges.map(post => {
           const { title, date, excerpt, path } = post.node.frontmatter
