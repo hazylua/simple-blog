@@ -1,5 +1,6 @@
 ---
 path: "/about-post"
+author: "You"
 date: "2020-09-23"
 title: "About Post"
 tags: ["about", "2020"]
