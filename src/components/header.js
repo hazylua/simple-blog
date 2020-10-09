@@ -19,13 +19,9 @@ const NavbarMenu = props => {
             Blog
           </Link>
 
-          <Link
-            className="mobnavbar-link"
-            activeClassName="active-link"
-            to="/merch"
-          >
+          {/* <Link className="mobnavbar-link" to="/merch">
             Merch
-          </Link>
+          </Link> */}
 
           <Link className="mobnavbar-link" to="/about">
             About
