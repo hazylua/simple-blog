@@ -15,10 +15,10 @@ const Navbar = () => {
         Blog
       </Link>
       <span className="navbar-separator">/</span>
-      <Link className="navbar-link" activeClassName="active-link" to="/merch">
+      {/* <Link className="navbar-link" activeClassName="active-link" to="/merch">
         Merch
       </Link>
-      <span className="navbar-separator">/</span>
+      <span className="navbar-separator">/</span> */}
       <Link className="navbar-link" activeClassName="active-link" to="/about">
         About
       </Link>
