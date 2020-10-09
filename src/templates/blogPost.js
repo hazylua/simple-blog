@@ -1,54 +1,75 @@
-import React from 'react'
-import { graphql, Link } from 'gatsby'
+import React from "react"
+import { graphql, Link } from "gatsby"
+
+import Layout from "../components/layout"
 
 const Template = ({ data, pathContext }) => {
-    const title = data.markdownRemark.frontmatter.title
-    const date = data.markdownRemark.frontmatter.date
-    const html = data.markdownRemark.html
+  const post = data.markdownRemark
+  const { title, author, date, excerpt } = post.frontmatter
 
-    const { next, prev } = pathContext
+  const { next, prev } = pathContext
 
-    return (<div>
-        <h1>{title}</h1>
-        <div>
-            <em>{date}</em>
-        </div>
+  return (
+    <Layout>
+      <div
+        style={{ display: "flex", justifyContent: "space-between" }}
+        style={{ maxWidth: "80%", margin: "auto", marginTop: "1.45rem" }}
+      >
+        <h1 style={{ marginBottom: "1rem" }}>{title}</h1>
         <br />
-        <div className="blogpost" dangerouslySetInnerHTML={{ __html: html }} />
-        <p>
+        <div>
+          <p>
+            <em>
+              Author: {author}
+              <br />
+              Publish date: {date}
+              <br />
+              Excerpt: {excerpt}
+              <br />
+            </em>
+          </p>
+        </div>
+
+        <br />
+        <div
+          className="blogpost"
+          dangerouslySetInnerHTML={{ __html: post.html }}
+        />
+
+        <div>
+          <p>
             {prev && (
-                <Link to={prev.frontmatter.path}>
-                    {prev.frontmatter.title}{' '}
-                    ←{' '}
-                    Previous
-                </Link>
+              <Link to={prev.frontmatter.path}>
+                {prev.frontmatter.title} ← Previous
+              </Link>
             )}
-        </p>
-        <p>
+          </p>
+          <p>
             {next && (
-                <Link to={next.frontmatter.path}>
-                    Next{' '}
-                    →
-                    {next.frontmatter.title}
-                </Link>
+              <Link to={next.frontmatter.path}>
+                Next →{next.frontmatter.title}
+              </Link>
             )}
-        </p>
-    </div>)
+          </p>
+        </div>
+      </div>
+    </Layout>
+  )
 }
 
 export const postQuery = graphql`
-    query($pathSlug: String!) {
-        markdownRemark(frontmatter: {path: { eq: $pathSlug}}) {
-            html
-            frontmatter {
-                title
-                date(formatString: "DD MMMM YYYY")
-                path
-                tags
-                excerpt
-            }
-        }
+  query($path: String!) {
+    markdownRemark(frontmatter: { path: { eq: $path } }) {
+      html
+      frontmatter {
+        title
+        date(formatString: "DD MMMM YYYY")
+        path
+        tags
+        excerpt
+      }
     }
+  }
 `
 
 export default Template
