@@ -41,19 +41,19 @@ const Contact = () => {
           <input style={inputStyle} placeholder="Name"></input>
           <input style={inputStyle} placeholder="Email"></input>
           <textarea style={messageBox} placeholder="Message"></textarea>
+          <button
+            type="submit"
+            style={{
+              padding: "10px",
+              width: "10%",
+              borderRadius: "10px",
+              border: "1px solid silver",
+              fontFamily: "Segoe UI",
+            }}
+          >
+            Send!
+          </button>
         </form>
-        <button
-          type="submit"
-          style={{
-            padding: "10px",
-            width: "10%",
-            borderRadius: "10px",
-            border: "1px solid silver",
-            fontFamily: "Segoe UI",
-          }}
-        >
-          Send!
-        </button>
       </div>
     </Layout>
   )
