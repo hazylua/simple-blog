@@ -33,22 +33,28 @@ const PostBuilder = () => {
   return (
     <Layout>
       <div
-        style={{
-          width: "100%",
-          height: "50px",
-          backgroundColor: "rgb(15, 15, 15)",
-        }}
-      ></div>
-      <div>
-        {items.map(item => (
-          <Item
-            key={item.id}
-            type={item.type}
-            content={item.content}
-            updateItem={newContent => updateItem(item.id, newContent)}
-            handleKeyPress={handleKeyPress}
-          />
-        ))}
+        className="container"
+        style={{ maxWidth: "1000px", margin: "auto", marginTop: "1.45rem" }}
+      >
+        <div
+          style={{
+            width: "100%",
+            height: "50px",
+            backgroundColor: "rgb(15, 15, 15)",
+          }}
+        ></div>
+        <h3>Post Writer</h3>
+        <div>
+          {items.map(item => (
+            <Item
+              key={item.id}
+              type={item.type}
+              content={item.content}
+              updateItem={newContent => updateItem(item.id, newContent)}
+              handleKeyPress={handleKeyPress}
+            />
+          ))}
+        </div>
       </div>
     </Layout>
   )
