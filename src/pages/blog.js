@@ -1,14 +1,13 @@
 import React from "react"
 import Layout from "../components/layout"
 import { graphql, Link } from "gatsby"
-import PostBuilder from "../components/postbuilder"
+import PostBuilder from "./postbuilder"
 
 import "../components/styles/main.css"
 
-const Post = ({ title, date, excerpt, path, key }) => {
+const Post = ({ title, date, excerpt, path }) => {
   return (
     <div
-      key={key}
       style={{
         borderBottom: "1px dotted rgb(15, 15, 15)",
         marginBottom: "1.45rem",
