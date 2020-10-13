@@ -1,4 +1,4 @@
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import PropTypes from "prop-types"
 import React, { useState } from "react"
 
@@ -55,6 +55,18 @@ const MobNavToggle = () => {
 
 const Header = ({ siteTitle }) => {
   const [displayMenu, setDisplayMenu] = useState(false)
+  const [query, setQuery] = useState("")
+
+  const handleEnterDown = event => {
+    if (event.key === "Enter") {
+      event.preventDefault()
+      navigate("/search", { state: { query } })
+    }
+  }
+
+  const handleChange = event => {
+    setQuery(event.target.value)
+  }
   return (
     <>
       <header className="header-container">
@@ -64,7 +76,11 @@ const Header = ({ siteTitle }) => {
           </Link>
         </h1>
         <div className="header-search-wrapper">
-          <input className="header-search-input" />
+          <input
+            className="header-search-input"
+            onChange={handleChange}
+            onKeyDown={handleEnterDown}
+          />
           <div id="header-search-icon">
             <AiOutlineSearch
               style={{

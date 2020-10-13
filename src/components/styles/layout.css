@@ -598,6 +598,16 @@ pre tt:after {
   }
 }
 
+/* Main styles */
+
+.main-body {
+  display: flex;
+  margin: auto;
+  margin-top: 1.45rem;
+  max-width: 1000px;
+  flex-direction: column;
+}
+
 .container {
   display: flex;
   flex-direction: column;
