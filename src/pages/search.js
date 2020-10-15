@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
@@ -30,7 +30,11 @@ const Result = ({ title, date, excerpt, path }) => {
 
 const Search = ({ location, data }) => {
   const { edges } = data.allMarkdownRemark
-  const query = new RegExp(location.state.query, "i")
+  const query = location.state
+    ? new RegExp(location.state.query, "i")
+    : new RegExp("", "i")
+
+  console.log(query)
   return (
     <Layout>
       <div className="main-body">
