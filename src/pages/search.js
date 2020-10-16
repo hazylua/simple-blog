@@ -30,11 +30,36 @@ const Result = ({ title, date, excerpt, path }) => {
 
 const Search = ({ location, data }) => {
   const { edges } = data.allMarkdownRemark
+  const [resultPages, setResultPages] = useState([])
   const query = location.state
     ? new RegExp(location.state.query, "i")
     : new RegExp("", "i")
 
-  console.log(query)
+  const createPages = () => {
+    var maxResultsPerPage = 3
+    var pageResults = edges.filter(post =>
+      query.test(post.node.frontmatter.title)
+    )
+    var maxNumPages = Math.ceil(pageResults.length / maxResultsPerPage)
+    var pageNumber = 1
+    for (
+      var i = 0;
+      i < maxNumPages * maxResultsPerPage;
+      i += maxResultsPerPage
+    ) {
+      pageNumber += 1
+      var pagePosts = pageResults.slice(i, maxResultsPerPage + i)
+      // console.log(
+      //   i,
+      //   pagePosts.map(post => post.node.frontmatter.title)
+      // )
+    }
+  }
+
+  useEffect(() => {
+    createPages()
+  })
+
   return (
     <Layout>
       <div className="main-body">
