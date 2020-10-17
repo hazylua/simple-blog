@@ -30,7 +30,8 @@ const Result = ({ title, date, excerpt, path }) => {
 
 const Search = ({ location, data }) => {
   const [results, setResults] = useState([])
-  // const [searchPage, setSearchPage] = useState(0)
+  const [searchPage, setSearchPage] = useState(1)
+  const maxResultsPerPage = 3
 
   // Get all posts.
   const { edges } = data.allMarkdownRemark
@@ -56,22 +57,34 @@ const Search = ({ location, data }) => {
 
   return (
     <Layout>
-      <button onClick={() => console.log(results)}>Big Test Button</button>
       <div className="main-body">
         <h3>Search Results</h3>
         <div>
-          {results.map(post => {
-            const { title, date, excerpt, path } = post.node.frontmatter
-            return (
-              <Result
-                title={title}
-                date={date}
-                excerpt={excerpt}
-                key={`${date}__${title}`}
-                path={path}
-              />
-            )
-          })}
+          {results
+            .filter((item, i) => {
+              return (
+                i >= maxResultsPerPage * (searchPage - 1) &&
+                i < searchPage * maxResultsPerPage
+              )
+            })
+            .map(post => {
+              const { title, date, excerpt, path } = post.node.frontmatter
+              return (
+                <Result
+                  title={title}
+                  date={date}
+                  excerpt={excerpt}
+                  key={`${date}__${title}`}
+                  path={path}
+                />
+              )
+            })}
+          <button onClick={() => setSearchPage(searchPage + 1)}>
+            Next Page
+          </button>{" "}
+          <button onClick={() => setSearchPage(searchPage - 1)}>
+            Previous Page
+          </button>
         </div>
       </div>
     </Layout>
