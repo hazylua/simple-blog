@@ -55,6 +55,7 @@ const Search = ({ location, data }) => {
     getSearchResults()
   }, [location])
 
+  const PageSelect = ({ pageValue }) => {
     return (
       <button
         style={{
