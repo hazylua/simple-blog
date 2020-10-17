@@ -111,12 +111,11 @@ const Search = ({ location, data }) => {
                 />
               )
             })}
-          <button onClick={() => setSearchPage(searchPage + 1)}>
-            Next Page
-          </button>{" "}
-          <button onClick={() => setSearchPage(searchPage - 1)}>
-            Previous Page
-          </button>
+          {}
+          <PageRow
+            maxResultsPerPage={maxResultsPerPage}
+            queryResultNum={results.length}
+          />
         </div>
       </div>
     </Layout>
