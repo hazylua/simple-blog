@@ -29,55 +29,48 @@ const Result = ({ title, date, excerpt, path }) => {
 }
 
 const Search = ({ location, data }) => {
+  const [results, setResults] = useState([])
+  // const [searchPage, setSearchPage] = useState(0)
+
+  // Get all posts.
   const { edges } = data.allMarkdownRemark
-  const [resultPages, setResultPages] = useState([])
+  // Get query passed through search from header. If empty, query is "".
   const query = location.state
     ? new RegExp(location.state.query, "i")
     : new RegExp("", "i")
 
-  const createPages = () => {
-    var maxResultsPerPage = 3
-    var pageResults = edges.filter(post =>
+  // Create pages on first render.
+  const getSearchResults = () => {
+    // Filter through posts by title. Returns an array.
+    var searchResults = edges.filter(post =>
       query.test(post.node.frontmatter.title)
     )
-    var maxNumPages = Math.ceil(pageResults.length / maxResultsPerPage)
-    var pageNumber = 1
-    for (
-      var i = 0;
-      i < maxNumPages * maxResultsPerPage;
-      i += maxResultsPerPage
-    ) {
-      pageNumber += 1
-      var pagePosts = pageResults.slice(i, maxResultsPerPage + i)
-      // console.log(
-      //   i,
-      //   pagePosts.map(post => post.node.frontmatter.title)
-      // )
-    }
+    // Set results in page state.
+    setResults(searchResults)
   }
 
+  // Runs everytime the query updates.
   useEffect(() => {
-    createPages()
-  })
+    getSearchResults()
+  }, [location])
 
   return (
     <Layout>
+      <button onClick={() => console.log(results)}>Big Test Button</button>
       <div className="main-body">
         <h3>Search Results</h3>
         <div>
-          {edges.map(post => {
+          {results.map(post => {
             const { title, date, excerpt, path } = post.node.frontmatter
-            if (query.test(title)) {
-              return (
-                <Result
-                  title={title}
-                  date={date}
-                  excerpt={excerpt}
-                  key={`${date}__${title}`}
-                  path={path}
-                />
-              )
-            }
+            return (
+              <Result
+                title={title}
+                date={date}
+                excerpt={excerpt}
+                key={`${date}__${title}`}
+                path={path}
+              />
+            )
           })}
         </div>
       </div>
