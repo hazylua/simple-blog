@@ -56,38 +56,6 @@ const Search = ({ location, data }) => {
     getSearchResults()
   }, [location])
 
-  const PageSelect = ({ pageValue }) => {
-    return (
-      <button
-        style={{
-          backgroundColor: "#ebebeb",
-          border: "solid 2px black",
-          marginRight: "10px",
-          borderRadius: "2px",
-          width: "50px",
-          fontFamily: "Segoe UI",
-        }}
-        onClick={() => setSearchPage(pageValue)}
-      >
-        {pageValue}
-      </button>
-    )
-  }
-
-  const PageRow = ({ maxResultsPerPage, queryResultNum }) => {
-    var buttons = []
-    for (var i = 1; i <= Math.ceil(queryResultNum / maxResultsPerPage); i++) {
-      buttons.push(<PageSelect pageValue={i} />)
-    }
-    return (
-      <div>
-        {buttons.map(button => {
-          return button
-        })}
-      </div>
-    )
-  }
-
   return (
     <Layout>
       <div className="main-body">
@@ -115,7 +83,8 @@ const Search = ({ location, data }) => {
           {}
           <PageRow
             maxResultsPerPage={maxResultsPerPage}
-            queryResultNum={results.length}
+            itemsNum={results.length}
+            setPage={setSearchPage}
           />
         </div>
       </div>
