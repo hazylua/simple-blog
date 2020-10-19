@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../components/layout"
 import { graphql, Link } from "gatsby"
-import PostBuilder from "./postbuilder"
+// import PostBuilder from "./postbuilder"
 
 import "../components/styles/main.css"
 
