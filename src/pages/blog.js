@@ -1,7 +1,9 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Layout from "../components/layout"
 import { graphql, Link } from "gatsby"
+
 // import PostBuilder from "./postbuilder"
+import PageRow from "../components/PageRow"
 
 import "../components/styles/main.css"
 
@@ -38,7 +40,7 @@ const Post = ({ title, date, excerpt, path }) => {
   )
 }
 
-const PostList = ({ edges }) => {
+const PostList = ({ edges, maxResultsPerPage, postPage }) => {
   return (
     <div>
       <div
@@ -57,32 +59,57 @@ const PostList = ({ edges }) => {
         </Link>
       </div>
       <div>
-        {edges.map(post => {
-          const { title, date, excerpt, path } = post.node.frontmatter
-          return (
-            <Post
-              title={title}
-              date={date}
-              excerpt={excerpt}
-              key={`${date}__${title}`}
-              path={path}
-            />
-          )
-        })}
+        {edges
+          .filter((item, i) => {
+            return (
+              i >= maxResultsPerPage * (postPage - 1) &&
+              i < postPage * maxResultsPerPage
+            )
+          })
+          .map(post => {
+            const { title, date, excerpt, path } = post.node.frontmatter
+            return (
+              <Post
+                title={title}
+                date={date}
+                excerpt={excerpt}
+                key={`${date}__${title}`}
+                path={path}
+              />
+            )
+          })}
       </div>
     </div>
   )
 }
 
 const Blog = ({ data }) => {
+  const [postsPage, setPostsPage] = useState(1)
+  const [posts, setPosts] = useState([])
+  const maxResultsPerPage = 5
+
   const { edges } = data.allMarkdownRemark
+
+  useEffect(() => {
+    setPosts(edges)
+  }, [])
+
   return (
     <Layout>
       <div
         className="container"
         style={{ maxWidth: "80%", margin: "auto", marginTop: "1.45rem" }}
       >
-        <PostList edges={edges} />
+        <PostList
+          edges={posts}
+          maxResultsPerPage={maxResultsPerPage}
+          postPage={postsPage}
+        />
+        <PageRow
+          maxResultsPerPage={maxResultsPerPage}
+          itemsNum={posts.length}
+          setPage={setPostsPage}
+        />
       </div>
     </Layout>
   )
