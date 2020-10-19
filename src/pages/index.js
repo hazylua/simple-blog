@@ -38,12 +38,13 @@ const AboutSite = ({ title, description }) => {
 }
 
 const PostHistory = ({ edges }) => {
+  const listSize = 3
   return (
     <div>
       <h3>Post History</h3>
       <div>
         <div>
-          {edges.map(edge => {
+          {edges.slice(0, listSize).map(edge => {
             const { frontmatter } = edge.node
             return (
               <div key={frontmatter.path}>
