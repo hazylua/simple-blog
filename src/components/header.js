@@ -105,6 +105,7 @@ const Header = ({ siteTitle }) => {
   const handleChange = event => {
     setQuery(event.target.value)
   }
+
   return (
     <>
       <header className="header-container">
@@ -113,25 +114,12 @@ const Header = ({ siteTitle }) => {
             {siteTitle}
           </Link>
         </h1>
-        <div className="header-search-wrapper">
-          <input
-            className="header-search-input"
-            onChange={handleChange}
-            onKeyDown={handleEnterDown}
-          />
-          <div id="header-search-icon">
-            <AiOutlineSearch
-              style={{
-                display: "block",
-                margin: "auto",
-              }}
-              size={30}
-            />
-          </div>
-          <div onClick={() => setDisplayMenu(!displayMenu)}>
-            <MobNavToggle />
-          </div>
-        </div>
+        <SearchBar
+          handleChange={handleChange}
+          displayMenu={displayMenu}
+          setDisplayMenu={setDisplayMenu}
+          handleEnterDown={handleEnterDown}
+        />
       </header>
       <NavbarMenu display={displayMenu} />
     </>
