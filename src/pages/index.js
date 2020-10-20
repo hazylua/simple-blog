@@ -43,6 +43,12 @@ const PostHistory = ({ edges }) => {
     <div>
       <h3>Post History</h3>
       <div>
+        <p>
+          <small>
+            Showing the latest {listSize} posts. Check out the{" "}
+            <Link to="/blog">blog</Link> page for more!
+          </small>
+        </p>
         <div>
           {edges.slice(0, listSize).map(edge => {
             const { frontmatter } = edge.node
