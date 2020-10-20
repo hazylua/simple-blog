@@ -53,6 +53,44 @@ const MobNavToggle = () => {
   )
 }
 
+const SearchBar = ({
+  displayMenu,
+  setDisplayMenu,
+  handleChange,
+  handleEnterDown,
+}) => {
+  const [isFocused, setFocus] = useState(false)
+
+  return (
+    <div
+      className="header-search-wrapper"
+      onFocus={() => setFocus(true)}
+      onBlur={() => setFocus(false)}
+      style={{
+        border: isFocused ? "2px solid black" : "none",
+      }}
+    >
+      <input
+        className="header-search-input"
+        onChange={handleChange}
+        onKeyDown={handleEnterDown}
+      />
+      <div id="header-search-icon">
+        <AiOutlineSearch
+          style={{
+            display: "block",
+            margin: "auto",
+          }}
+          size={30}
+        />
+      </div>
+      <div onClick={() => setDisplayMenu(!displayMenu)}>
+        <MobNavToggle />
+      </div>
+    </div>
+  )
+}
+
 const Header = ({ siteTitle }) => {
   const [displayMenu, setDisplayMenu] = useState(false)
   const [query, setQuery] = useState("")
