@@ -11,5 +11,6 @@ A list of ideas to implement in this project repo.
 - Fix position of page row to bottom of page;
 - Fix proper position of footer;
 - Add post builder/writer;
-- Add comment section to post pages.
-- Fix project structure.
+- Add comment section to post pages;
+- Fix project structure;
+- Add proper 404 page.
