@@ -66,9 +66,15 @@ const SearchBar = ({
       className="header-search-wrapper"
       onFocus={() => setFocus(true)}
       onBlur={() => setFocus(false)}
-      style={{
-        border: isFocused ? "2px solid black" : "none",
-      }}
+      style={
+        isFocused
+          ? {
+              outline: "none",
+              borderColor: "blue",
+              boxShadow: "0 0 10px #9ecaed",
+            }
+          : { border: "2px solid #dadada", borderRadius: "3px" }
+      }
     >
       <input
         className="header-search-input"
