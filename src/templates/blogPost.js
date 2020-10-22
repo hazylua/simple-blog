@@ -2,6 +2,7 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
+import CommentBox from "../components/CommentBox"
 
 const Template = ({ data, pathContext }) => {
   const post = data.markdownRemark
@@ -23,8 +24,6 @@ const Template = ({ data, pathContext }) => {
               Author: {author}
               <br />
               Publish date: {date}
-              <br />
-              Excerpt: {excerpt}
               <br />
             </em>
           </p>
@@ -52,6 +51,7 @@ const Template = ({ data, pathContext }) => {
             )}
           </p>
         </div>
+        <CommentBox location={title} />
       </div>
     </Layout>
   )
