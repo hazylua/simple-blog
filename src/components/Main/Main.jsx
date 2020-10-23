@@ -1,6 +1,6 @@
 import React from "react"
 
-import "./styles/main.css"
+import "./Main.css"
 
 const Main = ({ children }) => {
   return <div className="main-container">{children}</div>
