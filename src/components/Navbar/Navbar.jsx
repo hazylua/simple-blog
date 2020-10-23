@@ -2,7 +2,7 @@ import React from "react"
 
 import { Link } from "gatsby"
 
-import "./styles/navbar.css"
+import "./Navbar.css"
 
 const Navbar = () => {
   return (
