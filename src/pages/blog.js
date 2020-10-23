@@ -5,7 +5,7 @@ import { graphql, Link } from "gatsby"
 // import PostBuilder from "./postbuilder"
 import PageRow from "../components/PageRow"
 
-import "../components/styles/main.css"
+import "../components/Main/Main.css"
 
 const Post = ({ title, date, excerpt, path }) => {
   return (
