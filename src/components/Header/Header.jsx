@@ -4,7 +4,7 @@ import React, { useState } from "react"
 
 import { AiOutlineSearch, AiOutlineBars } from "react-icons/ai"
 
-import "./styles/header.css"
+import "./Header.css"
 
 const NavbarMenu = props => {
   return (
