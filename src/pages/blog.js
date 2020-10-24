@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
-import Layout from "../components/layout"
 import { graphql, Link } from "gatsby"
+
+import Layout from "../components/Layout"
 
 // import PostBuilder from "./postbuilder"
 import PageRow from "../components/PageRow"
