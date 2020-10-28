@@ -6,7 +6,6 @@ import { Editable, withReact, useSlate, Slate } from "slate-react"
 import { Editor, Transforms, createEditor, Node } from "slate"
 import { withHistory } from "slate-history"
 
-import Item from "../components/item"
 import Layout from "../components/Layout"
 
 const HOTKEYS = {
