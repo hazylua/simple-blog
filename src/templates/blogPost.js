@@ -8,6 +8,8 @@ const Template = ({ data, pathContext }) => {
   const post = data.markdownRemark
   const { title, author, date, excerpt } = post.frontmatter
 
+  const comments = data.allCommentsJson.edges
+
   const { next, prev } = pathContext
 
   return (
@@ -51,14 +53,14 @@ const Template = ({ data, pathContext }) => {
             )}
           </p>
         </div>
-        <CommentBox location={title} />
+        <CommentBox location={title} comments={comments} />
       </div>
     </Layout>
   )
 }
 
 export const postQuery = graphql`
-  query($path: String!) {
+  query ContentQuery($path: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
       frontmatter {
@@ -69,7 +71,28 @@ export const postQuery = graphql`
         excerpt
       }
     }
+    allCommentsJson {
+      edges {
+        node {
+          id
+          author
+          comment
+        }
+      }
+    }
   }
 `
+
+// query CommentsQuery {
+//   allCommentsJson {
+//     edges {
+//       node {
+//         id
+//         author
+//         comment
+//       }
+//     }
+//   }
+// }
 
 export default Template
