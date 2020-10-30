@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 
 import "./CommentBox.css"
 
@@ -20,14 +20,42 @@ const CommentList = ({ list }) => {
 }
 
 const CommentForm = () => {
+  const [name, setName] = useState("")
+  const [comment, setComment] = useState("")
+
+  const updateName = e => setName(e.target.value)
+  const updateComment = e => setComment(e.target.value)
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    const body = JSON.stringify({ name: name, comment: comment })
+    const response = await fetch("localhost:4000/comment", {
+      method: "post",
+      body,
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+    const data = await response.json()
+    setName("")
+    setComment("")
+    console.log("done", body)
+  }
+
   return (
     <div>
-      <form className="comment-form">
-        <input className="comment-form__name" placeholder="Name"></input>
+      <form className="comment-form" onSubmit={handleSubmit}>
+        <input
+          className="comment-form__name"
+          placeholder="Name"
+          onChange={updateName}
+        ></input>
         <textarea
           className="comment-form__comment"
           placeholder="Comment"
+          onChange={updateComment}
         ></textarea>
+        <button>Submit</button>
       </form>
     </div>
   )
