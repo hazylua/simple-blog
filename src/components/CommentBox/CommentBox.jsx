@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Remarkable } from "remarkable"
 
 import "./CommentBox.css"
 
@@ -8,11 +9,9 @@ const CommentList = ({ list }) => {
     <div className="comment-list">
       {comments.map(comment => {
         return (
-          <Comment
-            key={comment.node.id}
-            author={comment.node.author}
-            comment={comment.node.comment}
-          ></Comment>
+          <Comment key={comment.node.id} author={comment.node.author}>
+            {comment.node.comment}
+          </Comment>
         )
       })}
     </div>
@@ -61,17 +60,23 @@ const CommentForm = () => {
   )
 }
 
-const Comment = ({ author, comment }) => {
+const Comment = ({ author, children }) => {
+  const rawMarkup = () => {
+    var md = new Remarkable()
+    var rawMarkup = md.render(children.toString())
+    return { __html: rawMarkup }
+  }
+
   return (
     <div className="comment">
       <h4>Name: {author}</h4>
-      <p>Said: {comment}</p>
+      {/* <p>Said: {comment}</p> */}
+      <span dangerouslySetInnerHTML={rawMarkup()} />
     </div>
   )
 }
 
 const CommentBox = ({ location, comments }) => {
-  console.log(comments)
   return (
     <div className="comment-box">
       <h3>
