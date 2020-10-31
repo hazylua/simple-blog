@@ -4,6 +4,7 @@ require("dotenv").config()
 const express = require("express")
 const bodyParser = require("body-parser")
 const { v4 } = require("uuid")
+const path = require("path")
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -17,6 +18,10 @@ app.use((req, res, next) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   )
   next()
+})
+
+app.get("/comment", (req, res) => {
+  res.sendFile(path.join(__dirname, "/src/data/", "comments.json"))
 })
 
 app.post("/comment", (req, res) => {
