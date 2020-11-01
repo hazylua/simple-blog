@@ -1,5 +1,8 @@
-import React, { useState } from "react"
+import Axios from "axios"
+import React, { useState, useEffect } from "react"
 import { Remarkable } from "remarkable"
+
+import axios from "axios"
 
 import "./CommentBox.css"
 
@@ -77,6 +80,11 @@ const Comment = ({ author, children }) => {
 }
 
 const CommentBox = ({ location, comments }) => {
+  useEffect(async () => {
+    const data = await axios("http://localhost:4000/comment")
+    console.log(data)
+  }, [])
+
   return (
     <div className="comment-box">
       <h3>
