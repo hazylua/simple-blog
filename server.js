@@ -5,6 +5,7 @@ const express = require("express")
 const bodyParser = require("body-parser")
 const { v4 } = require("uuid")
 const path = require("path")
+const fs = require("fs")
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -26,12 +27,28 @@ app.get("/comment", (req, res) => {
 
 app.post("/comment", (req, res) => {
   const { body } = req
-  const data = {
+  var data = {
     ...body,
     timestamp: new Date(),
     id: v4(),
   }
-  res.json(data)
+  fs.readFile(
+    path.join(__dirname, "/src/data/", "comments.json"),
+    (err, file) => {
+      if (err) throw err
+      comments = JSON.parse([file])
+      comments.push(data)
+      console.log(comments)
+      fs.writeFile(
+        path.join(__dirname, "/src/data/", "comments.json"),
+        JSON.stringify(comments),
+        err => {
+          if (err) throw err
+        }
+      )
+    }
+  )
+  res.sendFile(path.join(__dirname, "/src/data/", "comments.json"))
 })
 
 app.listen(port, () => {
