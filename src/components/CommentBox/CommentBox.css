@@ -20,7 +20,19 @@
   border: 1px solid black;
 }
 
+.comment-list-empty {
+  color: lightgrey;
+}
+
 .comment {
   border-bottom: 1px dotted black;
+  margin-bottom: 1rem;
+}
+
+.comment__author {
+  margin-bottom: 0;
+}
+
+.comment_timestamp {
   margin-bottom: 1rem;
 }
