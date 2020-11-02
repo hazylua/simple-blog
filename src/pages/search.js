@@ -20,7 +20,7 @@ const Result = ({ title, date, excerpt, path }) => {
         to={path}
         style={{
           textDecoration: "none",
-          color: "rebbecapurple",
+          color: "rebeccapurple",
         }}
       >
         Read More
