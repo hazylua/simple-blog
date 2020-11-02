@@ -1,8 +1,6 @@
-import Axios from "axios"
-import React, { useState, useEffect } from "react"
-import { Remarkable } from "remarkable"
-
 import axios from "axios"
+import React, { useState } from "react"
+import { Remarkable } from "remarkable"
 
 import "./CommentBox.css"
 
@@ -10,18 +8,28 @@ const CommentList = ({ list }) => {
   const comments = list
   return (
     <div className="comment-list">
-      {comments.map(comment => {
-        return (
-          <Comment key={comment.node.id} author={comment.node.author}>
-            {comment.node.comment}
-          </Comment>
-        )
-      })}
+      {comments.length > 0 ? (
+        comments.map(comment => {
+          return (
+            <Comment
+              key={comment.id}
+              author={comment.name}
+              timestamp={comment.timestamp}
+            >
+              {comment.comment}
+            </Comment>
+          )
+        })
+      ) : (
+        <div className="comment-list-empty">
+          <h4>Nothing here so far...</h4>
+        </div>
+      )}
     </div>
   )
 }
 
-const CommentForm = () => {
+const CommentForm = ({ update }) => {
   const [name, setName] = useState("")
   const [comment, setComment] = useState("")
 
@@ -30,18 +38,18 @@ const CommentForm = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    const body = JSON.stringify({ name: name, comment: comment })
-    const response = await fetch("localhost:4000/comment", {
-      method: "post",
-      body,
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-    const data = await response.json()
-    setName("")
-    setComment("")
-    console.log("done", body)
+    try {
+      const body = { name: name, comment: comment }
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:4000/comment",
+        data: body,
+      })
+      const data = await response
+      update(data)
+    } catch (err) {
+      alert(err)
+    }
   }
 
   return (
@@ -63,7 +71,7 @@ const CommentForm = () => {
   )
 }
 
-const Comment = ({ author, children }) => {
+const Comment = ({ author, children, timestamp }) => {
   const rawMarkup = () => {
     var md = new Remarkable()
     var rawMarkup = md.render(children.toString())
@@ -72,26 +80,21 @@ const Comment = ({ author, children }) => {
 
   return (
     <div className="comment">
-      <h4>Name: {author}</h4>
-      {/* <p>Said: {comment}</p> */}
+      <h4 className="comment__author">Name: {author}</h4>
+      <small className="comment__timestamp">{timestamp}</small>
       <span dangerouslySetInnerHTML={rawMarkup()} />
     </div>
   )
 }
 
-const CommentBox = ({ location, comments }) => {
-  useEffect(async () => {
-    const data = await axios("http://localhost:4000/comment")
-    console.log(data)
-  }, [])
-
+const CommentBox = ({ location, comments, setComments }) => {
   return (
     <div className="comment-box">
       <h3>
         Comments - "<b>{location}</b>"
       </h3>
       <p>Post your thoughts about this post!</p>
-      <CommentForm />
+      <CommentForm update={setComments} />
       <CommentList list={comments} />
     </div>
   )

@@ -1,16 +1,26 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { graphql, Link } from "gatsby"
+
+import axios from "axios"
 
 import Layout from "../components/Layout"
 import CommentBox from "../components/CommentBox"
 
 const Template = ({ data, pathContext }) => {
   const post = data.markdownRemark
-  const { title, author, date, excerpt } = post.frontmatter
+  const { title, author, date } = post.frontmatter
 
-  const comments = data.allCommentsJson.edges
+  const [comments, setComments] = useState([])
 
   const { next, prev } = pathContext
+
+  useEffect(() => {
+    async function fetchComments() {
+      const comments = await axios.get("http://localhost:4000/comment")
+      setComments(comments.data)
+    }
+    fetchComments()
+  }, [comments])
 
   return (
     <Layout>
@@ -23,7 +33,7 @@ const Template = ({ data, pathContext }) => {
         <div>
           <p>
             <em>
-              Author: {author}
+              Author: {author != null ? { author } : "You"}
               <br />
               Publish date: {date}
               <br />
@@ -53,7 +63,11 @@ const Template = ({ data, pathContext }) => {
             )}
           </p>
         </div>
-        <CommentBox location={title} comments={comments} />
+        <CommentBox
+          location={title}
+          comments={comments}
+          setComments={setComments}
+        />
       </div>
     </Layout>
   )
@@ -71,28 +85,7 @@ export const postQuery = graphql`
         excerpt
       }
     }
-    allCommentsJson {
-      edges {
-        node {
-          id
-          author
-          comment
-        }
-      }
-    }
   }
 `
-
-// query CommentsQuery {
-//   allCommentsJson {
-//     edges {
-//       node {
-//         id
-//         author
-//         comment
-//       }
-//     }
-//   }
-// }
 
 export default Template
