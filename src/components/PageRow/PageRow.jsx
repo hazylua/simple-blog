@@ -13,7 +13,7 @@ const PageSelect = ({ pageValue, setPage }) => {
 const PageRow = ({ maxResultsPerPage, itemsNum, setPage }) => {
   var buttons = []
   for (var i = 1; i <= Math.ceil(itemsNum / maxResultsPerPage); i++) {
-    buttons.push(<PageSelect pageValue={i} setPage={setPage} />)
+    buttons.push(<PageSelect key={i} pageValue={i} setPage={setPage} />)
   }
   return (
     <div>
