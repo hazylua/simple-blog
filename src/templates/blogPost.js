@@ -11,14 +11,22 @@ const Template = ({ data, pathContext }) => {
   const { title, author, date } = post.frontmatter
 
   const [comments, setComments] = useState([])
+  const [apiStatus, setApiStatus] = useState(1)
 
   const { next, prev } = pathContext
 
-  useEffect(() => {
-    async function fetchComments() {
-      const comments = await axios.get("http://localhost:4000/comment")
-      setComments(comments.data)
+  const fetchComments = async () => {
+    try {
+      const apiCall = await axios.get(`http://localhost:4000/comment`)
+
+      const comments = await apiCall
+      setComments(comments)
+    } catch (err) {
+      alert(`Comments could not be loaded.\nReason:\n${err}`)
     }
+  }
+
+  useEffect(() => {
     fetchComments()
   }, [comments])
 
