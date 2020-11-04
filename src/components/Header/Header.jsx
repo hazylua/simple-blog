@@ -14,19 +14,12 @@ const NavbarMenu = props => {
           <Link className="mobnavbar-link" to="/">
             Home
           </Link>
-
           <Link className="mobnavbar-link" to="/blog">
             Blog
           </Link>
-
-          {/* <Link className="mobnavbar-link" to="/merch">
-            Merch
-          </Link> */}
-
           <Link className="mobnavbar-link" to="/about">
             About
           </Link>
-
           <Link className="mobnavbar-link" to="/contact">
             Contact
           </Link>

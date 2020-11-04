@@ -1,6 +1,6 @@
 .header-container {
-  background: linear-gradient(90deg, rgb(100, 50, 150), rgb(70, 30, 150));
-  border-bottom: 3px solid rgb(51, 19, 82);
+  background: var(--header-background);
+  border-bottom: 3px solid var(--color-primary-light);
   width: 100%;
   padding: 1rem 10% 1rem;
   display: flex;
@@ -8,36 +8,35 @@
 }
 
 .header-title {
-  color: rgb(245, 245, 245);
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
 .header-search-wrapper {
-  background-color: rgb(245, 245, 245);
+  background-color: var(--color-text-light);
   display: flex;
   flex-direction: row;
   margin: auto 0 0 auto;
   padding: 5px;
-  border-radius: 2px;
 }
 
 .header-search-input {
-  background-color: rgb(245, 245, 245);
-  margin-right: 5px;
+  background-color: var(--color-text-light);
   border: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-right: 5px;
   padding: 0 10px;
 }
 
 #header-mobile-nav {
-  display: none;
-  border: 2px solid white;
-  padding: 3px;
   border-radius: 5px;
+  border: 2px solid var(--color-text-light);
+  display: none;
+  padding: 3px;
 }
 
 .mobnavbar-container {
-  background-color: rgb(20, 20, 20);
+  background-color: var(--color-text-dark);
   color: rgb(245, 245, 245);
   display: none;
   flex-direction: column;
