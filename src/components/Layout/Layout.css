@@ -1,3 +1,15 @@
+:root {
+  --color-primary: #1d3557;
+  --color-primary-dark: #0e1a2b;
+  --color-primary-light: #8e9aab;
+
+  --color-text-dark: #000000;
+  --color-text-light: #f6f5f1;
+
+  --header-background: var(--color-primary-dark);
+  --navbar-background: var(--color-primary);
+}
+
 html {
   -ms-text-size-adjust: 100%;
   font: 112.5%/1.45em georgia, serif, sans-serif;
