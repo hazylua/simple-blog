@@ -1,9 +1,6 @@
 require("dotenv").config()
 
 const express = require("express")
-const bodyParser = require("body-parser")
-
-const webtoken = require("jsonwebtoken")
 
 // MongoDB.
 const mongoose = require("mongoose")
@@ -20,6 +17,7 @@ mongoose
 
 app.use(express.json())
 app.use("/api/users", routes.user)
+app.use("/api/auth", routes.auth)
 
 app.listen(process.env.AUTH_PORT, () => {
   console.log(`Server started on port ${process.env.AUTH_PORT}.`)
