@@ -1,0 +1,83 @@
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 80%;
+  margin: 1rem auto;
+}
+
+.login-wrapper {
+  margin-left: auto;
+}
+
+.register-wrapper {
+  margin-right: auto;
+}
+
+.sep {
+  width: 10px;
+}
+
+.login__header {
+  border-top-left-radius: 10px;
+  color: var(--color-text-light);
+  background: var(--color-primary-dark);
+  padding: 10px;
+  margin-bottom: 0.25rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form input {
+  padding: 5px;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  border: none;
+  border: 1px solid var(--color-primary-light);
+}
+
+.login__submit {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--color-primary-light);
+  border: none;
+  border-bottom-left-radius: 10px;
+}
+
+.register__header {
+  border-top-right-radius: 10px;
+  color: var(--color-text-light);
+  background: var(--color-primary-dark);
+  padding: 10px;
+  margin-bottom: 0.25rem;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form input {
+  padding: 5px;
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+  border: none;
+  border: 1px solid var(--color-primary-light);
+}
+
+.register__submit {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--color-primary-light);
+  border: none;
+  border-bottom-right-radius: 10px;
+  position: relative;
+  bottom: 0;
+}
