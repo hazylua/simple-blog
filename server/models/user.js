@@ -42,5 +42,15 @@ const validateUser = bodyUser => {
   // schema.validateAsync(bodyUser)
 }
 
+const validateRequest = req => {
+  const schema = Joi.object({
+    email: Joi.string().min(lenMin).max(lenMax).required().email(),
+    password: Joi.string().min(lenMin).max(lenMax).required(),
+  })
+
+  return schema.validate(req)
+}
+
 exports.User = User
-exports.validate = validateUser
+exports.validateUser = validateUser
+exports.validateRequest = validateRequest
