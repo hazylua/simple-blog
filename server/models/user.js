@@ -4,30 +4,29 @@ const mongoose = require("mongoose")
 const lenMin = 5
 const lenMax = 255
 
-const User = mongoose.model(
-  "User",
-  new mongoose.Schema({
-    name: {
-      type: String,
-      require: true,
-      lenMin: lenMin,
-      lenMax: lenMax,
-    },
-    email: {
-      type: String,
-      require: true,
-      lenMin: lenMin,
-      lenMax: lenMax,
-      unique: true,
-    },
-    password: {
-      type: String,
-      require: true,
-      lenMin: lenMin,
-      lenMax: lenMax,
-    },
-  })
-)
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minlength: lenMin,
+    maxlength: lenMax,
+  },
+  email: {
+    type: String,
+    required: true,
+    minlength: lenMin,
+    maxlength: lenMax,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: lenMin,
+    maxlength: lenMax,
+  },
+})
+
+const User = mongoose.model("User", userSchema)
 
 const validateUser = bodyUser => {
   const schema = Joi.object({
