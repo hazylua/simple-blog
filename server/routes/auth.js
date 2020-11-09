@@ -38,7 +38,9 @@ router.post("/", async (req, res) => {
   // Send token.
   const token = jwt.sign({ _id: checkUser._id }, process.env.PRIVATE_KEY)
 
-  res.send(token)
+  res
+    .header("x-auth-token", token)
+    .send(_.pick(checkUser, ["_id", "name", "email"]))
 })
 
 module.exports = router
