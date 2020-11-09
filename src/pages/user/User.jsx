@@ -1,11 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 
-// Not needed. (?)
-// import "../../components/Layout/Layout.css"
+import axios from "axios"
+
 import "./User.css"
 
-const login = ({ credentials }) => {
-  alert(credentials)
+const register = async credentials => {
+  try {
+    const response = await axios.post(
+      `http://localhost:5000/api/users`,
+      credentials
+    )
+  } catch (err) {
+    /* Store error later. */
+  }
 }
 
 const LoginForm = () => {
@@ -14,8 +21,6 @@ const LoginForm = () => {
       <div className="login__header">Login</div>
       <div className="login__body">
         <form className="login-form">
-          Your username:
-          <input label="username" type="text" />
           Your e-mail address:
           <input label="email" type="text" />
           Your password:
@@ -23,32 +28,55 @@ const LoginForm = () => {
           Please check your password:
           <input label="pwcheck" type="text" />
           <br />
-          <button className="login__submit" onClick={() => login(123)}>
-            Submit
-          </button>
         </form>
+        <button className="login__submit">Submit</button>
       </div>
     </div>
   )
 }
 
 const RegisterForm = () => {
+  const [registerBody, setRegisterBody] = useState({
+    name: "",
+    email: "",
+    password: "",
+  })
+
+  const setUser = e => {
+    setRegisterBody({ ...registerBody, name: e.target.value })
+    console.log(registerBody.name)
+  }
+
+  const setEmail = e => {
+    setRegisterBody({ ...registerBody, email: e.target.value })
+    console.log(registerBody.email)
+  }
+  const setPassword = e => {
+    setRegisterBody({ ...registerBody, password: e.target.value })
+    console.log(registerBody.password)
+  }
+
   return (
     <div className="register-wrapper">
-      <div className="register__header">Login</div>
+      <div className="register__header">Register</div>
       <div className="register__body">
         <form className="register-form">
+          Your username:
+          <input label="username" type="text" onChange={setUser} />
           Your e-mail address:
-          <input label="email" type="text" />
+          <input label="email" type="text" onChange={setEmail} />
           Your password:
-          <input label="pw" type="text" />
+          <input label="pw" type="text" onChange={setPassword} />
           Please check your password:
-          <input label="pwcheck" type="text" />
-          <button className="register__submit" onClick={() => login(123)}>
-            Submit
-          </button>
+          <input label="pwcheck" type="text" onChange={setPassword} />
         </form>
       </div>
+      <button
+        className="register__submit"
+        onClick={() => register(registerBody)}
+      >
+        Submit
+      </button>
     </div>
   )
 }

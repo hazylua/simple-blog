@@ -78,6 +78,4 @@
   background-color: var(--color-primary-light);
   border: none;
   border-bottom-right-radius: 10px;
-  position: relative;
-  bottom: 0;
 }
