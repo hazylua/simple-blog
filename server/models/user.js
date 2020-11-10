@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: lenMin,
     maxlength: lenMax,
+    unique: true,
   },
   email: {
     type: String,
@@ -34,11 +35,7 @@ const validateUser = bodyUser => {
     email: Joi.string().min(lenMin).max(lenMax).required().email(),
     password: Joi.string().min(lenMin).max(lenMax).required(),
   })
-  // synchronous validate.
   return schema.validate(bodyUser)
-  // asynchronous validate.
-  // return schema.validate
-  // schema.validateAsync(bodyUser)
 }
 
 const validateRequest = req => {
