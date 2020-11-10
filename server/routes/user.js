@@ -14,11 +14,16 @@ router.post("/", async (req, res) => {
     return res.status(400).send(err.details[0].message)
   }
   try {
-    let user = await User.findOne({ email: req.body.email })
-    if (user) {
+    let name = await User.findOne({ name: req.body.name })
+    let email = await User.findOne({ email: req.body.email })
+
+    if (name) {
+      return res.status(400).send("Username is already registered.")
+    }
+    if (email) {
       return res.status(400).send("Email is already registered.")
     } else {
-      user = new User({
+      let user = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
