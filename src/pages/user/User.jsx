@@ -1,37 +1,12 @@
-import React, { useState } from "react"
+import React, { useState, createContext } from "react"
 
 import axios from "axios"
 
 import "./User.css"
 
-const register = async credentials => {
-  try {
-    const response = await axios.post(
-      `http://localhost:5000/api/users`,
-      credentials
-    )
-  } catch (err) {
-    alert(err)
-  }
-}
-
-const login = async credentials => {
-  try {
-    const response = await axios.post(
-      `http://localhost:5000/api/auth`,
-      credentials
-    )
-  } catch (err) {
-    alert(err)
-  }
-}
-
 const PasswordChecker = ({ compare }) => {
   const [password, setPassword] = useState("")
   const [errorStyle, setErrorStyle] = useState({})
-  // const errorStyle = {
-  //   borderColor: "red",
-  // }
 
   return (
     <React.Fragment>
@@ -57,11 +32,16 @@ const LoginForm = () => {
     password: "",
   })
 
-  const setEmail = e => {
-    setLoginBody({ ...loginBody, email: e.target.value })
-  }
-  const setPassword = e => {
-    setLoginBody({ ...loginBody, password: e.target.value })
+  const loginUser = async credentials => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/auth`,
+        credentials
+      )
+      console.log(response)
+    } catch (err) {
+      alert(err)
+    }
   }
 
   return (
@@ -70,13 +50,25 @@ const LoginForm = () => {
       <div className="login__body">
         <form className="login-form">
           Your e-mail address:
-          <input label="email" type="text" onChange={setEmail} />
+          <input
+            label="email"
+            type="text"
+            onChange={e =>
+              setLoginBody({ ...loginBody, email: e.target.value })
+            }
+          />
           Your password:
-          <input label="pw" type="password" onChange={setPassword} />
+          <input
+            label="pw"
+            type="password"
+            onChange={e =>
+              setLoginBody({ ...loginBody, password: e.target.value })
+            }
+          />
           <br />
-          <PasswordChecker compare={loginBody.password}></PasswordChecker>
+          <PasswordChecker compare={loginBody.password} />
         </form>
-        <button className="login__submit" onClick={() => login(loginBody)}>
+        <button className="login__submit" onClick={() => loginUser(loginBody)}>
           Submit
         </button>
       </div>
@@ -91,14 +83,16 @@ const RegisterForm = () => {
     password: "",
   })
 
-  const setUser = e => {
-    setRegisterBody({ ...registerBody, name: e.target.value })
-  }
-  const setEmail = e => {
-    setRegisterBody({ ...registerBody, email: e.target.value })
-  }
-  const setPassword = e => {
-    setRegisterBody({ ...registerBody, password: e.target.value })
+  const registerUser = async credentials => {
+    try {
+      const response = await axios.post(
+        `http://localhost:5000/api/users`,
+        credentials
+      )
+      // ...
+    } catch (err) {
+      alert(err)
+    }
   }
 
   return (
@@ -107,17 +101,43 @@ const RegisterForm = () => {
       <div className="register__body">
         <form className="register-form">
           Your username:
-          <input label="username" type="text" onChange={setUser} />
+          <input
+            label="username"
+            type="text"
+            onChange={e =>
+              setRegisterBody({
+                ...registerBody,
+                name: e.target.value,
+              })
+            }
+          />
           Your e-mail address:
-          <input label="email" type="text" onChange={setEmail} />
+          <input
+            label="email"
+            type="text"
+            onChange={e =>
+              setRegisterBody({
+                ...registerBody,
+                email: e.target.value,
+              })
+            }
+          />
           Your password:
-          <input label="pw" type="password" onChange={setPassword} />
-          Please check your password:
-          <input label="pwcheck" type="password" onChange={setPassword} />
+          <input
+            label="pw"
+            type="password"
+            onChange={e =>
+              setRegisterBody({
+                ...registerBody,
+                password: e.target.value,
+              })
+            }
+          />
+          <PasswordChecker compare={registerBody.password} />
         </form>
         <button
           className="register__submit"
-          onClick={() => register(registerBody)}
+          onClick={() => registerUser(registerBody)}
         >
           Submit
         </button>
@@ -128,14 +148,15 @@ const RegisterForm = () => {
 
 const User = () => {
   return (
-    <body>
+    <div>
+      <div style={{ minHeight: "100px" }}></div>
       <h3 className="page-title">User Page</h3>
       <div className="user-container">
         <LoginForm />
         <div className="sep" />
         <RegisterForm />
       </div>
-    </body>
+    </div>
   )
 }
 
