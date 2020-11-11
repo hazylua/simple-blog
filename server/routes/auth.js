@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
   }
   // Send token.
   const token = jwt.sign({ _id: checkUser._id }, process.env.PRIVATE_KEY)
-
+  console.log("Token sent.")
   res.send(token)
 })
 
