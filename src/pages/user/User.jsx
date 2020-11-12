@@ -1,8 +1,20 @@
-import React, { useState, createContext } from "react"
+import React, { useState } from "react"
 
 import axios from "axios"
 
 import "./User.css"
+import { date } from "joi"
+
+const writeTokenCookie = token => {
+  // In hours.
+  const expireTime = 2
+  var date = new Date()
+  date.setTime(+date + expireTime * 3600000)
+
+  document.cookie =
+    "token=" + token + ";expires=" + date.toGMTString() + ";path=/"
+  console.log(token)
+}
 
 const PasswordChecker = ({ compare }) => {
   const [password, setPassword] = useState("")
@@ -38,7 +50,8 @@ const LoginForm = () => {
         `http://localhost:5000/api/auth`,
         credentials
       )
-      console.log(response)
+      const token = response.data
+      writeTokenCookie(token)
     } catch (err) {
       alert(err)
     }
