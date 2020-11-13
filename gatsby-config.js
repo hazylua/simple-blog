@@ -6,6 +6,7 @@ module.exports = {
     repo: `https://github.com/yb00/simple-blog`,
   },
   plugins: [
+    `gatsby-plugin-root-import`,
     `gatsby-transformer-remark`,
     {
       resolve: `gatsby-source-filesystem`,

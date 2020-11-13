@@ -1,12 +1,11 @@
 import React, { useCallback, useMemo, useState } from "react"
-import uuid from "uuid"
 
 import isHotkey from "is-hotkey"
 import { Editable, withReact, useSlate, Slate } from "slate-react"
 import { Editor, Transforms, createEditor, Node } from "slate"
 import { withHistory } from "slate-history"
 
-import Layout from "../components/Layout"
+import Layout from "src/components/Layout"
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -26,25 +25,25 @@ const PostBuilder = () => {
   return (
     <Layout>
       <div>
-      <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-        <Editable
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-          placeholder="Enter some rich text…"
-          spellCheck
-          autoFocus
-          onKeyDown={event => {
-            for (const hotkey in HOTKEYS) {
-              if (isHotkey(hotkey, event as any)) {
-                event.preventDefault()
-                const mark = HOTKEYS[hotkey]
-                toggleMark(editor, mark)
+        <Slate editor={editor} value={value} onChange={value => setValue(value)}>
+          <Editable
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+            placeholder="Enter some rich text…"
+            spellCheck
+            autoFocus
+            onKeyDown={event => {
+              for (const hotkey in HOTKEYS) {
+                if (isHotkey(hotkey, event as any)) {
+                  event.preventDefault()
+                  const mark = HOTKEYS[hotkey]
+                  toggleMark(editor, mark)
+                }
               }
-            }
-          }}
-        />
-      </Slate>
-    </div>
+            }}
+          />
+        </Slate>
+      </div>
     </Layout>
   )
 }

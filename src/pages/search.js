@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { graphql, Link } from "gatsby"
 
-import Layout from "../components/Layout"
-import PageRow from "../components/PageRow"
+import Layout from "src/components/Layout"
+import PageRow from "src/components/PageRow"
 
 const Result = ({ title, date, excerpt, path }) => {
   return (
