@@ -23,12 +23,11 @@
 }
 
 .navbar-link:hover {
-  border-bottom: 3px solid rgb(70, 30, 110);
-  transition: ease-in 100ms;
+  border-bottom: 3px solid var(--color-primary-dark);
 }
 
 .active-link {
-  border-bottom: 3px solid rgb(70, 30, 110);
+  border-bottom: 3px solid var(--color-primary-dark);
 }
 
 @media (max-width: 768px) {
