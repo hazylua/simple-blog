@@ -3,8 +3,8 @@ import { graphql, Link } from "gatsby"
 
 import axios from "axios"
 
-import Layout from "../components/Layout"
-import CommentBox from "../components/CommentBox"
+import Layout from "src/components/Layout"
+import CommentBox from "src/components/CommentBox"
 
 const Template = ({ data, pathContext }) => {
   const post = data.markdownRemark
