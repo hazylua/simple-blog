@@ -1,11 +1,12 @@
 import React, { useCallback, useMemo, useState } from "react"
 
 import isHotkey from "is-hotkey"
-import { Editable, withReact, useSlate, Slate } from "slate-react"
-import { Editor, Transforms, createEditor, Node } from "slate"
+import { Editable, withReact, Slate } from "slate-react"
+import { Editor, createEditor, Node } from "slate"
 import { withHistory } from "slate-history"
 
 import Layout from "src/components/Layout"
+import "./styles/postbuilder.css"
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -24,7 +25,7 @@ const PostBuilder = () => {
 
   return (
     <Layout>
-      <div>
+      <div className="edit-area">
         <Slate editor={editor} value={value} onChange={value => setValue(value)}>
           <Editable
             renderElement={renderElement}
