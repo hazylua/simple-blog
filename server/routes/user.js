@@ -23,12 +23,7 @@ router.post("/", async (req, res) => {
     if (email) {
       return res.status(400).send("Email is already registered.")
     } else {
-      let user = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-      })
-      user = new User(_.pick(req.body, ["name", "email", "password"]))
+      let user = new User(_.pick(req.body, ["name", "email", "password"]))
       const salt = await bcrypt.genSalt(SALT_FACTOR)
       user.password = await bcrypt.hash(user.password, salt)
       await user.save()
