@@ -1,5 +1,7 @@
 require("dotenv").config()
 
+const PORT = process.env.AUTH_PORT
+
 const express = require("express")
 const cors = require("cors")
 
@@ -18,14 +20,15 @@ mongoose
 
 // Default response from '/'.
 app.get("/", (req, res) => {
-  res.send(`Express server at port ${process.env.AUTH_PORT}.`)
+  res.send(`Express server at port ${PORT}.`)
 })
 
 app.use(cors())
 app.use(express.json())
 app.use("/api/users", routes.user)
 app.use("/api/auth", routes.auth)
+app.use("/api/blog", routes.blog)
 
-app.listen(process.env.AUTH_PORT, () => {
-  console.log(`Server started on port ${process.env.AUTH_PORT}.`)
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}.`)
 })
