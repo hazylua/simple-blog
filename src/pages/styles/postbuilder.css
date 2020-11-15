@@ -1,6 +1,30 @@
 .edit-area {
-    margin: auto;
-    margin-top: 1rem;
-    max-width: 80%;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 75vh;
+  margin: auto;
+  margin-top: 1rem;
+  max-width: 80%;
+  padding: 10px;
+}
+
+.post__title {
+  border: none;
+  font-size: 200%;
+  margin-bottom: 1rem;
+}
+
+.post__title::placeholder {
+  color: var(--color-text-faded);
+}
+
+.post__submit {
+  background-color: var(--color-primary-light);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: 1px solid var(--color-primary);
+  bottom: 0;
+  padding: 10px;
+  width: 100%;
 }

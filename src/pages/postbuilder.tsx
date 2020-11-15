@@ -1,5 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react"
 
+import axios from "axios"
+
 import isHotkey from "is-hotkey"
 import { Editable, withReact, Slate } from "slate-react"
 import { Editor, createEditor, Node } from "slate"
@@ -17,8 +19,21 @@ const HOTKEYS = {
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"]
 
+const newPost = async (post) => {
+  try {
+    const response = await axios.post(`http://localhost:5000/api/blog`,
+    post)
+    alert(response)
+  } catch (err) {
+    alert(err)
+  }
+}
+
+
 const PostBuilder = () => {
+  const [title, setTitle] = useState("")
   const [value, setValue] = useState<Node[]>(initialValue)
+
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
@@ -26,6 +41,8 @@ const PostBuilder = () => {
   return (
     <Layout>
       <div className="edit-area">
+        <div>
+        <input className="post__title" placeholder="Your title here." onChange={(e) => setTitle(e.target.value)}/>
         <Slate editor={editor} value={value} onChange={value => setValue(value)}>
           <Editable
             renderElement={renderElement}
@@ -44,7 +61,10 @@ const PostBuilder = () => {
             }}
           />
         </Slate>
+        </div>
+        <button className="post__submit" onClick={() => newPost({title: title, author: "No one", date: Date.now, body: value})}>Post</button>
       </div>
+      
     </Layout>
   )
 }
