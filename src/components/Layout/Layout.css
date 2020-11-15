@@ -5,6 +5,7 @@
 
   --color-text-dark: #000000;
   --color-text-light: #f6f5f1;
+  --color-text-faded: #919191;
 
   --header-background: var(--color-primary-dark);
   --navbar-background: var(--color-primary);
