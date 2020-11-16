@@ -1,6 +1,7 @@
 require("dotenv").config()
 
-const PORT = process.env.AUTH_PORT
+const PORT = process.env.PORT
+const DB_URL = process.env.DB_URL
 
 const express = require("express")
 const cors = require("cors")
@@ -14,7 +15,7 @@ const routes = require("./routes")
 const app = express()
 
 mongoose
-  .connect(`${process.env.DB_URL}`)
+  .connect(`${DB_URL}`)
   .then(() => console.log(`Connected to MongoDB.`))
   .catch(err => console.error(`Error:\n${err}.`))
 
@@ -25,7 +26,7 @@ app.get("/", (req, res) => {
 
 app.use(cors())
 app.use(express.json())
-app.use("/api/users", routes.user)
+app.use("/api/user", routes.user)
 app.use("/api/auth", routes.auth)
 app.use("/api/blog", routes.blog)
 
