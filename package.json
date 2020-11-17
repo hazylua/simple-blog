@@ -25,6 +25,7 @@
     "lodash": "^4.17.20",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.12",
+    "nodemailer": "^6.4.16",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
