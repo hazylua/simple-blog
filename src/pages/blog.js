@@ -3,83 +3,43 @@ import { graphql, Link } from "gatsby"
 
 import Layout from "src/components/Layout"
 
-// import PostBuilder from "./postbuilder"
 import PageRow from "../components/PageRow"
 
-import "../components/Main/Main.css"
+import "./styles/blog.css"
 
 const Post = ({ title, date, excerpt, path }) => {
   return (
-    <div
-      style={{
-        borderBottom: "1px dotted rgb(15, 15, 15)",
-        marginBottom: "1.45rem",
-        paddingBottom: "1rem",
-      }}
-    >
-      <h3 style={{ marginBottom: "1rem", color: "rgb(15, 15, 15)" }}>
-        {title}
-      </h3>
-
-      <p>
-        <small>
-          <em>Published on</em> {date}
-        </small>
-        <br />
-        {excerpt}
-      </p>
-      <Link
-        to={path}
-        style={{
-          textDecoration: "none",
-          color: "rebeccapurple",
-        }}
-      >
-        Read More
-      </Link>
+    <div className="post-container">
+      <h3>{title}</h3>
+      <p>{excerpt}</p>
+      <p> Posted on: {date}</p>
+      <Link to={path}>Read More</Link>
     </div>
   )
 }
 
 const PostList = ({ edges, maxResultsPerPage, postPage }) => {
   return (
-    <div>
-      <div
-        style={{
-          borderBottom: "2px solid rgb(15, 15, 15)",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginBottom: "1.45rem",
-          paddingBottom: "1.45rem",
-        }}
-      >
-        <h3 style={{ margin: "0" }}>Blog</h3>
-        <Link to="/postbuilder">
-          <h3 style={{ margin: "0" }}>Add Post</h3>
-        </Link>
-      </div>
-      <div>
-        {edges
-          .filter((item, i) => {
-            return (
-              i >= maxResultsPerPage * (postPage - 1) &&
-              i < postPage * maxResultsPerPage
-            )
-          })
-          .map(post => {
-            const { title, date, excerpt, path } = post.node.frontmatter
-            return (
-              <Post
-                title={title}
-                date={date}
-                excerpt={excerpt}
-                key={`${date}__${title}`}
-                path={path}
-              />
-            )
-          })}
-      </div>
+    <div className="post-list">
+      {edges
+        .filter((item, i) => {
+          return (
+            i >= maxResultsPerPage * (postPage - 1) &&
+            i < postPage * maxResultsPerPage
+          )
+        })
+        .map(post => {
+          const { title, date, excerpt, path } = post.node.frontmatter
+          return (
+            <Post
+              key={`${date}__${title}`}
+              title={title}
+              date={date}
+              excerpt={excerpt}
+              path={path}
+            />
+          )
+        })}
     </div>
   )
 }
@@ -97,10 +57,10 @@ const Blog = ({ data }) => {
 
   return (
     <Layout>
-      <div
-        className="container"
-        style={{ maxWidth: "80%", margin: "auto", marginTop: "1.45rem" }}
-      >
+      <div className="blog_container light-bg border">
+        <h2>Blog Posts</h2>
+        <p>Check out my blog posts.</p>
+        <div className="rule"></div>
         <PostList
           edges={posts}
           maxResultsPerPage={maxResultsPerPage}

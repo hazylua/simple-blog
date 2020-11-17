@@ -1,0 +1,30 @@
+.contact-container {
+  margin: auto;
+  padding: 1rem;
+  width: 80%;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: inherit;
+  width: 50%;
+}
+
+.contact-form input,
+textarea {
+  font-size: inherit;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 2px solid var(--color-primary-light);
+  border-radius: 2px;
+}
+
+.contact-form button {
+  padding: 0.25rem;
+  background: var(--color-primary-light);
+  border: none;
+  width: 12rem;
+  padding: 10px;
+}

@@ -1,0 +1,54 @@
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bold;
+  color: var(--color-text-link);
+}
+
+p {
+  margin-bottom: 0.75rem;
+}
+
+.index-wrapper {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.border-gradient {
+  border: 1px solid var(--gradient-fade-90);
+}
+
+.rule {
+  height: 2px;
+  width: 100%;
+  background: var(--color-primary);
+}
+
+.home-container {
+  border-radius: 5px 0 0 5px;
+  min-width: 65%;
+  padding: 1rem;
+}
+
+.history-container {
+  border-radius: 0 3px 3px 0;
+  margin-left: 1rem;
+  padding: 1rem;
+}
+
+.border {
+  border: 2px solid var(--color-primary);
+}
+
+.light-bg {
+  background: rgba(var(--color-primary-light-rgb), 0.25);
+}

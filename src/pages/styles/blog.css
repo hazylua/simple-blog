@@ -1,0 +1,15 @@
+.post-container {
+  border-bottom: 2px dotted var(--color-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.blog_container {
+  width: 80%;
+  margin: auto;
+  padding: 1rem;
+}
+
+.post-list {
+  margin-top: 1rem;
+}

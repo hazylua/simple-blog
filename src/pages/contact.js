@@ -1,30 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
 import Layout from "src/components/Layout"
 
-const inputStyle = {
-  width: "25%",
-  padding: "10px 15px",
-  marginBottom: "1rem",
-  borderRadius: "10px",
-  border: "1px solid silver",
-}
+import axios from "axios"
 
-const messageBox = {
-  width: "50%",
-  height: "150px",
-  padding: "10px 15px",
-  marginBottom: "1.45rem",
-  borderRadius: "10px",
-  border: "1px solid silver",
+import "./styles/contact.css"
+
+const sendInfo = (mail, name, message) => {
+  try {
+    const response = axios.post("https://localhost:5000/api/contact", {
+      mail: mail,
+      subject: `Website Contact - ${name}`,
+      message: message,
+    })
+    alert(response.success)
+  } catch (err) {
+    alert(err)
+  }
 }
 
 const Contact = () => {
+  const [name, setName] = useState("")
+  const [mail, setMail] = useState("")
+  const [message, setMessage] = useState("")
+
   return (
     <Layout>
-      <div
-        className="container"
-        style={{ maxWidth: "1000px", margin: "auto", marginTop: "1.45rem" }}
-      >
+      <div className="contact-container">
         <h3>Contact</h3>
         <p>
           Want to get in contact with me? Fill the form below and I'll answer
@@ -32,27 +33,23 @@ const Contact = () => {
         </p>
 
         <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            fontFamily: "Segoe UI",
-          }}
+          className="contact-form"
+          method="post"
+          action={() => sendInfo(mail, name, message)}
         >
-          <input style={inputStyle} placeholder="Name"></input>
-          <input style={inputStyle} placeholder="Email"></input>
-          <textarea style={messageBox} placeholder="Message"></textarea>
-          <button
-            type="submit"
-            style={{
-              padding: "10px",
-              width: "10%",
-              borderRadius: "10px",
-              border: "1px solid silver",
-              fontFamily: "Segoe UI",
-            }}
-          >
-            Send!
-          </button>
+          <input
+            placeholder="Your name"
+            onChange={e => setName(e.target.value)}
+          ></input>
+          <input
+            placeholder="Email"
+            onChange={e => setMail(e.target.value)}
+          ></input>
+          <textarea
+            placeholder="Message"
+            onChange={e => setMessage(e.target.value)}
+          ></textarea>
+          <button>Send!</button>
         </form>
       </div>
     </Layout>
