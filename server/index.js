@@ -5,6 +5,7 @@ const DB_URL = process.env.DB_URL
 
 const express = require("express")
 const cors = require("cors")
+const body_parser = require("body-parser")
 
 // MongoDB.
 const mongoose = require("mongoose")
@@ -25,10 +26,12 @@ app.get("/", (req, res) => {
 })
 
 app.use(cors())
+app.use(body_parser.urlencoded({ extended: true }))
 app.use(express.json())
 app.use("/api/user", routes.user)
 app.use("/api/auth", routes.auth)
 app.use("/api/blog", routes.blog)
+app.use("/api/contact", routes.contact)
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}.`)
