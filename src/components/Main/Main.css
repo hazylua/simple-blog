@@ -1,6 +1,7 @@
 .main-container {
   background-color: white;
   height: 100%;
+  padding-top: 1rem;
 }
 
 .main-box {
