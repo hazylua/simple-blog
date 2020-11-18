@@ -3,18 +3,18 @@ import { AiOutlineSearch } from "react-icons/ai"
 
 import "./SearchBar.css"
 
-const SearchIcon = () => {
-  return <AiOutlineSearch className="search__icon" size={20} />
+const SearchIcon = ({ size }) => {
+  return <AiOutlineSearch className="search__icon" size={size} />
 }
 
 const SearchInput = () => {
   return <input className="search__input" />
 }
 
-const SearchBar = () => {
+const SearchBar = ({ size }) => {
   return (
     <div className="search__wrapper">
-      <SearchIcon />
+      <SearchIcon size={size} />
       <SearchInput />
     </div>
   )
