@@ -2,6 +2,7 @@ import React from "react"
 import { graphql, Link } from "gatsby"
 
 import Layout from "src/components/Layout"
+import SearchBar from "src/components/SearchBar"
 
 import "./styles/index.css"
 
@@ -20,7 +21,8 @@ const PostHistory = ({ edges }) => {
   const listSize = 3
   return (
     <div className="history-container light-bg border">
-      <h2>Post History</h2>
+      <SearchBar size={30} />
+      <h2 className="title-bordered">Post History</h2>
       <div>
         <p>
           <small>

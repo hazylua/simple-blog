@@ -23,6 +23,11 @@ p {
   flex-direction: row;
 }
 
+.post-search {
+  margin-bottom: 1rem;
+  border-bottom: 10px;
+}
+
 .border-gradient {
   border: 1px solid var(--gradient-fade-90);
 }
@@ -31,6 +36,12 @@ p {
   height: 2px;
   width: 100%;
   background: var(--color-primary);
+}
+
+.title-bordered {
+  border-top: 2px solid var(--color-primary);
+  padding-top: 1rem;
+  margin-top: 1rem;
 }
 
 .home-container {
