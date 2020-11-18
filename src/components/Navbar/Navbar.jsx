@@ -2,8 +2,6 @@ import React from "react"
 
 import { Link } from "gatsby"
 
-import SearchBar from "src/components/SearchBar"
-
 import "./Navbar.css"
 
 const Navbar = () => {
@@ -31,7 +29,6 @@ const Navbar = () => {
         </Link>
         <span className="navbar-separator">/</span>
       </div>
-      <SearchBar />
     </nav>
   )
 }
