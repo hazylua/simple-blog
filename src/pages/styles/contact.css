@@ -14,17 +14,20 @@
 
 .contact-form input,
 textarea {
+  border-radius: 2px;
+  border: 2px solid var(--color-primary-light);
   font-size: inherit;
   margin-bottom: 1rem;
   padding: 0.75rem;
-  border: 2px solid var(--color-primary-light);
-  border-radius: 2px;
 }
 
 .contact-form button {
-  padding: 0.25rem;
-  background: var(--color-primary-light);
+  background: var(--color-primary-dark);
   border: none;
-  width: 12rem;
+  border-radius: 5px;
+  color: var(--color-text-light);
+  font-size: 20px;
+  padding: 0.25rem;
   padding: 10px;
+  width: 12rem;
 }
