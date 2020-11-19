@@ -4,6 +4,17 @@
   width: 80%;
 }
 
+.alert-box {
+  padding: 10px;
+  margin-bottom: 1rem;
+  width: 300px;
+  position: fixed;
+  background-color: var(--primary-color-dark);
+  color: var(--color-text-light);
+  top: 0;
+  left: 0;
+}
+
 .contact-form {
   display: flex;
   flex-direction: column;
