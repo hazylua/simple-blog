@@ -1,7 +1,17 @@
 .page-select {
-  background-color: #ebebeb;
-  border: solid 2px black;
-  margin-right: 10px;
-  border-radius: 2px;
+  background-color: var(--color-primary-dark);
+  border-radius: 50%;
+  border: none;
+  color: var(--color-text-light);
   font-family: "Segoe UI";
+  font-size: 20px;
+  height: 50px;
+  margin-right: 10px;
+  padding: auto;
+  transition: filter ease-in-out 500ms;
+  width: 50px;
+}
+
+.page-select:hover {
+  filter: brightness(2);
 }
