@@ -7,7 +7,7 @@ const About = () => {
   return (
     <Layout>
       <div className="about-container light-bg border">
-        <h3>About</h3>
+        <h2>About</h2>
         <p>An about page where you can talk about yourself.</p>
       </div>
     </Layout>
