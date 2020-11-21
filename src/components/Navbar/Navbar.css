@@ -3,9 +3,9 @@
   border-bottom: 3px solid var(--color-primary-light);
   display: inline-flex;
   flex-direction: row;
-  justify-content: space-between;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 20px;
+  justify-content: space-between;
   padding: 20px 10% 20px;
   width: 100%;
 }
@@ -19,8 +19,8 @@
 
 .navbar-separator {
   color: var(--color-text-faded);
-  margin-right: 10px;
   font-size: 20px;
+  margin-right: 10px;
 }
 
 .navbar-link:hover {

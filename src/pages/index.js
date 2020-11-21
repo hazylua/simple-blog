@@ -63,8 +63,6 @@ const IndexPage = ({ data }) => {
       <div className="index-wrapper">
         <Home title={title} description={description} />
         <PostHistory edges={edges} />
-
-        {/* </div> */}
       </div>
     </Layout>
   )
