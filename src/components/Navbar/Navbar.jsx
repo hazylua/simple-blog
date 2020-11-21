@@ -2,6 +2,8 @@ import React from "react"
 
 import { Link } from "gatsby"
 
+import { FaUser } from "react-icons/fa"
+
 import "./Navbar.css"
 
 const Navbar = () => {
@@ -29,6 +31,9 @@ const Navbar = () => {
         </Link>
         <span className="navbar-separator">/</span>
       </div>
+      <Link className="user-link" to="/user">
+        <FaUser />
+      </Link>
     </nav>
   )
 }

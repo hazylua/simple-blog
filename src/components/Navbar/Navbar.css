@@ -11,10 +11,10 @@
 }
 
 .navbar-link {
-  color: rgb(245, 245, 245);
+  color: var(--color-text-light);
   margin-right: 10px;
-  padding: 23px 0px;
   text-decoration: none;
+  transition: filter ease-in-out 500ms;
 }
 
 .navbar-separator {
@@ -24,13 +24,18 @@
 }
 
 .navbar-link:hover {
-  border-bottom: 3px solid var(--color-primary-dark);
+  filter: brightness(2);
+  font-weight: bold;
 }
 
 .active-link {
-  border-bottom: 3px solid var(--color-primary-dark);
+  filter: brightness(0.5);
 }
 
 .links-wrapper {
   display: inline-block;
+}
+
+.user-link {
+  color: var(--color-primary-light);
 }
