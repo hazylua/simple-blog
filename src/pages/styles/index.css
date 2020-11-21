@@ -46,7 +46,7 @@ p {
 
 .home-container {
   border-radius: 5px 0 0 5px;
-  min-width: 65%;
+  width: 80%;
   padding: 1rem;
 }
 
