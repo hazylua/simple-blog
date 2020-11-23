@@ -11,18 +11,16 @@ const Template = ({ data, pathContext }) => {
   const { title, author, date } = post.frontmatter
 
   const [comments, setComments] = useState([])
-  const [apiStatus, setApiStatus] = useState(1)
 
   const { next, prev } = pathContext
 
   const fetchComments = async () => {
     try {
       const apiCall = await axios.get(`http://localhost:4000/comment`)
-
       const comments = await apiCall
       setComments(comments)
     } catch (err) {
-      alert(`Comments could not be loaded.\nReason:\n${err}`)
+      console.log(`Comments could not be loaded.\nReason:\n${err}`)
     }
   }
 

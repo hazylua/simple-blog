@@ -6,7 +6,6 @@ const Snackbar = ({ children, top, bottom, left, right, open, transform }) => {
   const [render, setRender] = useState(false)
 
   useEffect(() => {
-    console.log(open)
     if (open === true) {
       setRender(true)
       setTimeout(() => {

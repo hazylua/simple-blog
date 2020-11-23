@@ -3,7 +3,6 @@ import React, { useState } from "react"
 import axios from "axios"
 
 import "./User.css"
-import { date } from "joi"
 
 const writeTokenCookie = token => {
   // In hours.
@@ -103,6 +102,7 @@ const RegisterForm = () => {
         credentials
       )
       // ...
+      console.log(response)
     } catch (err) {
       alert(err)
     }
