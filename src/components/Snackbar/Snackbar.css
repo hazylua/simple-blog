@@ -1,9 +1,7 @@
 .snackbar {
-  background-color: var(--color-primary-dark);
-  border-radius: 10px;
-  border: 1px solid var(--color-primary-light);
-  color: var(--color-text-light);
+  background-color: var(--color-primary-light);
+  border: 1px solid var(--color-primary-dark);
+  color: var(--color-text-dark);
   padding: 10px;
   position: absolute;
-  transition: opacity 0.4s ease-in-out;
 }
