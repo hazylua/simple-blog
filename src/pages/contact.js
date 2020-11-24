@@ -7,36 +7,41 @@ import axios from "axios"
 
 import "./styles/contact.css"
 
-const SubmitNotification = ({ children }) => {
-  return (
-    <Snackbar
-      top={"0"}
-      left={"50%"}
-      transform={"translateX(-50%)"}
-      open={false}
-    >
-      {children}
-    </Snackbar>
-  )
-}
-
 const ContactForm = () => {
   const [name, setName] = useState("")
   const [mail, setMail] = useState("")
+  const [date, setDate] = useState(new Date())
   const [message, setMessage] = useState("")
+  const [notification, setNotification] = useState({
+    pending: false,
+    message: "",
+  })
+
+  const setPending = () => {
+    setNotification({ ...notification, pending: false })
+  }
 
   const submitContact = async e => {
     e.preventDefault()
+    // Get date of submit action.
+    setDate(new Date())
     try {
       const response = await axios.post("http://localhost:5000/api/contact", {
         subject: `Website Contact - ${name}`,
         mail: mail,
-        date: new Date.now(),
+        date: date,
         message: message,
       })
-      console.log(response)
+      setNotification({
+        pending: true,
+        message: `Submitted.\n${response.data.date}\n${response.data._id}`,
+      })
     } catch (err) {
-      console.log(err)
+      console.log(notification)
+      setNotification({
+        pending: true,
+        message: `${err.response.data.message}`,
+      })
     }
   }
 
@@ -60,8 +65,13 @@ const ContactForm = () => {
       <button type="submit" value="Submit">
         Send!
       </button>
-
-      <SubmitNotification>cool</SubmitNotification>
+      <Snackbar
+        mount={notification.pending}
+        setPending={setPending}
+        displayTime={3000}
+      >
+        {notification.message}
+      </Snackbar>
     </form>
   )
 }

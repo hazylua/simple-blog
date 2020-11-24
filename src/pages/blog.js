@@ -57,7 +57,7 @@ const Blog = ({ data }) => {
 
   return (
     <Layout>
-      <div className="blog_container light-bg border">
+      <div className="blog-container light-bg border">
         <h2>Blog Posts</h2>
         <p>Check out my blog posts.</p>
         <div className="rule"></div>

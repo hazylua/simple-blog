@@ -4,7 +4,7 @@ import { graphql, Link } from "gatsby"
 import Layout from "src/components/Layout"
 import PageRow from "src/components/PageRow"
 
-const Result = ({ title, date, excerpt, path }) => {
+const Result = ({ title, path }) => {
   return (
     <div
       style={{
