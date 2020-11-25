@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react"
 
 import "./Snackbar.css"
 
-const Snackbar = ({ children, mount, setPending, displayTime }) => {
+const Snackbar = ({
+  children,
+  mount,
+  setPending,
+  displayTime,
+  top,
+  bottom,
+  left,
+  right,
+  transform,
+}) => {
   const [render, setRender] = useState(false)
   const [style, setStyle] = useState({
     opacity: 0,
     transition: "all 2s ease",
-    top: 0,
-    left: "50%",
-    transform: "translateX(-50%)",
-    marginTop: "5px",
   })
 
   useEffect(() => {
@@ -44,13 +50,13 @@ const Snackbar = ({ children, mount, setPending, displayTime }) => {
     render && (
       <div
         className="snackbar"
-        // style={{
-        //   top: top,
-        //   bottom: bottom,
-        //   left: left,
-        //   right: right,
-        //   transform: transform,
-        // }}
+        style={{
+          top: top,
+          bottom: bottom,
+          left: left,
+          right: right,
+          transform: transform,
+        }}
         style={style}
       >
         {children}
