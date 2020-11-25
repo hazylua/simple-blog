@@ -37,11 +37,17 @@ const ContactForm = () => {
         message: `Submitted.\n${response.data.date}\n${response.data._id}`,
       })
     } catch (err) {
-      console.log(notification)
-      setNotification({
-        pending: true,
-        message: `${err.response.data.message}`,
-      })
+      if (!err.response.data.message) {
+        setNotification({
+          pending: true,
+          message: `An error has occurred. Please try again.`,
+        })
+      } else {
+        setNotification({
+          pending: true,
+          message: `${err.response.data.message}`,
+        })
+      }
     }
   }
 
@@ -69,6 +75,9 @@ const ContactForm = () => {
         mount={notification.pending}
         setPending={setPending}
         displayTime={3000}
+        top={"10"}
+        left={"50%"}
+        transform={"translateX(-50%)"}
       >
         {notification.message}
       </Snackbar>
