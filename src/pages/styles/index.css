@@ -63,3 +63,7 @@ p {
 .light-bg {
   background: rgba(var(--color-primary-light-rgb), 0.25);
 }
+
+.dark-bg {
+  background: rgba(var(--color-primary-dark-rgb), 0.25);
+}

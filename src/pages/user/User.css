@@ -2,9 +2,16 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.page-title {
-  margin-top: 10rem;
+.auth-container {
   margin: auto;
+  max-width: fit-content;
+  padding: 1rem;
+  margin-top: 10%;
+}
+
+.auth-container h1,
+h2,
+h3 {
   text-align: center;
 }
 
@@ -13,7 +20,11 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 1rem auto;
-  max-width: 80%;
+  font-size: 20px;
+}
+
+.user-container input {
+  font-size: 20px;
 }
 
 .login-wrapper {
@@ -60,6 +71,7 @@
   width: 100%;
   position: absolute;
   bottom: 0;
+  font-size: 20px;
 }
 
 .register__header {
@@ -89,4 +101,5 @@
   border: none;
   padding: 10px;
   width: 100%;
+  font-size: 20px;
 }

@@ -17,7 +17,10 @@ const writeTokenCookie = token => {
 
 const PasswordChecker = ({ compare }) => {
   const [password, setPassword] = useState("")
-  const [errorStyle, setErrorStyle] = useState({})
+  const [errorStyle, setErrorStyle] = useState({
+    transition: "all 500ms ease",
+    borderColor: "none",
+  })
 
   return (
     <React.Fragment>
@@ -29,8 +32,11 @@ const PasswordChecker = ({ compare }) => {
         onChange={e => setPassword(e.target.value)}
         onBlur={() =>
           compare !== password
-            ? setErrorStyle({ borderColor: "red" })
-            : setErrorStyle({})
+            ? setErrorStyle({ ...errorStyle, borderColor: "red" })
+            : setErrorStyle({
+                ...errorStyle,
+                borderColor: "var(--color-primary-light)",
+              })
         }
       />
     </React.Fragment>
@@ -161,9 +167,8 @@ const RegisterForm = () => {
 
 const User = () => {
   return (
-    <div>
-      <div style={{ minHeight: "100px" }}></div>
-      <h3 className="page-title">User Page</h3>
+    <div className="auth-container light-bg border">
+      <h2>User Page</h2>
       <div className="user-container">
         <LoginForm />
         <div className="sep" />
