@@ -43,7 +43,7 @@ const PostHistory = ({ edges }) => {
                   <em>published on</em> {frontmatter.date}
                 </small>
                 <p>{frontmatter.excerpt}</p>
-                <div className="rule fade-bg"></div>
+                <div className="rule"></div>
                 <br />
               </div>
             )
