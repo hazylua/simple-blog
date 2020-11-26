@@ -2,6 +2,9 @@ import React, { useState } from "react"
 
 import axios from "axios"
 
+import Navbar from "src/components/Navbar"
+import Footer from "src/components/Footer"
+
 import "./User.css"
 
 const writeTokenCookie = token => {
@@ -167,14 +170,18 @@ const RegisterForm = () => {
 
 const User = () => {
   return (
-    <div className="auth-container light-bg border">
-      <h2>User Page</h2>
-      <div className="user-container">
-        <LoginForm />
-        <div className="sep" />
-        <RegisterForm />
+    <>
+      <Navbar />
+      <div className="auth-container light-bg border box-shadow">
+        <h2>User Page</h2>
+        <div className="user-container">
+          <LoginForm />
+          <div className="sep" />
+          <RegisterForm />
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   )
 }
 

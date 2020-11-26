@@ -3,15 +3,14 @@
 }
 
 .auth-container {
-  margin: auto;
+  margin: 5% auto;
   max-width: fit-content;
   padding: 1rem;
-  margin-top: 10%;
 }
 
 .auth-container h1,
-h2,
-h3 {
+.auth-container h2,
+.auth-container h3 {
   text-align: center;
 }
 
