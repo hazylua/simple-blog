@@ -4,10 +4,13 @@ import axios from "axios"
 
 import isHotkey from "is-hotkey"
 import { Editable, withReact, Slate } from "slate-react"
-import { Editor, createEditor, Node } from "slate"
+import { Editor, createEditor, Node, Text } from "slate"
 import { withHistory } from "slate-history"
+import escapeHtml from "escape-html"
 
 import Layout from "src/components/Layout"
+import Snackbar from "src/components/Snackbar"
+
 import "./styles/postbuilder.css"
 
 const HOTKEYS = {
@@ -17,15 +20,49 @@ const HOTKEYS = {
   "mod+`": "code",
 }
 
-const LIST_TYPES = ["numbered-list", "bulleted-list"]
+const initialValue = [
+  {
+    type: 'paragraph',
+    children: [
+      { text: 'This is editable ' },
+      { text: 'rich', bold: true },
+      { text: ' text, ' },
+      { text: 'much', italic: true },
+      { text: ' better than a ' },
+      { text: '<textarea>', code: true},
+      { text: '!' },
+    ],
+  },
+  {
+    type: 'paragraph',
+    children: [{ text: 'Try it out for yourself!' }],
+  },
+]
 
-const newPost = async (post) => {
-  try {
-    const response = await axios.post(`http://localhost:5000/api/blog`,
-    post)
-    alert(response)
-  } catch (err) {
-    alert(err)
+const serialize = node => {
+  if(Text.isText(node)) {
+    let text = <>{node.text}</>
+    if("bold" in node && node["bold"] == true)
+      text = <b>{text}</b>
+    if("italic" in node && node["italic"] == true)
+      text = <i>{text}</i>
+    if("code" in node && node["code"] == true)
+      text = <code>{text}</code>
+    return text
+  }
+
+  const children = node.children.map(n => [serialize(n)])
+
+  switch (node.type) {
+    case 'block-quote':
+      return <blockquote><p>{children}</p></blockquote>
+    case 'paragraph':
+      // return `<p>${children}</p>`
+      return <p>{children}</p>
+    case 'link':
+      return <a href="${escapeHtml(node.url)}">{children}</a>
+    default:
+      return children
   }
 }
 
@@ -38,8 +75,18 @@ const PostBuilder = () => {
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
+  const newPost = async (post) => {
+    try {
+      const response = await axios.post(`http://localhost:5000/api/blog`,
+      post)
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   return (
     <Layout>
+      {value.map(node => serialize(node))}
       <div className="edit-area">
         <div>
         <input className="post__title" placeholder="Your title here." onChange={(e) => setTitle(e.target.value)}/>
@@ -122,44 +169,5 @@ const Leaf = ({ attributes, children, leaf }) => {
 
   return <span {...attributes}>{children}</span>
 }
-
-
-
-const initialValue = [
-  {
-    type: 'paragraph',
-    children: [
-      { text: 'This is editable ' },
-      { text: 'rich', bold: true },
-      { text: ' text, ' },
-      { text: 'much', italic: true },
-      { text: ' better than a ' },
-      { text: '<textarea>', code: true },
-      { text: '!' },
-    ],
-  },
-  {
-    type: 'paragraph',
-    children: [
-      {
-        text:
-          "Since it's rich text, you can do things like turn a selection of text ",
-      },
-      { text: 'bold', bold: true },
-      {
-        text:
-          ', or add a semantically rendered block quote in the middle of the page, like this:',
-      },
-    ],
-  },
-  {
-    type: 'block-quote',
-    children: [{ text: 'A wise quote.' }],
-  },
-  {
-    type: 'paragraph',
-    children: [{ text: 'Try it out for yourself!' }],
-  },
-]
 
 export default PostBuilder
