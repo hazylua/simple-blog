@@ -4,8 +4,10 @@ import axios from "axios"
 
 import Navbar from "src/components/Navbar"
 import Footer from "src/components/Footer"
+import Snackbar from "src/components/Snackbar"
 
 import "./User.css"
+import { navigate } from "gatsby"
 
 const writeTokenCookie = token => {
   // In hours.
@@ -46,7 +48,7 @@ const PasswordChecker = ({ compare }) => {
   )
 }
 
-const LoginForm = () => {
+const LoginForm = ({ setNotification }) => {
   const [loginBody, setLoginBody] = useState({
     email: "",
     password: "",
@@ -60,8 +62,27 @@ const LoginForm = () => {
       )
       const token = response.data
       writeTokenCookie(token)
+      setNotification({
+        pending: true,
+        message: "Logged in succesfully. Please wait while you're redirected.",
+      })
     } catch (err) {
-      alert(err)
+      console.log(err.response)
+      if (err.response.data.message) {
+        setNotification({
+          pending: true,
+          message: `${err.response.data.message}`,
+        })
+      } else if (err.response.data)
+        setNotification({
+          pending: true,
+          message: `${err.response.data}`,
+        })
+      else
+        setNotification({
+          pending: true,
+          message: `An error has occurred.`,
+        })
     }
   }
 
@@ -97,7 +118,7 @@ const LoginForm = () => {
   )
 }
 
-const RegisterForm = () => {
+const RegisterForm = ({ setNotification }) => {
   const [registerBody, setRegisterBody] = useState({
     name: "",
     email: "",
@@ -107,13 +128,17 @@ const RegisterForm = () => {
   const registerUser = async credentials => {
     try {
       const response = await axios.post(
-        `http://localhost:5000/api/users`,
+        `http://localhost:5000/api/user`,
         credentials
       )
-      // ...
-      console.log(response)
+      setNotification({ pending: true, message: "Registered." })
     } catch (err) {
-      alert(err)
+      if (err.response.data.message)
+        setNotification({
+          pending: true,
+          message: `${err.response.data.message}`,
+        })
+      else setNotification({ pending: true, message: "An error has occurred." })
     }
   }
 
@@ -169,17 +194,37 @@ const RegisterForm = () => {
 }
 
 const User = () => {
+  const [notification, setNotification] = useState({
+    pending: false,
+    message: "",
+  })
+
+  const setPending = () => {
+    setNotification({ ...notification, pending: false })
+  }
+
   return (
     <>
       <Navbar />
       <div className="auth-container light-bg border box-shadow">
         <h2>User Page</h2>
         <div className="user-container">
-          <LoginForm />
+          <LoginForm setNotification={setNotification} />
           <div className="sep" />
-          <RegisterForm />
+          <RegisterForm setNotification={setNotification} />
+          <Snackbar
+            setPending={setPending}
+            top={"10px"}
+            left={"50%"}
+            transform={"translateX(-50%)"}
+            displayTime={3000}
+            mount={notification.pending}
+          >
+            {notification.message}
+          </Snackbar>
         </div>
       </div>
+
       <Footer />
     </>
   )
