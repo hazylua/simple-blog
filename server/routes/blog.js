@@ -17,6 +17,7 @@ router.post("/", async (req, res) => {
     res.send(_.pick(post, ["_id", "title", "date"]))
   } catch (err) {
     console.log(err)
+    res.status(400).send(err)
   }
 })
 
