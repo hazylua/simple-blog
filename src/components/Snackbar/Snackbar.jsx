@@ -39,6 +39,12 @@ const Snackbar = ({
     }
   }, [mount, render])
 
+  useEffect(() => {
+    return () => {
+      console.log("Clean up snackbar.")
+    }
+  }, [])
+
   const mountStyle = () => {
     setStyle({ ...style, transition: "all 1s ease", opacity: 1 })
   }
@@ -56,8 +62,8 @@ const Snackbar = ({
           left: left,
           right: right,
           transform: transform,
+          ...style,
         }}
-        style={style}
       >
         {children}
       </div>
