@@ -34,7 +34,7 @@ const ContactForm = () => {
       })
       setNotification({
         pending: true,
-        message: `Submitted.\n${response.data.date}\n${response.data._id}`,
+        message: `Submitted.`,
       })
     } catch (err) {
       if (!err.response.data.message) {
@@ -75,7 +75,7 @@ const ContactForm = () => {
         mount={notification.pending}
         setPending={setPending}
         displayTime={3000}
-        top={"10"}
+        top={"10px"}
         left={"50%"}
         transform={"translateX(-50%)"}
       >

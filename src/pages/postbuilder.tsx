@@ -6,7 +6,6 @@ import isHotkey from "is-hotkey"
 import { Editable, withReact, Slate } from "slate-react"
 import { Editor, createEditor, Node, Text } from "slate"
 import { withHistory } from "slate-history"
-import escapeHtml from "escape-html"
 
 import Layout from "src/components/Layout"
 import Snackbar from "src/components/Snackbar"
@@ -17,101 +16,114 @@ const HOTKEYS = {
   "mod+b": "bold",
   "mod+i": "italic",
   "mod+u": "underline",
-  "mod+`": "code",
 }
 
 const initialValue = [
   {
-    type: 'paragraph',
+    type: "paragraph",
     children: [
-      { text: 'This is editable ' },
-      { text: 'rich', bold: true },
-      { text: ' text, ' },
-      { text: 'much', italic: true },
-      { text: ' better than a ' },
-      { text: '<textarea>', code: true},
-      { text: '!' },
+      { text: "This is editable " },
+      { text: "rich", bold: true, underline: true },
+      { text: " text!", italic: true },
     ],
   },
   {
-    type: 'paragraph',
-    children: [{ text: 'Try it out for yourself!' }],
+    type: "paragraph",
+    children: [{ text: "Try it out for yourself!" }],
   },
 ]
-
-const serialize = node => {
-  if(Text.isText(node)) {
-    let text = <>{node.text}</>
-    if("bold" in node && node["bold"] == true)
-      text = <b>{text}</b>
-    if("italic" in node && node["italic"] == true)
-      text = <i>{text}</i>
-    if("code" in node && node["code"] == true)
-      text = <code>{text}</code>
-    return text
-  }
-
-  const children = node.children.map(n => [serialize(n)])
-
-  switch (node.type) {
-    case 'block-quote':
-      return <blockquote><p>{children}</p></blockquote>
-    case 'paragraph':
-      // return `<p>${children}</p>`
-      return <p>{children}</p>
-    case 'link':
-      return <a href="${escapeHtml(node.url)}">{children}</a>
-    default:
-      return children
-  }
-}
-
 
 const PostBuilder = () => {
   const [title, setTitle] = useState("")
   const [value, setValue] = useState<Node[]>(initialValue)
+  const [notification, setNotification] = useState({
+    pending: false,
+    message: "",
+  })
+
+  const setPending = () => {
+    setNotification({ ...notification, pending: false })
+  }
 
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
-  const newPost = async (post) => {
+  const newPost = async post => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/blog`,
-      post)
-      console.log(response)
+      const response = await axios.post(`http://localhost:5000/api/blog`, post)
+      setNotification({ pending: true, message: `Post submitted succesfully.` })
     } catch (err) {
-      console.log(err)
+      if (!err.response.data.message) {
+        setNotification({
+          pending: true,
+          message: `An error has occurred. Please try again.`,
+        })
+      } else {
+        setNotification({
+          pending: true,
+          message: `${err.response.data.message}`,
+        })
+      }
     }
   }
+
   return (
     <Layout>
-      {value.map(node => serialize(node))}
       <div className="edit-area">
         <div>
-        <input className="post__title" placeholder="Your title here." onChange={(e) => setTitle(e.target.value)}/>
-        <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-          <Editable
-            renderElement={renderElement}
-            renderLeaf={renderLeaf}
-            placeholder="Enter some rich text…"
-            spellCheck
-            autoFocus
-            onKeyDown={event => {
-              for (const hotkey in HOTKEYS) {
-                if (isHotkey(hotkey, event as any)) {
-                  event.preventDefault()
-                  const mark = HOTKEYS[hotkey]
-                  toggleMark(editor, mark)
-                }
-              }
-            }}
+          <input
+            className="post__title"
+            placeholder="Your title here."
+            onChange={e => setTitle(e.target.value)}
           />
-        </Slate>
+          <Slate
+            editor={editor}
+            value={value}
+            onChange={value => setValue(value)}
+          >
+            <Editable
+              renderElement={renderElement}
+              renderLeaf={renderLeaf}
+              placeholder="Enter some rich text…"
+              spellCheck
+              autoFocus
+              onKeyDown={event => {
+                for (const hotkey in HOTKEYS) {
+                  if (isHotkey(hotkey, event as any)) {
+                    event.preventDefault()
+                    const mark = HOTKEYS[hotkey]
+                    toggleMark(editor, mark)
+                  }
+                }
+              }}
+            />
+          </Slate>
         </div>
-        <button className="post__submit" onClick={() => newPost({title: title, author: "No one", date: Date.now, body: value})}>Post</button>
+        <button
+          className="post__submit"
+          onClick={() =>
+            newPost({
+              title: title,
+              author: "No one",
+              date: Date.now,
+              body: value,
+            })
+          }
+        >
+          Post
+        </button>
       </div>
-      
+      <Snackbar
+        setPending={setPending}
+        top={"10px"}
+        left={"50%"}
+        transform={"translateX(-50%)"}
+        displayTime={3000}
+        mount={notification.pending}
+      >
+        {notification.message}
+      </Snackbar>
     </Layout>
   )
 }
@@ -133,17 +145,17 @@ const isMarkActive = (editor, format) => {
 
 const Element = ({ attributes, children, element }) => {
   switch (element.type) {
-    case 'block-quote':
+    case "block-quote":
       return <blockquote {...attributes}>{children}</blockquote>
-    case 'bulleted-list':
+    case "bulleted-list":
       return <ul {...attributes}>{children}</ul>
-    case 'heading-one':
+    case "heading-one":
       return <h1 {...attributes}>{children}</h1>
-    case 'heading-two':
+    case "heading-two":
       return <h2 {...attributes}>{children}</h2>
-    case 'list-item':
+    case "list-item":
       return <li {...attributes}>{children}</li>
-    case 'numbered-list':
+    case "numbered-list":
       return <ol {...attributes}>{children}</ol>
     default:
       return <p {...attributes}>{children}</p>
