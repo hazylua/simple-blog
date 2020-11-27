@@ -14,3 +14,4 @@ A list of ideas to implement in this project repo.
 - Add comment section to post pages;
 - Fix project structure;
 - Add proper 404 page.
+- Fix unmount of snackbar, so that it doesn't try to update unmounted component.
