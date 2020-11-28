@@ -7,7 +7,6 @@ import Footer from "src/components/Footer"
 import Snackbar from "src/components/Snackbar"
 
 import "./User.css"
-import { navigate } from "gatsby"
 
 const writeTokenCookie = token => {
   // In hours.
@@ -16,36 +15,14 @@ const writeTokenCookie = token => {
   date.setTime(+date + expireTime * 3600000)
 
   document.cookie =
-    "token=" + token + ";expires=" + date.toGMTString() + ";path=/"
-  console.log(token)
-}
-
-const PasswordChecker = ({ compare }) => {
-  const [password, setPassword] = useState("")
-  const [errorStyle, setErrorStyle] = useState({
-    transition: "all 500ms ease",
-    borderColor: "none",
-  })
-
-  return (
-    <React.Fragment>
-      Please check your password:
-      <input
-        id="pwcheck"
-        type="password"
-        style={errorStyle}
-        onChange={e => setPassword(e.target.value)}
-        onBlur={() =>
-          compare !== password
-            ? setErrorStyle({ ...errorStyle, borderColor: "red" })
-            : setErrorStyle({
-                ...errorStyle,
-                borderColor: "var(--color-primary-light)",
-              })
-        }
-      />
-    </React.Fragment>
-  )
+    "token=" +
+    token +
+    ";expires=" +
+    date.toGMTString() +
+    ";path=/" +
+    ";SameSite=None" +
+    ";Secure"
+  console.log(token, document.cookie)
 }
 
 const LoginForm = ({ setNotification }) => {
@@ -64,7 +41,7 @@ const LoginForm = ({ setNotification }) => {
       writeTokenCookie(token)
       setNotification({
         pending: true,
-        message: "Logged in succesfully. Please wait while you're redirected.",
+        message: "Logged in succesfully.",
       })
     } catch (err) {
       console.log(err.response)
@@ -108,7 +85,6 @@ const LoginForm = ({ setNotification }) => {
             }
           />
           <br />
-          <PasswordChecker compare={loginBody.password} />
         </form>
         <button className="login__submit" onClick={() => loginUser(loginBody)}>
           Submit
@@ -180,7 +156,6 @@ const RegisterForm = ({ setNotification }) => {
               })
             }
           />
-          <PasswordChecker compare={registerBody.password} />
         </form>
         <button
           className="register__submit"
