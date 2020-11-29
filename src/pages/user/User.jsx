@@ -40,24 +40,24 @@ const LoginForm = ({ setNotification }) => {
       const token = response.data
       writeTokenCookie(token)
       setNotification({
-        pending: true,
+        render: true,
         message: "Logged in succesfully.",
       })
     } catch (err) {
       console.log(err.response)
       if (err.response.data.message) {
         setNotification({
-          pending: true,
+          render: true,
           message: `${err.response.data.message}`,
         })
       } else if (err.response.data)
         setNotification({
-          pending: true,
+          render: true,
           message: `${err.response.data}`,
         })
       else
         setNotification({
-          pending: true,
+          render: true,
           message: `An error has occurred.`,
         })
     }
@@ -107,14 +107,14 @@ const RegisterForm = ({ setNotification }) => {
         `http://localhost:5000/api/user`,
         credentials
       )
-      setNotification({ pending: true, message: "Registered." })
+      setNotification({ render: true, message: "Registered." })
     } catch (err) {
       if (err.response.data.message)
         setNotification({
-          pending: true,
+          render: true,
           message: `${err.response.data.message}`,
         })
-      else setNotification({ pending: true, message: "An error has occurred." })
+      else setNotification({ render: true, message: "An error has occurred." })
     }
   }
 
@@ -170,33 +170,40 @@ const RegisterForm = ({ setNotification }) => {
 
 const User = () => {
   const [notification, setNotification] = useState({
-    pending: false,
+    render: false,
     message: "",
   })
 
-  const setPending = () => {
-    setNotification({ ...notification, pending: false })
+  const showNotification = value => {
+    setNotification({ ...notification, render: value })
   }
-
   return (
     <>
       <Navbar />
       <div className="auth-container light-bg border box-shadow">
         <h2>User Page</h2>
         <div className="user-container">
-          <LoginForm setNotification={setNotification} />
+          <LoginForm
+            setNotification={setNotification}
+            showNotification={showNotification}
+          />
           <div className="sep" />
-          <RegisterForm setNotification={setNotification} />
-          <Snackbar
-            setPending={setPending}
-            top={"10px"}
-            left={"50%"}
-            transform={"translateX(-50%)"}
-            displayTime={3000}
-            mount={notification.pending}
-          >
-            {notification.message}
-          </Snackbar>
+          <RegisterForm
+            setNotification={setNotification}
+            showNotification={showNotification}
+          />
+          {notification.render ? (
+            <Snackbar
+              top={"10px"}
+              left={"50%"}
+              transform={"translateX(-50%)"}
+              displayTime={3000}
+              mount={notification.render}
+              setRender={showNotification}
+            >
+              {notification.message}
+            </Snackbar>
+          ) : null}
         </div>
       </div>
 

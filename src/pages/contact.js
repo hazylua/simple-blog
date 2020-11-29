@@ -13,12 +13,12 @@ const ContactForm = () => {
   const [date, setDate] = useState(new Date())
   const [message, setMessage] = useState("")
   const [notification, setNotification] = useState({
-    pending: false,
+    render: false,
     message: "",
   })
 
-  const setPending = () => {
-    setNotification({ ...notification, pending: false })
+  const showNotification = value => {
+    setNotification({ ...notification, render: value })
   }
 
   const submitContact = async e => {
@@ -26,25 +26,25 @@ const ContactForm = () => {
     // Get date of submit action.
     setDate(new Date())
     try {
-      const response = await axios.post("http://localhost:5000/api/contact", {
+      await axios.post("http://localhost:5000/api/contact", {
         subject: `Website Contact - ${name}`,
         mail: mail,
         date: date,
         message: message,
       })
       setNotification({
-        pending: true,
+        render: true,
         message: `Submitted.`,
       })
     } catch (err) {
       if (!err.response.data.message) {
         setNotification({
-          pending: true,
+          render: true,
           message: `An error has occurred. Please try again.`,
         })
       } else {
         setNotification({
-          pending: true,
+          render: true,
           message: `${err.response.data.message}`,
         })
       }
@@ -71,16 +71,19 @@ const ContactForm = () => {
       <button type="submit" value="Submit">
         Send!
       </button>
-      <Snackbar
-        mount={notification.pending}
-        setPending={setPending}
-        displayTime={3000}
-        top={"10px"}
-        left={"50%"}
-        transform={"translateX(-50%)"}
-      >
-        {notification.message}
-      </Snackbar>
+      {notification.render ? (
+        <Snackbar
+          mount={notification.render}
+          setRender={showNotification}
+          render={notification.render}
+          displayTime={3000}
+          top={"10px"}
+          left={"50%"}
+          transform={"translateX(-50%)"}
+        >
+          {notification.message}
+        </Snackbar>
+      ) : null}
     </form>
   )
 }
