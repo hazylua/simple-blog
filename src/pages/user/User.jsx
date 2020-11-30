@@ -4,7 +4,6 @@ import axios from "axios"
 
 import Navbar from "src/components/Navbar"
 import Footer from "src/components/Footer"
-import Snackbar from "src/components/Snackbar"
 
 import "./User.css"
 
@@ -25,7 +24,7 @@ const writeTokenCookie = token => {
   console.log(token, document.cookie)
 }
 
-const LoginForm = ({ setNotification }) => {
+const LoginForm = () => {
   const [loginBody, setLoginBody] = useState({
     email: "",
     password: "",
@@ -39,27 +38,8 @@ const LoginForm = ({ setNotification }) => {
       )
       const token = response.data
       writeTokenCookie(token)
-      setNotification({
-        render: true,
-        message: "Logged in succesfully.",
-      })
     } catch (err) {
       console.log(err.response)
-      if (err.response.data.message) {
-        setNotification({
-          render: true,
-          message: `${err.response.data.message}`,
-        })
-      } else if (err.response.data)
-        setNotification({
-          render: true,
-          message: `${err.response.data}`,
-        })
-      else
-        setNotification({
-          render: true,
-          message: `An error has occurred.`,
-        })
     }
   }
 
@@ -94,7 +74,7 @@ const LoginForm = ({ setNotification }) => {
   )
 }
 
-const RegisterForm = ({ setNotification }) => {
+const RegisterForm = () => {
   const [registerBody, setRegisterBody] = useState({
     name: "",
     email: "",
@@ -103,18 +83,9 @@ const RegisterForm = ({ setNotification }) => {
 
   const registerUser = async credentials => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/user`,
-        credentials
-      )
-      setNotification({ render: true, message: "Registered." })
+      await axios.post(`http://localhost:5000/api/user`, credentials)
     } catch (err) {
-      if (err.response.data.message)
-        setNotification({
-          render: true,
-          message: `${err.response.data.message}`,
-        })
-      else setNotification({ render: true, message: "An error has occurred." })
+      console.log(err)
     }
   }
 
@@ -169,41 +140,15 @@ const RegisterForm = ({ setNotification }) => {
 }
 
 const User = () => {
-  const [notification, setNotification] = useState({
-    render: false,
-    message: "",
-  })
-
-  const showNotification = value => {
-    setNotification({ ...notification, render: value })
-  }
   return (
     <>
       <Navbar />
       <div className="auth-container light-bg border box-shadow">
         <h2>User Page</h2>
         <div className="user-container">
-          <LoginForm
-            setNotification={setNotification}
-            showNotification={showNotification}
-          />
+          <LoginForm />
           <div className="sep" />
-          <RegisterForm
-            setNotification={setNotification}
-            showNotification={showNotification}
-          />
-          {notification.render ? (
-            <Snackbar
-              top={"10px"}
-              left={"50%"}
-              transform={"translateX(-50%)"}
-              displayTime={3000}
-              mount={notification.render}
-              setRender={showNotification}
-            >
-              {notification.message}
-            </Snackbar>
-          ) : null}
+          <RegisterForm />
         </div>
       </div>
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
 import Layout from "src/components/Layout"
-import Snackbar from "src/components/Snackbar"
 
 import axios from "axios"
 
@@ -12,14 +11,6 @@ const ContactForm = () => {
   const [mail, setMail] = useState("")
   const [date, setDate] = useState(new Date())
   const [message, setMessage] = useState("")
-  const [notification, setNotification] = useState({
-    render: false,
-    message: "",
-  })
-
-  const showNotification = value => {
-    setNotification({ ...notification, render: value })
-  }
 
   const submitContact = async e => {
     e.preventDefault()
@@ -32,22 +23,8 @@ const ContactForm = () => {
         date: date,
         message: message,
       })
-      setNotification({
-        render: true,
-        message: `Submitted.`,
-      })
     } catch (err) {
-      if (!err.response.data.message) {
-        setNotification({
-          render: true,
-          message: `An error has occurred. Please try again.`,
-        })
-      } else {
-        setNotification({
-          render: true,
-          message: `${err.response.data.message}`,
-        })
-      }
+      console.log(err)
     }
   }
 
@@ -71,19 +48,6 @@ const ContactForm = () => {
       <button type="submit" value="Submit">
         Send!
       </button>
-      {notification.render ? (
-        <Snackbar
-          mount={notification.render}
-          setRender={showNotification}
-          render={notification.render}
-          displayTime={3000}
-          top={"10px"}
-          left={"50%"}
-          transform={"translateX(-50%)"}
-        >
-          {notification.message}
-        </Snackbar>
-      ) : null}
     </form>
   )
 }
