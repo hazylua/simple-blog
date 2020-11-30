@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, memo } from "react"
+import PropTypes from "prop-types"
 
 import "./Snackbar.css"
 
 const Snackbar = ({
-  children,
-  render,
-  setRender,
-  displayTime,
-  top,
   bottom,
+  children,
+  displayTime,
   left,
   right,
+  top,
   transform,
 }) => {
   const [style, setStyle] = useState({
     opacity: 0,
     transition: "all 2s ease",
   })
-
-  useEffect(() => {
-    if (render) {
-      setTimeout(() => mountStyle(), 10)
-      setTimeout(() => unMountStyle(), displayTime + 10)
-      setTimeout(() => setRender(false), 10)
-    }
-  }, [render])
 
   const mountStyle = () => {
     setStyle({ ...style, transition: "all 1s ease", opacity: 1 })
@@ -50,4 +41,14 @@ const Snackbar = ({
   )
 }
 
-export default Snackbar
+Snackbar.propTypes = {
+  bottom: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  displayTime: PropTypes.number.isRequired,
+  left: PropTypes.string,
+  right: PropTypes.string,
+  top: PropTypes.string,
+  transform: PropTypes.string,
+}
+
+export default memo(Snackbar)
