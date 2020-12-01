@@ -1,6 +1,13 @@
 import React, { useState } from "react"
+import PropTypes from "prop-types"
+
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
 
 import Layout from "src/components/Layout"
+
+import { Snackbars } from "src/components/Snackbar"
+import { addSnackbar } from "src/store/actions"
 
 import axios from "axios"
 
@@ -52,7 +59,13 @@ const ContactForm = () => {
   )
 }
 
-const Contact = () => {
+const Contact = ({ actions }) => {
+  // const handleClick = () => {
+  //   const { addSnackbar } = actions
+  //   addSnackbar()
+  // }
+  const test = <p>Hello</p>
+
   return (
     <Layout>
       <div className="contact-container light-bg border">
@@ -62,9 +75,23 @@ const Contact = () => {
           questions you have!
         </p>
         <ContactForm />
+        {/* <Snackbars>
+          {test}
+        </Snackbars> */}
       </div>
+      {/* <button onClick={handleClick}>Add snackbar</button> */}
     </Layout>
   )
 }
 
-export default Contact
+Contact.propTypes = {
+  actions: PropTypes.shape({
+    addSnackbar: PropTypes.func.isRequired,
+  }).isRequired,
+}
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ addSnackbar }, dispatch),
+})
+
+export default connect(null, mapDispatchToProps)(Contact)
