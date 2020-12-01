@@ -1,8 +1,10 @@
 let id = 0
 
-export default createSnackbar = options => {
+const createSnackbar = options => {
   return {
     ...options,
     id: id++,
   }
 }
+
+export default createSnackbar

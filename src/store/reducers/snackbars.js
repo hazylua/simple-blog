@@ -1,6 +1,6 @@
 import { ADD_SNACKBAR, REMOVE_SNACKBAR } from "../constants"
 
-export default snackbars = (state = [], action) => {
+const snackbars = (state = [], action) => {
   const { payload, type } = action
   switch (type) {
     case ADD_SNACKBAR:
@@ -11,3 +11,5 @@ export default snackbars = (state = [], action) => {
       return state
   }
 }
+
+export default snackbars
