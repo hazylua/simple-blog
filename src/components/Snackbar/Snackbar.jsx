@@ -7,13 +7,14 @@ const Snackbar = ({
   bottom,
   children,
   displayTime,
+  onDismissClick,
   left,
   right,
   top,
   transform,
 }) => {
   const [style, setStyle] = useState({
-    opacity: 0,
+    opacity: 1,
     transition: "all 2s ease",
   })
 
@@ -35,6 +36,7 @@ const Snackbar = ({
         transform: transform,
         ...style,
       }}
+      onClick={onDismissClick}
     >
       {children}
     </div>
@@ -43,8 +45,9 @@ const Snackbar = ({
 
 Snackbar.propTypes = {
   bottom: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any,
   displayTime: PropTypes.number.isRequired,
+  onDismissClick: PropTypes.func.isRequired,
   left: PropTypes.string,
   right: PropTypes.string,
   top: PropTypes.string,
