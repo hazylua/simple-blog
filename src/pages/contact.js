@@ -6,18 +6,29 @@ import { connect } from "react-redux"
 
 import Layout from "src/components/Layout"
 
-import { Snackbars } from "src/components/Snackbar"
 import { addSnackbar } from "src/store/actions"
 
 import axios from "axios"
 
 import "./styles/contact.css"
 
-const ContactForm = () => {
+const ContactForm = ({ actions }) => {
   const [name, setName] = useState("")
   const [mail, setMail] = useState("")
   const [date, setDate] = useState(new Date())
   const [message, setMessage] = useState("")
+
+  const notify = status => {
+    const { addSnackbar } = actions
+    const options = {
+      message: status,
+      top: "10px",
+      left: "50%",
+      transform: "transform(-50%)",
+      displayTime: 2000,
+    }
+    addSnackbar(options)
+  }
 
   const submitContact = async e => {
     e.preventDefault()
@@ -30,8 +41,11 @@ const ContactForm = () => {
         date: date,
         message: message,
       })
+      const status = <p>Success.</p>
+      notify(status)
     } catch (err) {
-      console.log(err)
+      const status = <p>Failed.</p>
+      notify(status)
     }
   }
 
@@ -60,12 +74,6 @@ const ContactForm = () => {
 }
 
 const Contact = ({ actions }) => {
-  // const handleClick = () => {
-  //   const { addSnackbar } = actions
-  //   addSnackbar()
-  // }
-  const test = <p>Hello</p>
-
   return (
     <Layout>
       <div className="contact-container light-bg border">
@@ -74,12 +82,8 @@ const Contact = ({ actions }) => {
           Want to get in contact with me? Just fill the form below with any
           questions you have!
         </p>
-        <ContactForm />
-        {/* <Snackbars>
-          {test}
-        </Snackbars> */}
+        <ContactForm actions={actions} />
       </div>
-      {/* <button onClick={handleClick}>Add snackbar</button> */}
     </Layout>
   )
 }
