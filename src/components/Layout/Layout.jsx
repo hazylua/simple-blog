@@ -2,12 +2,20 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
+import { bindActionCreators, createStore } from "redux"
+
+import rootReducer from "src/store/reducers"
+import { addToast } from "src/store/actions"
+import { Snackbars } from "src/components/Snackbar"
+
 import Header from "../Header"
 import Navbar from "../Navbar"
 import Main from "../Main"
 import Footer from "../Footer"
 
 import "./Layout.css"
+
+const store = createStore(rootReducer)
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -23,6 +31,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
+      <Snackbars />
       <Header siteTitle={data.site.siteMetadata.title} />
       <Navbar />
       <div
