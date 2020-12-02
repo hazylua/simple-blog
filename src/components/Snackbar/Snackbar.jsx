@@ -5,7 +5,7 @@ import "./Snackbar.css"
 
 const Snackbar = ({
   bottom,
-  children,
+  message,
   displayTime,
   onDismissClick,
   left,
@@ -38,7 +38,7 @@ const Snackbar = ({
       }}
       onClick={onDismissClick}
     >
-      {children}
+      {message}
     </div>
   )
 }

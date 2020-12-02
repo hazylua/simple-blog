@@ -6,20 +6,19 @@ import PropTypes from "prop-types"
 import Snackbar from "./Snackbar"
 import { removeSnackbar } from "src/store/actions"
 
-const Snackbars = ({ actions, snackbars, children }) => {
+const Snackbars = ({ actions, snackbars }) => {
   const { removeSnackbar } = actions
   return (
     <>
       {snackbars.map(snackbar => {
         const { id } = snackbar
+        console.log("dsadsa")
         return (
           <Snackbar
             {...snackbar}
             key={id}
             onDismissClick={() => removeSnackbar(id)}
-          >
-            {children}
-          </Snackbar>
+          />
         )
       })}
     </>
