@@ -1,5 +1,6 @@
 import React from "react"
 import { Provider } from "react-redux"
+import { Snackbars } from "src/components/Snackbar"
 
 import createStore from "src/store"
 
@@ -9,5 +10,12 @@ export default ({ element }) => {
   //  - there is fresh store for each SSR page
   //  - it will be called only once in browser, when React mounts
   const store = createStore()
-  return <Provider store={store}>{element}</Provider>
+  return (
+    <>
+      <Provider store={store}>
+        <Snackbars />
+        {element}
+      </Provider>
+    </>
+  )
 }

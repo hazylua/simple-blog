@@ -5,7 +5,6 @@ import { useStaticQuery, graphql } from "gatsby"
 import { bindActionCreators, createStore } from "redux"
 
 import rootReducer from "src/store/reducers"
-import { addToast } from "src/store/actions"
 import { Snackbars } from "src/components/Snackbar"
 
 import Header from "../Header"
@@ -31,7 +30,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Snackbars />
+      {/* <Snackbars /> */}
       <Header siteTitle={data.site.siteMetadata.title} />
       <Navbar />
       <div
