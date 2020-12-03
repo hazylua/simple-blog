@@ -8,18 +8,17 @@ import { removeSnackbar } from "src/store/actions"
 
 const Snackbars = ({ actions, snackbars }) => {
   const { removeSnackbar } = actions
+
+  const clearSnackbar = id => {
+    console.log("how many times is this thing called")
+    removeSnackbar(id)
+  }
+
   return (
     <>
       {snackbars.map(snackbar => {
         const { id } = snackbar
-        console.log("dsadsa")
-        return (
-          <Snackbar
-            {...snackbar}
-            key={id}
-            onDismissClick={() => removeSnackbar(id)}
-          />
-        )
+        return <Snackbar {...snackbar} key={id} remove={clearSnackbar} />
       })}
     </>
   )

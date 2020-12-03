@@ -5,3 +5,8 @@
   padding: 10px;
   position: absolute;
 }
+
+.snackbar > * {
+  margin: 0;
+  padding: 0;
+}

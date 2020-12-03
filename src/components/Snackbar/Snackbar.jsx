@@ -4,26 +4,35 @@ import PropTypes from "prop-types"
 import "./Snackbar.css"
 
 const Snackbar = ({
+  id,
   bottom,
   message,
   displayTime,
-  onDismissClick,
+  remove,
   left,
   right,
   top,
   transform,
 }) => {
-  const [style, setStyle] = useState({
-    opacity: 1,
-    transition: "all 2s ease",
-  })
+  const timeout = setTimeout(() => {
+    remove(id)
+  }, displayTime)
+  // const [style, setStyle] = useState({
+  //   opacity: 1,
+  //   transition: "all 2s ease",
+  // })
 
-  const mountStyle = () => {
-    setStyle({ ...style, transition: "all 1s ease", opacity: 1 })
-  }
-  const unMountStyle = () => {
-    setStyle({ ...style, transition: "all 1s ease", opacity: 0 })
-  }
+  // const mountStyle = () => {
+  //   setStyle({ ...style, transition: "all 1s ease", opacity: 1 })
+  // }
+  // const unMountStyle = () => {
+  //   setStyle({ ...style, transition: "all 1s ease", opacity: 0 })
+  // }
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [id])
 
   return (
     <div
@@ -34,9 +43,7 @@ const Snackbar = ({
         left: left,
         right: right,
         transform: transform,
-        ...style,
       }}
-      onClick={onDismissClick}
     >
       {message}
     </div>
@@ -44,6 +51,7 @@ const Snackbar = ({
 }
 
 Snackbar.propTypes = {
+  id: PropTypes.any.isRequired,
   bottom: PropTypes.string,
   children: PropTypes.any,
   displayTime: PropTypes.number.isRequired,
