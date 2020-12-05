@@ -2,9 +2,12 @@ import React from "react"
 
 import { Link } from "gatsby"
 
+import { GrLogin } from "react-icons/gr"
 import { FaUser } from "react-icons/fa"
 
 import "./Navbar.css"
+
+import { findCookie } from "src/common/cookies"
 
 const Navbar = () => {
   return (
@@ -31,9 +34,16 @@ const Navbar = () => {
         </Link>
         <span className="navbar-separator">/</span>
       </div>
-      <Link className="user-link" to="/user">
-        <FaUser />
-      </Link>
+
+      {findCookie("token") != "" ? (
+        <Link className="user-link" to="/profile">
+          <FaUser />
+        </Link>
+      ) : (
+        <Link className="user-link" to="/user">
+          <GrLogin />
+        </Link>
+      )}
     </nav>
   )
 }
