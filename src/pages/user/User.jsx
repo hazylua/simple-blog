@@ -1,9 +1,10 @@
-import React, { useState } from "react"
-
+import { authSession } from "src/store/actions"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
 import axios from "axios"
-
-import Navbar from "src/components/Navbar"
 import Footer from "src/components/Footer"
+import Navbar from "src/components/Navbar"
+import React, { useState } from "react"
 
 import "./User.css"
 
@@ -21,16 +22,16 @@ const writeTokenCookie = token => {
     ";path=/" +
     ";SameSite=None" +
     ";Secure"
-  console.log(token, document.cookie)
 }
 
-const LoginForm = () => {
+const LoginForm = ({ actions }) => {
   const [loginBody, setLoginBody] = useState({
     email: "",
     password: "",
   })
 
   const loginUser = async credentials => {
+    const { authSession } = actions
     try {
       const response = await axios.post(
         `http://localhost:5000/api/auth`,
@@ -38,6 +39,7 @@ const LoginForm = () => {
       )
       const token = response.data
       writeTokenCookie(token)
+      authSession(token, "User")
     } catch (err) {
       console.log(err.response)
     }
@@ -74,7 +76,7 @@ const LoginForm = () => {
   )
 }
 
-const RegisterForm = () => {
+const RegisterForm = ({ actions }) => {
   const [registerBody, setRegisterBody] = useState({
     name: "",
     email: "",
@@ -139,16 +141,16 @@ const RegisterForm = () => {
   )
 }
 
-const User = () => {
+const User = ({ actions }) => {
   return (
     <>
       <Navbar />
       <div className="auth-container light-bg border box-shadow">
         <h2>User Page</h2>
         <div className="user-container">
-          <LoginForm />
+          <LoginForm actions={actions} />
           <div className="sep" />
-          <RegisterForm />
+          <RegisterForm actions={actions} />
         </div>
       </div>
 
@@ -157,4 +159,8 @@ const User = () => {
   )
 }
 
-export default User
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ authSession }, dispatch),
+})
+
+export default connect(null, mapDispatchToProps)(User)

@@ -1,10 +1,9 @@
-import React from "react"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import PropTypes from "prop-types"
-
-import Snackbar from "./Snackbar"
 import { removeSnackbar } from "src/store/actions"
+import PropTypes from "prop-types"
+import React from "react"
+import Snackbar from "./Snackbar"
 
 const Snackbars = ({ actions, snackbars }) => {
   const { removeSnackbar } = actions

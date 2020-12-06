@@ -1,11 +1,9 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
 
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import { authSession } from "src/store/actions"
-
-import { findCookie } from "src/common/cookies"
 
 import "./Navbar.css"
 
@@ -13,6 +11,12 @@ import { GrLogin } from "react-icons/gr"
 import { FaUser } from "react-icons/fa"
 
 const Navbar = ({ UserSession, actions }) => {
+  const [auth, setAuth] = useState(true)
+
+  useEffect(() => {
+    UserSession.auth == true ? setAuth(true) : setAuth(false)
+  }, [UserSession])
+
   return (
     <nav className="navbar-container">
       <div className="links-wrapper">
@@ -38,7 +42,7 @@ const Navbar = ({ UserSession, actions }) => {
         <span className="navbar-separator">/</span>
       </div>
 
-      {UserSession.auth == true ? (
+      {auth == true ? (
         <Link className="user-link" to="/profile">
           <FaUser />
         </Link>
