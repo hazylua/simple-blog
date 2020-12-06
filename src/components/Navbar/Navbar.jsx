@@ -1,15 +1,18 @@
 import React from "react"
-
 import { Link } from "gatsby"
+
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import { authSession } from "src/store/actions"
+
+import { findCookie } from "src/common/cookies"
+
+import "./Navbar.css"
 
 import { GrLogin } from "react-icons/gr"
 import { FaUser } from "react-icons/fa"
 
-import "./Navbar.css"
-
-import { findCookie } from "src/common/cookies"
-
-const Navbar = () => {
+const Navbar = ({ UserSession, actions }) => {
   return (
     <nav className="navbar-container">
       <div className="links-wrapper">
@@ -35,7 +38,7 @@ const Navbar = () => {
         <span className="navbar-separator">/</span>
       </div>
 
-      {findCookie("token") != "" ? (
+      {UserSession.auth == true ? (
         <Link className="user-link" to="/profile">
           <FaUser />
         </Link>
@@ -48,4 +51,12 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+const mapStateToProps = state => ({
+  UserSession: state.UserSession,
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ authSession }, dispatch),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
