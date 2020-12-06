@@ -16,12 +16,12 @@ const Snackbar = React.memo(
     transform,
   }) => {
     const [notif, setNotif] = useState(null)
-    // const [style, setStyle] = useState({
-    //   opacity: 0,
-    //   transition: "all 2s ease",
-    // })
+    const [style, setStyle] = useState({
+      opacity: 0,
+      transition: "all 2s ease",
+    })
     useEffect(() => {
-      // setTimeout(() => mountStyle(), 10)
+      setTimeout(() => mountStyle(), 10)
       setNotif(
         setTimeout(() => {
           clear(id)
@@ -31,9 +31,9 @@ const Snackbar = React.memo(
         setNotif(clearTimeout(notif))
       }
     }, [])
-    // const mountStyle = () => {
-    //   setStyle({ ...style, transition: "all 1s ease", opacity: 1 })
-    // }
+    const mountStyle = () => {
+      setStyle({ ...style, transition: "all 1s ease", opacity: 1 })
+    }
     // const unMountStyle = () => {
     //   setStyle({ ...style, transition: "all 1s ease", opacity: 0 })
     // }
