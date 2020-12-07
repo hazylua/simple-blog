@@ -22,9 +22,7 @@ const ContactForm = ({ actions }) => {
     const { addSnackbar } = actions
     const options = {
       message: status,
-      top: "10px",
-      left: "50%",
-      transform: "transform(-50%)",
+      style: "middle",
       displayTime: 2000,
     }
     addSnackbar(options)
