@@ -21,4 +21,9 @@ router.post("/", async (req, res) => {
   }
 })
 
+router.get("/", async (req, res) => {
+  let allPosts = await Post.find()
+  res.send(allPosts)
+})
+
 module.exports = router
