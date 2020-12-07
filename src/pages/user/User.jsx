@@ -1,4 +1,4 @@
-import { authSession } from "src/store/actions"
+import { authSession, addSnackbar } from "src/store/actions"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
 import axios from "axios"
@@ -7,6 +7,17 @@ import Navbar from "src/components/Navbar"
 import React, { useState } from "react"
 
 import "./User.css"
+import { navigate } from "gatsby"
+
+const notify = (status, actions) => {
+  const { addSnackbar } = actions
+  const options = {
+    message: status,
+    style: "middle",
+    displayTime: 2000,
+  }
+  addSnackbar(options)
+}
 
 const writeTokenCookie = token => {
   // In hours.
@@ -40,8 +51,11 @@ const LoginForm = ({ actions }) => {
       const token = response.data
       writeTokenCookie(token)
       authSession(token, "User")
+      notify("Logged in sucessfully.", actions)
+      navigate("/")
     } catch (err) {
       console.log(err.response)
+      notify("An error has occurred. Please try again.", actions)
     }
   }
 
@@ -69,7 +83,7 @@ const LoginForm = ({ actions }) => {
           <br />
         </form>
         <button className="login__submit" onClick={() => loginUser(loginBody)}>
-          Submit
+          Log In
         </button>
       </div>
     </div>
@@ -86,8 +100,9 @@ const RegisterForm = ({ actions }) => {
   const registerUser = async credentials => {
     try {
       await axios.post(`http://localhost:5000/api/user`, credentials)
+      notify("Registered succesfully. You may now login.", actions)
     } catch (err) {
-      console.log(err)
+      notify("An error has occurred. Try again later.", actions)
     }
   }
 
@@ -134,7 +149,7 @@ const RegisterForm = ({ actions }) => {
           className="register__submit"
           onClick={() => registerUser(registerBody)}
         >
-          Submit
+          Register
         </button>
       </div>
     </div>
@@ -145,22 +160,22 @@ const User = ({ actions }) => {
   return (
     <>
       <Navbar />
-      <div className="auth-container light-bg border box-shadow">
-        <h2>User Page</h2>
-        <div className="user-container">
-          <LoginForm actions={actions} />
-          <div className="sep" />
-          <RegisterForm actions={actions} />
+      <div className="spacer">
+        <div className="auth-container light-bg border">
+          <div className="user-container">
+            <LoginForm actions={actions} />
+            <div className="sep" />
+            <RegisterForm actions={actions} />
+          </div>
         </div>
+        <Footer />
       </div>
-
-      <Footer />
     </>
   )
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ authSession }, dispatch),
+  actions: bindActionCreators({ authSession, addSnackbar }, dispatch),
 })
 
 export default connect(null, mapDispatchToProps)(User)

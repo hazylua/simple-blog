@@ -6,6 +6,7 @@
   margin: 5% auto;
   max-width: fit-content;
   padding: 1rem;
+  border: 2px solid var(--color-primary);
 }
 
 .auth-container h1,
@@ -18,7 +19,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 1rem auto;
+
   font-size: 20px;
 }
 
@@ -41,10 +42,10 @@
 }
 
 .login__header {
-  background: var(--color-primary-dark);
-  border-top-left-radius: 10px;
+  background: var(--color-primary);
+
   color: var(--color-text-light);
-  margin-bottom: 0.25rem;
+  margin-bottom: 1.125rem;
   padding: 10px;
   text-align: right;
 }
@@ -57,27 +58,25 @@
 .login-form input {
   border: none;
   border: 2px solid var(--color-primary-light);
-  margin-bottom: 0.75rem;
-  margin-top: 0.25rem;
+  margin-bottom: 1.125rem;
+  margin-top: 0.75rem;
   padding: 5px;
 }
 
 .login__submit {
   background-color: var(--color-primary-light);
-  border-bottom-left-radius: 10px;
   border: none;
-  padding: 10px;
-  width: 100%;
-  position: absolute;
   bottom: 0;
   font-size: 20px;
+  padding: 10px;
+  position: absolute;
+  width: 100%;
 }
 
 .register__header {
-  background: var(--color-primary-dark);
-  border-top-right-radius: 10px;
+  background: var(--color-primary);
   color: var(--color-text-light);
-  margin-bottom: 0.25rem;
+  margin-bottom: 1.125rem;
   padding: 10px;
 }
 
@@ -89,16 +88,32 @@
 .register-form input {
   border: none;
   border: 2px solid var(--color-primary-light);
-  margin-bottom: 0.75rem;
-  margin-top: 0.25rem;
+  margin-bottom: 1.125rem;
+  margin-top: 0.75rem;
   padding: 5px;
 }
 
 .register__submit {
   background-color: var(--color-primary-light);
-  border-bottom-right-radius: 10px;
   border: none;
   padding: 10px;
   width: 100%;
   font-size: 20px;
+}
+
+.auth-container input {
+  transition: background 500ms ease;
+}
+
+.auth-container button {
+  transition: background 500ms ease, color 1s ease;
+}
+
+.auth-container button:hover {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.auth-container input:hover {
+  background: var(--color-primary-light);
 }
