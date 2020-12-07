@@ -1,69 +1,59 @@
-import React, { useEffect, useState, memo } from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 
 import "./Snackbar.css"
+import * as SnackbarStyles from "./styles"
 
-const Snackbar = React.memo(
-  ({
-    id,
-    bottom,
-    message,
-    displayTime,
-    clear,
-    left,
-    right,
-    top,
-    transform,
-  }) => {
-    const [notif, setNotif] = useState(null)
-    const [style, setStyle] = useState({
-      opacity: 0,
-      transition: "all 2s ease",
-    })
-    useEffect(() => {
-      setTimeout(() => mountStyle(), 10)
-      setNotif(
-        setTimeout(() => {
-          clear(id)
-        }, displayTime + 500)
-      )
-      return () => {
-        setNotif(clearTimeout(notif))
-      }
-    }, [])
-    const mountStyle = () => {
-      setStyle({ ...style, transition: "all 1s ease", opacity: 1 })
-    }
-    // const unMountStyle = () => {
-    //   setStyle({ ...style, transition: "all 1s ease", opacity: 0 })
-    // }
-    return (
-      <div
-        className="snackbar"
-        style={{
-          top: top,
-          bottom: bottom,
-          left: left,
-          right: right,
-          transform: transform,
-          ...style,
-        }}
-      >
-        {message}
-      </div>
-    )
+const chooseStyle = style => {
+  if (typeof style === "object" && style !== null) {
+    return style
+  } else if (typeof style === "string" && style !== null) {
+    const choice = SnackbarStyles[`${style}`]
+    if (choice) return choice
   }
-)
+  return {}
+}
+
+const Snackbar = React.memo(({ id, style, message, displayTime, clear }) => {
+  const [notif, setNotif] = useState(null)
+  const [mount, setMount] = useState({
+    opacity: 0,
+    transition: "all 2s ease",
+  })
+
+  useEffect(() => {
+    setTimeout(() => mountStyle(), 10)
+    setNotif(
+      setTimeout(() => {
+        clear(id)
+      }, displayTime + 500)
+    )
+    return () => {
+      setNotif(clearTimeout(notif))
+    }
+  }, [])
+
+  const mountStyle = () => {
+    setMount({ ...mount, transition: "all 1s ease", opacity: 1 })
+  }
+
+  // const unMountStyle = () => {
+  //   setMount({ ...mount, transition: "all 1s ease", opacity: 0 })
+  // }
+
+  return (
+    <div className="snackbar" style={{ ...chooseStyle(style), ...mount }}>
+      {message}
+    </div>
+  )
+})
 
 Snackbar.propTypes = {
   id: PropTypes.any.isRequired,
-  bottom: PropTypes.string,
+  style: PropTypes.any,
+  mount: PropTypes.object,
   children: PropTypes.any,
   displayTime: PropTypes.number.isRequired,
-  left: PropTypes.string,
-  right: PropTypes.string,
-  top: PropTypes.string,
-  transform: PropTypes.string,
 }
 
 export default Snackbar
