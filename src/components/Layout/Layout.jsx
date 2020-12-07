@@ -30,17 +30,9 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      {/* <Snackbars /> */}
       <Header siteTitle={data.site.siteMetadata.title} />
       <Navbar />
-      <div
-        style={{
-          display: "flex",
-          minHeight: "100vh",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
+      <div className="spacer">
         <Main children={children} />
         <Footer
           siteTitle={data.site.siteMetadata.title}
