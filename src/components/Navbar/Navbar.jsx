@@ -7,16 +7,26 @@ import { authSession } from "src/store/actions"
 
 import "./Navbar.css"
 
-import { GrLogin } from "react-icons/gr"
-import { FaUser } from "react-icons/fa"
+import { BiLogIn } from "react-icons/bi"
+import { FaUser, FaAppStore } from "react-icons/fa"
+
+const ProfileIcon = () => {
+  return (
+    <Link className="user-link" to="/profile">
+      <FaUser />
+    </Link>
+  )
+}
+
+const EnterIcon = () => {
+  return (
+    <Link className="user-link" to="/user">
+      <BiLogIn />
+    </Link>
+  )
+}
 
 const Navbar = ({ UserSession, actions }) => {
-  const [auth, setAuth] = useState(true)
-
-  useEffect(() => {
-    UserSession.auth == true ? setAuth(true) : setAuth(false)
-  }, [UserSession])
-
   return (
     <nav className="navbar-container">
       <div className="links-wrapper">
@@ -42,15 +52,7 @@ const Navbar = ({ UserSession, actions }) => {
         <span className="navbar-separator">/</span>
       </div>
 
-      {auth == true ? (
-        <Link className="user-link" to="/profile">
-          <FaUser />
-        </Link>
-      ) : (
-        <Link className="user-link" to="/user">
-          <GrLogin />
-        </Link>
-      )}
+      {UserSession.auth == true ? <ProfileIcon /> : <EnterIcon />}
     </nav>
   )
 }
