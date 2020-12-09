@@ -14,7 +14,6 @@
   color: var(--color-text-light);
   margin-right: 10px;
   text-decoration: none;
-  transition: filter ease-in-out 500ms;
 }
 
 .navbar-separator {
@@ -23,19 +22,18 @@
   margin-right: 10px;
 }
 
-.navbar-link:hover {
-  filter: brightness(2);
-  font-weight: bold;
-}
-
 .active-link {
   filter: brightness(0.5);
 }
 
 .links-wrapper {
   display: inline-block;
+  position: relative;
+  width: 100%;
 }
 
-.user-link {
+.user-icon {
   color: var(--color-primary-light);
+  position: absolute;
+  right: 0;
 }

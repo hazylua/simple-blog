@@ -8,20 +8,20 @@ import { authSession } from "src/store/actions"
 import "./Navbar.css"
 
 import { BiLogIn } from "react-icons/bi"
-import { FaUser, FaAppStore } from "react-icons/fa"
+import { FaUser } from "react-icons/fa"
 
 const ProfileIcon = () => {
   return (
-    <Link className="user-link" to="/profile">
-      <FaUser />
+    <Link className="user-icon" to="/profile">
+      <FaUser size={25} />
     </Link>
   )
 }
 
 const EnterIcon = () => {
   return (
-    <Link className="user-link" to="/user">
-      <BiLogIn />
+    <Link className="user-icon" to="/user">
+      <BiLogIn size={25} />
     </Link>
   )
 }
@@ -50,9 +50,8 @@ const Navbar = ({ UserSession, actions }) => {
           Contact
         </Link>
         <span className="navbar-separator">/</span>
+        {UserSession.auth == true ? <ProfileIcon /> : <EnterIcon />}
       </div>
-
-      {UserSession.auth == true ? <ProfileIcon /> : <EnterIcon />}
     </nav>
   )
 }
