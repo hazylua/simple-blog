@@ -1,24 +1,29 @@
 const Joi = require("joi")
 const mongoose = require("mongoose")
 
-const formSchema = new mongoose.Schema({
-  subject: {
-    type: String,
-    required: true,
+const collection_name = "contact_forms"
+
+const formSchema = new mongoose.Schema(
+  {
+    subject: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      default: Date.now,
+    },
+    mail: {
+      type: String,
+    },
+    message: {
+      // Change later, if using 'Slate'.
+      type: String,
+      required: true,
+    },
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  mail: {
-    type: String,
-  },
-  message: {
-    // Change later, if using 'Slate'.
-    type: String,
-    required: true,
-  },
-})
+  { collection: collection_name }
+)
 
 const ContactForm = mongoose.model("ContactForm", formSchema)
 

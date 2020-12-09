@@ -1,31 +1,39 @@
 const Joi = require("joi")
 const mongoose = require("mongoose")
 
-const lenMin = 5
+const lenMin = 4
 const lenMax = 255
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: lenMin,
-    maxlength: lenMax,
-    unique: true,
+const collection_name = "users"
+
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      minlength: lenMin,
+      maxlength: lenMax,
+      unique: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      minlength: lenMin,
+      maxlength: lenMax,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: lenMin,
+      maxlength: lenMax,
+    },
+    admin: {
+      type: Boolean,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    minlength: lenMin,
-    maxlength: lenMax,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: lenMin,
-    maxlength: lenMax,
-  },
-})
+  { collection: collection_name }
+)
 
 const User = mongoose.model("User", userSchema)
 

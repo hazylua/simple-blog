@@ -1,20 +1,25 @@
 const Joi = require("joi")
 const mongoose = require("mongoose")
 
-const commentSchema = new mongoose.Schema({
-  author: {
-    type: String,
-    required: true,
+const collection_name = "comments"
+
+const commentSchema = new mongoose.Schema(
+  {
+    author: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      default: Date.now,
+    },
+    body: {
+      type: JSON,
+      required: true,
+    },
   },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  body: {
-    type: JSON,
-    required: true,
-  },
-})
+  { collection: collection_name }
+)
 
 const Comment = mongoose.model("Comment", commentSchema)
 

@@ -3,27 +3,32 @@ const mongoose = require("mongoose")
 
 const { commentSchema } = require("../models/comment")
 
-const postSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true,
+const collection_name = "blog_posts"
+
+const postSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    author: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      default: Date.now,
+    },
+    body: {
+      type: JSON,
+      required: true,
+    },
+    comments: { type: [commentSchema] },
+    hidden: Boolean,
   },
-  author: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-  },
-  body: {
-    type: JSON,
-    required: true,
-  },
-  comments: { type: [commentSchema] },
-  hidden: Boolean,
-})
+  { collection: collection_name }
+)
 
 const Post = mongoose.model("Blog", postSchema)
 
