@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 })
 
 router.get("/", async (req, res) => {
-  let allPosts = await Post.find()
+  let allPosts = await Post.find(req.body)
   res.send(allPosts)
 })
 
