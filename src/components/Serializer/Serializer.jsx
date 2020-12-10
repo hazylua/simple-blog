@@ -3,6 +3,8 @@
 // Where value is a state with Slate values.
 
 import React from "react"
+import { Editor, createEditor, Node, Text } from "slate"
+import { v4 as uuidv4 } from "uuid"
 
 const Serializer = ({ value }) => {
   const serialize = node => {
@@ -17,14 +19,15 @@ const Serializer = ({ value }) => {
 
     switch (node.type) {
       case "paragraph":
-        return <p>{children}</p>
+        return <p key={uuidv4()}>{children}</p>
       case "link":
         return <a href="${escapeHtml(node.url)}">{children}</a>
       default:
         return children
     }
   }
-  return serialize(value)
+
+  return <div>{value.map(node => serialize(node))}</div>
 }
 
 export default Serializer
