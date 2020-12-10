@@ -1,0 +1,14 @@
+.post-container {
+  margin: auto;
+  padding: 1rem;
+  width: 80%;
+}
+
+.post__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post__info {
+  text-align: right;
+}
