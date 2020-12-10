@@ -5,93 +5,36 @@ import axios from "axios"
 
 import Layout from "src/components/Layout"
 import CommentBox from "src/components/CommentBox"
+import Serializer from "src/components/Serializer"
 
-const Template = ({ data, pathContext }) => {
-  const post = data.markdownRemark
-  const { title, author, date } = post.frontmatter
+import "src/pages/styles/blog-post.css"
 
-  const [comments, setComments] = useState([])
-
-  const { next, prev } = pathContext
-
-  const fetchComments = async () => {
-    try {
-      const apiCall = await axios.get(`http://localhost:4000/comment`)
-      const comments = await apiCall
-      setComments(comments)
-    } catch (err) {
-      console.log(`Comments could not be loaded.\nReason:\n${err}`)
-    }
-  }
-
-  useEffect(() => {
-    fetchComments()
-  }, [comments])
+const PostTemplate = ({ pageContext }) => {
+  const { title, author, content, date, comments } = pageContext
+  const dateFormat = new Date(date)
+  console.log(comments)
 
   return (
     <Layout>
-      <div
-        style={{ display: "flex", justifyContent: "space-between" }}
-        style={{ maxWidth: "80%", margin: "auto", marginTop: "1.45rem" }}
-      >
-        <h1 style={{ marginBottom: "1rem" }}>{title}</h1>
-        <br />
-        <div>
-          <p>
-            <em>
-              Author: {author != null ? { author } : "You"}
-              <br />
-              Publish date: {date}
-              <br />
-            </em>
-          </p>
+      <div className="post-container light-bg border">
+        <div className="post__header">
+          <h1>{title}</h1>
+          <div className="post__info">
+            <small>
+              <p>
+                <b>Author:</b> {author}
+              </p>
+              <p>
+                <b>Written on:</b> {dateFormat.toLocaleDateString("pt-br")}
+              </p>
+            </small>
+          </div>
         </div>
 
-        <br />
-        <div
-          className="blogpost"
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
-
-        <div>
-          <p>
-            {prev && (
-              <Link to={prev.frontmatter.path}>
-                {prev.frontmatter.title} ← Previous
-              </Link>
-            )}
-          </p>
-          <p>
-            {next && (
-              <Link to={next.frontmatter.path}>
-                Next →{next.frontmatter.title}
-              </Link>
-            )}
-          </p>
-        </div>
-        <CommentBox
-          location={title}
-          comments={comments}
-          setComments={setComments}
-        />
+        <Serializer value={content} />
       </div>
     </Layout>
   )
 }
 
-export const postQuery = graphql`
-  query ContentQuery($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
-      html
-      frontmatter {
-        title
-        date(formatString: "DD MMMM YYYY")
-        path
-        tags
-        excerpt
-      }
-    }
-  }
-`
-
-export default Template
+export default PostTemplate

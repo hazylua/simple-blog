@@ -1,45 +1,36 @@
 const path = require("path")
+const { default: Axios } = require("axios")
 
-exports.createPages = ({ graphql, actions }) => {
+const getAllPosts = async () => {
+  try {
+    const response = await Axios.get("http://localhost:5000/api/blog", {})
+    const data = await response.data
+    return data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+exports.createPages = async ({ graphql, actions }) => {
+  const PostTemplate = path.resolve("src/templates/blogPost.js")
+  const postPathPrefix = "posts/"
+  const pathFormat = /[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-]/g
   const { createPage } = actions
-
-  return new Promise((resolve, reject) => {
-    const blogPostTemplate = path.resolve("src/templates/blogPost.js")
-
-    return graphql(
-      `
-        query {
-          allMarkdownRemark(
-            sort: { order: ASC, fields: [frontmatter___date] }
-          ) {
-            edges {
-              node {
-                frontmatter {
-                  path
-                  title
-                  tags
-                }
-              }
-            }
-          }
-        }
-      `
-    ).then(result => {
-      const posts = result.data.allMarkdownRemark.edges
-
-      posts.forEach(({ node }, index) => {
-        const path = node.frontmatter.path
-        createPage({
-          path,
-          component: blogPostTemplate,
-          context: {
-            pathSlug: path,
-            prev: index === 0 ? null : posts[index - 1].node,
-            next: index === posts.length - 1 ? null : posts[index + 1].node,
-          },
-        })
-        resolve()
-      })
+  const posts = await getAllPosts()
+  posts.map(post => {
+    const slug =
+      postPathPrefix +
+      post.title.toLowerCase().replace(/ /g, "-").replace(pathFormat, "")
+    createPage({
+      path: slug,
+      component: PostTemplate,
+      context: {
+        title: post.title,
+        date: post.date,
+        author: post.author,
+        content: post.body,
+        comments: post.comments,
+      },
     })
   })
 }
