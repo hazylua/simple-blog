@@ -36,14 +36,6 @@ const initialValue = [
 const PostBuilder = () => {
   const [title, setTitle] = useState("")
   const [value, setValue] = useState<Node[]>(initialValue)
-  const [notification, setNotification] = useState({
-    pending: false,
-    message: "",
-  })
-
-  const setPending = () => {
-    setNotification({ ...notification, pending: false })
-  }
 
   const renderElement = useCallback(props => <Element {...props} />, [])
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
@@ -52,19 +44,9 @@ const PostBuilder = () => {
   const newPost = async post => {
     try {
       const response = await axios.post(`http://localhost:5000/api/blog`, post)
-      setNotification({ pending: true, message: `Post submitted succesfully.` })
+      console.log(response.data)
     } catch (err) {
-      if (!err.response.data.message) {
-        setNotification({
-          pending: true,
-          message: `An error has occurred. Please try again.`,
-        })
-      } else {
-        setNotification({
-          pending: true,
-          message: `${err.response.data.message}`,
-        })
-      }
+     console.log(err)
     }
   }
 
@@ -114,16 +96,6 @@ const PostBuilder = () => {
           Post
         </button>
       </div>
-      <Snackbar
-        setPending={setPending}
-        top={"10px"}
-        left={"50%"}
-        transform={"translateX(-50%)"}
-        displayTime={3000}
-        mount={notification.pending}
-      >
-        {notification.message}
-      </Snackbar>
     </Layout>
   )
 }
