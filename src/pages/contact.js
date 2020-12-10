@@ -12,21 +12,29 @@ import axios from "axios"
 
 import "./styles/contact.css"
 
+const notify = (status, actions) => {
+  const { addSnackbar } = actions
+  const options = {
+    message: status,
+    style: "middle",
+    displayTime: 2000,
+  }
+  addSnackbar(options)
+}
+
+const MessageFailed = () => {
+  return <p>Contact form submit failed.</p>
+}
+
+const MessageSuccess = () => {
+  return <p>Form submitted successfully.</p>
+}
+
 const ContactForm = ({ actions }) => {
   const [name, setName] = useState("")
   const [mail, setMail] = useState("")
   const [date, setDate] = useState(new Date())
   const [message, setMessage] = useState("")
-
-  const notify = status => {
-    const { addSnackbar } = actions
-    const options = {
-      message: status,
-      style: "middle",
-      displayTime: 2000,
-    }
-    addSnackbar(options)
-  }
 
   const submitContact = async e => {
     e.preventDefault()
@@ -39,11 +47,11 @@ const ContactForm = ({ actions }) => {
         date: date,
         message: message,
       })
-      const status = <p>Success.</p>
-      notify(status)
+      const status = <MessageSuccess />
+      notify(status, actions)
     } catch (err) {
-      const status = <p>Failed.</p>
-      notify(status)
+      const status = <MessageFailed />
+      notify(status, actions)
     }
   }
 
