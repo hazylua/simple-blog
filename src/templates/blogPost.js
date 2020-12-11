@@ -11,7 +11,6 @@ import "src/pages/styles/blog-post.css"
 
 const PostTemplate = ({ pageContext }) => {
   const { title, author, content, date, comments } = pageContext
-  const dateFormat = new Date(date)
   console.log(comments)
 
   return (
@@ -20,21 +19,41 @@ const PostTemplate = ({ pageContext }) => {
         <div className="post__header">
           <h1>{title}</h1>
           <div className="post__info">
-            <small>
-              <p>
-                <b>Author:</b> {author}
-              </p>
-              <p>
-                <b>Written on:</b> {dateFormat.toLocaleDateString("pt-br")}
-              </p>
-            </small>
+            <p>
+              <b>Author:</b> {author}
+            </p>
+            <p>
+              <b>Written on: {date}</b>
+            </p>
           </div>
         </div>
-
-        <Serializer value={content} />
+        <div className="rule"></div>
+        <div className="post__content">
+          <Serializer value={content} />
+        </div>
+        <div className="post-space"></div>
+        <div className="rule"></div>
+        <div className="post__comments">
+          <CommentBox location={title} comments={comments} />
+        </div>
       </div>
     </Layout>
   )
 }
+
+// export const query = graphql`
+//   query ContentQuery($path: String!) {
+//     markdownRemark(frontmatter: { path: { eq: $path } }) {
+//       html
+//       frontmatter {
+//         title
+//         date(formatString: "DD MMMM YYYY")
+//         path
+//         tags
+//         excerpt
+//       }
+//     }
+//   }
+// `
 
 export default PostTemplate
