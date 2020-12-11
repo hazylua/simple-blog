@@ -1,15 +1,23 @@
-.post-container {
-  border-bottom: 2px dotted var(--color-primary);
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-}
-
 .blog-container {
   width: 80%;
   margin: auto;
   padding: 1rem;
 }
 
-.post-list {
+.posts-container {
+  border-bottom: 2px dotted var(--color-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+}
+
+.posts-list {
   margin-top: 1rem;
+}
+
+.posts-info {
+  margin-bottom: 1rem;
+}
+.posts-info > p {
+  margin: 0;
+  font-size: 90;
 }

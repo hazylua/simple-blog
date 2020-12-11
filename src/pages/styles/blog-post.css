@@ -7,8 +7,26 @@
 .post__header {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
 }
 
 .post__info {
   text-align: right;
+}
+
+.post__info > p {
+  font-size: 90%;
+  margin: 0;
+}
+
+.post__content {
+  margin-top: 1rem;
+}
+
+.post__comments {
+  margin-top: 1rem;
+}
+
+.post-space {
+  min-height: 10vh;
 }
