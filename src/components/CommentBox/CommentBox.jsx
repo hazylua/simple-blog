@@ -72,17 +72,11 @@ const CommentForm = ({ update }) => {
 }
 
 const Comment = ({ author, children, timestamp }) => {
-  const rawMarkup = () => {
-    var md = new Remarkable()
-    var rawMarkup = md.render(children.toString())
-    return { __html: rawMarkup }
-  }
-
   return (
     <div className="comment">
       <h4 className="comment__author">Name: {author}</h4>
       <small className="comment__timestamp">{timestamp}</small>
-      <span dangerouslySetInnerHTML={rawMarkup()} />
+      <div>{children}</div>
     </div>
   )
 }
