@@ -1,6 +1,6 @@
 module.exports = {
-  user: require("./user"),
-  auth: require("./auth"),
+  register: require("./register"),
+  login: require("./login"),
   blog: require("./blog"),
   contact: require("./contact"),
 }

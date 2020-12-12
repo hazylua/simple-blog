@@ -9,9 +9,9 @@ const bcrypt = require("bcrypt")
 
 router.post("/", async (req, res) => {
   // Check for errors.
-  const { err } = validateUser(req.body)
-  if (err) {
-    return res.status(400).send(err.details[0].message)
+  const { error } = validateUser(req.body)
+  if (error) {
+    return res.status(400).send(error.details[0].message)
   }
   try {
     let name = await User.findOne({ name: req.body.name })
