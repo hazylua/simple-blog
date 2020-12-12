@@ -28,9 +28,10 @@ app.get("/", (req, res) => {
 app.use(cors())
 app.use(body_parser.urlencoded({ extended: true }))
 app.use(express.json())
-app.use("/api/user", routes.user)
-app.use("/api/auth", routes.auth)
-app.use("/api/blog", routes.blog)
+
+app.use("/api/user/login", routes.login)
+app.use("/api/user/register", routes.register)
+app.use("/api/content", routes.blog)
 app.use("/api/contact", routes.contact)
 
 app.listen(PORT, () => {
