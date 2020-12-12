@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Link } from "gatsby"
 
 import { bindActionCreators } from "redux"
@@ -26,7 +26,7 @@ const EnterIcon = () => {
   )
 }
 
-const Navbar = ({ UserSession, actions }) => {
+const Navbar = ({ UserSession }) => {
   return (
     <nav className="navbar-container">
       <div className="links-wrapper">
