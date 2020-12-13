@@ -20,19 +20,22 @@ mongoose
   .then(() => console.log(`Connected to MongoDB.`))
   .catch(err => console.error(`Error:\n${err}.`))
 
+app.use(cors())
+app.use(body_parser.urlencoded({ extended: true }))
+app.use(express.json())
+
 // Default response from '/'.
 app.get("/", (req, res) => {
   res.send(`Express server at port ${PORT}.`)
 })
 
-app.use(cors())
-app.use(body_parser.urlencoded({ extended: true }))
-app.use(express.json())
+// User services - route prefix: /api/user/
+app.use("/user/login", routes.login)
+app.use("/user/register", routes.register)
 
-app.use("/api/user/login", routes.login)
-app.use("/api/user/register", routes.register)
-app.use("/api/content", routes.blog)
-app.use("/api/contact", routes.contact)
+// Blog services - route prefix: /api/blog/
+app.use("/blog/content", routes.blog)
+app.use("/blog/contact", routes.contact)
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}.`)
