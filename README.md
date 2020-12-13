@@ -4,7 +4,7 @@ Medium like blog page. See the TODO.md for what needs to be implemented.
 
 `server` folder:
 
-- `models`: guarantees integrity;
-- `controller`: responsible for handling data;
-- `middleware`: guarantees proper data handling;
+- `models`: guarantees integrity of data;
+- `controllers`: responsible for handling data;
+- `middleware`: guarantees proper handling of data;
 - `routes`: defines routes.
