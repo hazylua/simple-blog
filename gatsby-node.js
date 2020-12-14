@@ -1,21 +1,31 @@
 const path = require("path")
-const { default: Axios } = require("axios")
+const axios = require("axios").default
 
-const getAllPosts = async () => {
+const api = () => {
+  return axios.create({
+    baseURL: "http://localhost:5000/",
+    timeout: 5000,
+  })
+}
+
+const getAllBlogPosts = async () => {
   try {
-    const response = await Axios.get("http://localhost:5000/api/blog", {})
+    const response = await api().get("/blog/content")
     const data = await response.data
     return data
   } catch (err) {
-    console.log(err)
+    if (err.response) {
+      console.log(err.response.data)
+    }
   }
 }
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const PostTemplate = path.resolve("src/templates/blogPost.js")
-  const posts = await getAllPosts()
+  const PostTemplate = path.resolve("src/templates/blog-post.js")
+
+  const posts = await getAllBlogPosts()
 
   let paths = []
   const postPathPrefix = "posts/"
