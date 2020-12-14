@@ -1,22 +1,22 @@
 require("dotenv").config()
 
-const PORT = process.env.PORT
-const DB_URL = process.env.DB_URL
+const PORT = 5000
+const uri = process.env.DB_URL
 
 const express = require("express")
 const cors = require("cors")
 const body_parser = require("body-parser")
 
-// MongoDB.
-const mongoose = require("mongoose")
-
 // Routes.
 const routes = require("./routes")
+
+// MongoDB.
+const mongoose = require("mongoose")
 
 const app = express()
 
 mongoose
-  .connect(`${DB_URL}`)
+  .connect(`${uri}`, { useNewUrlParser: true })
   .then(() => console.log(`Connected to MongoDB.`))
   .catch(err => console.error(`Error:\n${err}.`))
 
@@ -38,5 +38,5 @@ app.use("/blog/content", routes.blog)
 app.use("/blog/contact", routes.contact)
 
 app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}.`)
+  console.log(`Server started.`)
 })
