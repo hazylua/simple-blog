@@ -16,7 +16,11 @@ const mongoose = require("mongoose")
 const app = express()
 
 mongoose
-  .connect(`${uri}`, { useNewUrlParser: true })
+  .connect(`${uri}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  })
   .then(() => console.log(`Connected to MongoDB.`))
   .catch(err => console.error(`Error:\n${err}.`))
 
