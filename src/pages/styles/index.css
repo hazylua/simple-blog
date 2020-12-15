@@ -84,3 +84,13 @@ p {
   justify-content: space-between;
   border-bottom: solid var(--color-primary) 2px;
 }
+
+.home__description {
+  border-bottom: dotted 2px var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.info__body > p,
+.post__body > p {
+  text-indent: 50px;
+}

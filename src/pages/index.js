@@ -10,23 +10,36 @@ const Home = ({ title, description }) => {
   return (
     <div className="home-container light-bg border">
       <h2>Home - {title}</h2>
-      <div>
+      <div className="home__description">
         <p>{description}</p>
+      </div>
+      <div className="info__body">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan
           quam vel justo semper, eget pharetra diam aliquam. Integer nec tortor
           at dui tempor auctor. Maecenas nibh nisl, volutpat at sapien ac,
-          laoreet eleifend nisi. Duis sollicitudin lectus pharetra metus
-          hendrerit, et sagittis neque egestas. Quisque porttitor, velit ac
-          volutpat aliquet, lorem sapien fermentum ligula, ut dictum risus ipsum
-          id ante. Pellentesque fringilla venenatis ante, condimentum blandit
-          purus. Nunc facilisis, nibh vel sagittis rhoncus, urna nunc feugiat
-          nisl, id dictum lorem ex id arcu. Aenean blandit eleifend
-          pellentesque. Quisque ultricies finibus diam, vitae tempor leo aliquet
-          at. Nulla nec tortor lectus. Aenean placerat, mi vitae maximus
-          egestas, sapien lacus condimentum mauris, eget elementum diam lorem
-          vitae turpis. Vestibulum sed iaculis dui. Fusce dignissim eros est,
-          semper sagittis nulla congue eget. Sed tincidunt facilisis maximus.
+          laoreet eleifend nisi.
+        </p>
+        <p>
+          Duis sollicitudin lectus pharetra metus hendrerit, et sagittis neque
+          egestas. Quisque porttitor, velit ac volutpat aliquet, lorem sapien
+          fermentum ligula, ut dictum risus ipsum id ante. Pellentesque
+          fringilla venenatis ante, condimentum blandit purus. Nunc facilisis,
+          nibh vel sagittis rhoncus, urna nunc feugiat nisl, id dictum lorem ex
+          id arcu.
+        </p>
+        <p>
+          Aenean blandit eleifend pellentesque. Quisque ultricies finibus diam,
+          vitae tempor leo aliquet at.
+        </p>
+        <p>
+          Nulla nec tortor lectus. Aenean placerat, mi vitae maximus egestas,
+          sapien lacus condimentum mauris, eget elementum diam lorem vitae
+          turpis.
+        </p>
+        <p>
+          Vestibulum sed iaculis dui. Fusce dignissim eros est, semper sagittis
+          nulla congue eget. Sed tincidunt facilisis maximus.
         </p>
       </div>
     </div>
