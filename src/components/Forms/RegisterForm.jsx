@@ -38,7 +38,6 @@ const RegisterForm = ({ actions }) => {
         <form className="register-form">
           Your username:
           <input
-            label="username"
             type="text"
             onChange={e =>
               setRegisterBody({
@@ -49,7 +48,6 @@ const RegisterForm = ({ actions }) => {
           />
           Your e-mail address:
           <input
-            label="email"
             type="text"
             onChange={e =>
               setRegisterBody({
@@ -60,7 +58,6 @@ const RegisterForm = ({ actions }) => {
           />
           Your password:
           <input
-            label="pw"
             type="password"
             onChange={e =>
               setRegisterBody({
