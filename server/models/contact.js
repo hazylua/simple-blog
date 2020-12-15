@@ -12,11 +12,13 @@ const formSchema = new mongoose.Schema(
     date: {
       type: Date,
       default: Date.now,
+      required: true,
     },
-    mail: {
+    email: {
       type: String,
+      required: true,
     },
-    message: {
+    body: {
       // Change later, if using 'Slate'.
       type: String,
       required: true,
@@ -27,10 +29,10 @@ const formSchema = new mongoose.Schema(
 
 const ContactForm = mongoose.model("ContactForm", formSchema)
 
-const joi_author_msgs = {
-  "any.required": `A name needs to be provided.`,
-  "string.base": `The name should be of type "text".`,
-  "string.empty": `The name should not be empty.`,
+const joi_subject_msgs = {
+  "any.required": `A subject needs to be provided.`,
+  "string.base": `The subject should be of type "text".`,
+  "string.empty": `The subject should not be empty.`,
 }
 
 const joi_date_msgs = {
@@ -53,7 +55,7 @@ const joi_body_msgs = {
 
 const validateForm = bodyForm => {
   const schema = Joi.object({
-    author: Joi.string().required().messages(joi_author_msgs),
+    subject: Joi.string().required().messages(joi_subject_msgs),
     date: Joi.date().required().messages(joi_date_msgs),
     email: Joi.string().email().messages(joi_email_msgs),
     body: Joi.string().required().messages(joi_body_msgs),
