@@ -7,5 +7,7 @@ export const userRegister = body => {
 }
 
 export const userLogin = body => {
-  return api().post("/user/login", body)
+  return api().post("/user/login", body, {
+    withCredentials: true,
+  })
 }

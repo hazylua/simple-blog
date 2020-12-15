@@ -6,6 +6,12 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const _ = require("lodash")
 
+const addHoursToNow = h => {
+  var date = new Date()
+  date.setTime(+date + h * 3600000)
+  return date
+}
+
 const userLogin = async (req, res) => {
   try {
     let user_info = await User.findOne({ email: req.body.email })
@@ -27,10 +33,22 @@ const userLogin = async (req, res) => {
 
     // Send token.
     const token = jwt.sign({ _id: user_info._id }, process.env.PRIVATE_KEY)
-    res.send(token)
+    const token_expire = 2
+    const token_cookie = {
+      expires: addHoursToNow(token_expire),
+      path: "/",
+      sameSite: "None",
+      secure: true,
+      httpOnly: true,
+    }
+    res.cookie("token", token, token_cookie).status(200).send({
+      user: user_info.name,
+      email: user_info.email,
+      admin: user_info.admin,
+    })
   } catch (err) {
     console.log(err)
-    res.status(400).send(err)
+    res.status(400).send(`An error has occurred.`)
   }
 }
 

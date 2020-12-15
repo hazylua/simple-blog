@@ -15,22 +15,6 @@ const notify = (status, actions) => {
   addSnackbar(options)
 }
 
-const writeTokenToCookie = token => {
-  // In hours.
-  const expireTime = 2
-  var date = new Date()
-  date.setTime(+date + expireTime * 3600000)
-
-  document.cookie =
-    "token=" +
-    token +
-    ";expires=" +
-    date.toGMTString() +
-    ";path=/" +
-    ";SameSite=None" +
-    ";Secure"
-}
-
 const LoginForm = ({ actions }) => {
   const [loginBody, setLoginBody] = useState({
     email: "",
@@ -39,14 +23,14 @@ const LoginForm = ({ actions }) => {
 
   const handleLogin = async credentials => {
     const { authSession } = actions
-    console.log(credentials)
+
     try {
       const response = await userLogin(credentials)
-      const token = response.data
-      writeTokenToCookie(token)
-      authSession(token, "User")
+      const user_data = await response.data
+
+      authSession(user_data.user, user_data.email, user_data.admin)
       notify("Logged in sucessfully.", actions)
-      navigate("/")
+      // navigate("/")
     } catch (err) {
       if (err.response) notify(`${err.response.data}`, actions)
       else console.log(err.response)
@@ -60,7 +44,6 @@ const LoginForm = ({ actions }) => {
         <form className="login-form">
           Your e-mail address:
           <input
-            label="email"
             type="text"
             onChange={e =>
               setLoginBody({ ...loginBody, email: e.target.value })
@@ -68,7 +51,6 @@ const LoginForm = ({ actions }) => {
           />
           Your password:
           <input
-            label="pw"
             type="password"
             onChange={e =>
               setLoginBody({ ...loginBody, password: e.target.value })
