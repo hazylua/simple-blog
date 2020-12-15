@@ -17,9 +17,11 @@ const PageRow = ({ maxResultsPerPage, itemsNum, setPage }) => {
   }
   return (
     <div>
-      {buttons.map(button => {
-        return button
-      })}
+      {buttons.length > 1
+        ? buttons.map(button => {
+            return button
+          })
+        : null}
     </div>
   )
 }
