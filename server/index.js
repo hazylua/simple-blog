@@ -7,6 +7,14 @@ const express = require("express")
 const cors = require("cors")
 const body_parser = require("body-parser")
 
+// CORS options.
+const corsOptions = {
+  origin: `http://localhost:8000`,
+  methods: "GET,POST,PATCH,DELETE,OPTIONS",
+  optionsSuccessStatus: 200,
+  credentials: true,
+}
+
 // Routes.
 const routes = require("./routes")
 
@@ -24,7 +32,7 @@ mongoose
   .then(() => console.log(`Connected to MongoDB.`))
   .catch(err => console.error(`Error:\n${err}.`))
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(body_parser.urlencoded({ extended: true }))
 app.use(express.json())
 
