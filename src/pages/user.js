@@ -1,8 +1,10 @@
-import { authSession, addSnackbar } from "src/store/actions"
-import { bindActionCreators } from "redux"
-import { connect } from "react-redux"
-
 import React from "react"
+
+import PropTypes from "prop-types"
+
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { authSession, addSnackbar } from "src/store/actions"
 
 import Navbar from "src/components/Navbar"
 import { LoginForm, RegisterForm } from "src/components/Forms"
@@ -26,6 +28,12 @@ const User = ({ actions }) => {
       </div>
     </>
   )
+}
+
+User.propTypes = {
+  actions: PropTypes.shape({
+    addSnackbar: PropTypes.func.isRequired,
+  }).isRequired,
 }
 
 const mapDispatchToProps = dispatch => ({
