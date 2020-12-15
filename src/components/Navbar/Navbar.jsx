@@ -1,9 +1,8 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { bindActionCreators } from "redux"
+// import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
-import { authSession } from "src/store/actions"
 
 import "./Navbar.css"
 
@@ -60,8 +59,8 @@ const mapStateToProps = state => ({
   UserSession: state.UserSession,
 })
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ authSession }, dispatch),
-})
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators({ authSession }, dispatch),
+// })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+export default connect(mapStateToProps, null)(Navbar)
