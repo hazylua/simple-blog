@@ -20,16 +20,22 @@ export const removeSnackbar = id => {
   }
 }
 
-export const authSession = (token, user) => {
+export const authSession = (user, email, admin, date_expire) => {
   return {
-    payload: { user: user, auth: true, token: token },
+    payload: {
+      user: user,
+      email: email,
+      admin: admin,
+      auth: true,
+      date_expire: date_expire,
+    },
     type: AUTH_SESSION,
   }
 }
 
-export const leaveSession = user => {
+export const leaveSession = () => {
   return {
-    payload: user,
+    payload: null,
     type: LEAVE_SESSION,
   }
 }

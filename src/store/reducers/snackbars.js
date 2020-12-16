@@ -9,7 +9,6 @@ const snackbars = (state = [], action) => {
   const { payload, type } = action
   switch (type) {
     case ADD_SNACKBAR:
-      console.log(state)
       return [payload, ...state]
     case REMOVE_SNACKBAR:
       return state.filter(snackbar => snackbar.id !== payload)
