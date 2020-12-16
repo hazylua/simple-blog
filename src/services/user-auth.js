@@ -11,3 +11,9 @@ export const userLogin = body => {
     withCredentials: true,
   })
 }
+
+export const tokenCheck = () => {
+  return api().get("/user/login", {
+    withCredentials: true,
+  })
+}
