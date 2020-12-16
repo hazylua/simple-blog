@@ -1,6 +1,7 @@
 import React from "react"
 import { Provider } from "react-redux"
 import { Snackbars } from "src/components/Snackbar"
+import { AuthChecker } from "src/components/Auth"
 
 import createStore from "src/store"
 
@@ -13,8 +14,10 @@ export default ({ element }) => {
   return (
     <>
       <Provider store={store}>
-        <Snackbars />
-        {element}
+        <AuthChecker>
+          <Snackbars />
+          {element}
+        </AuthChecker>
       </Provider>
     </>
   )
