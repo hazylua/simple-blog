@@ -27,8 +27,12 @@ const LoginForm = ({ actions }) => {
     try {
       const response = await userLogin(credentials)
       const user_data = await response.data
-
-      authSession(user_data.user, user_data.email, user_data.admin)
+      authSession(
+        user_data.user,
+        user_data.email,
+        user_data.admin,
+        user_data.date_expire
+      )
       notify("Logged in sucessfully.", actions)
       // navigate("/")
     } catch (err) {
