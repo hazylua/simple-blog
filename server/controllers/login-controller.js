@@ -31,21 +31,30 @@ const userLogin = async (req, res) => {
       process.exit(1)
     }
 
-    // Send token.
-    const token = jwt.sign({ _id: user_info._id }, process.env.PRIVATE_KEY)
+    const sign_data = {
+      user: user_info.name,
+      email: user_info.email,
+      admin: user_info.admin,
+    }
+
+    // In hours.
     const token_expire = 2
+    const date_expire = addHoursToNow(token_expire)
+    // Send token.
+    const token = jwt.sign({ ...sign_data }, process.env.PRIVATE_KEY, {
+      expiresIn: `${token_expire}h`,
+    })
     const token_cookie = {
-      expires: addHoursToNow(token_expire),
+      expires: date_expire,
       path: "/",
       sameSite: "None",
       secure: true,
       httpOnly: true,
     }
-    res.cookie("token", token, token_cookie).status(200).send({
-      user: user_info.name,
-      email: user_info.email,
-      admin: user_info.admin,
-    })
+    res
+      .cookie("token", token, token_cookie)
+      .status(200)
+      .send({ ...sign_data, date_expire: date_expire })
   } catch (err) {
     console.log(err)
     res.status(400).send(`An error has occurred.`)
