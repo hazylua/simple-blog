@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react"
-import { graphql, Link } from "gatsby"
-
-import axios from "axios"
+import React from "react"
 
 import Layout from "src/components/Layout"
 import CommentBox from "src/components/CommentBox"
@@ -11,7 +8,6 @@ import "src/pages/styles/blog-post.css"
 
 const PostTemplate = ({ pageContext }) => {
   const { title, author, content, date, comments } = pageContext
-  console.log(comments)
 
   return (
     <Layout>
@@ -40,20 +36,5 @@ const PostTemplate = ({ pageContext }) => {
     </Layout>
   )
 }
-
-// export const query = graphql`
-//   query ContentQuery($path: String!) {
-//     markdownRemark(frontmatter: { path: { eq: $path } }) {
-//       html
-//       frontmatter {
-//         title
-//         date(formatString: "DD MMMM YYYY")
-//         path
-//         tags
-//         excerpt
-//       }
-//     }
-//   }
-// `
 
 export default PostTemplate
