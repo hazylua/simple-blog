@@ -2,6 +2,8 @@ import React, { useEffect } from "react"
 
 import PropTypes from "prop-types"
 
+import { Loading } from "../Loading"
+
 import { authSession, leaveSession } from "src/store/actions"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux"
@@ -35,7 +37,7 @@ const AuthChecker = ({ UserSession, actions, children }) => {
     getUser()
   }, [])
 
-  return <>{children}</>
+  return <>{UserSession.auth !== null ? children : <Loading />}</>
 }
 
 const mapStateToProps = state => ({
