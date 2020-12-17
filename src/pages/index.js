@@ -1,5 +1,5 @@
-import React from "react"
-import { graphql, Link } from "gatsby"
+import React, { useState } from "react"
+import { graphql, Link, navigate } from "gatsby"
 
 import Layout from "src/components/Layout"
 import SearchBar from "src/components/SearchBar"
@@ -47,10 +47,29 @@ const Home = ({ title, description }) => {
 }
 
 const PostHistory = ({ edges }) => {
+  const [query, setQuery] = useState("")
+
+  const handleEnterDown = e => {
+    console.log(e.target)
+    if (e.key === "Enter") {
+      e.preventDefault()
+      navigate("/search", { state: { query } })
+    }
+  }
+
+  const handleChange = e => {
+    console.log(e.target)
+    setQuery(e.target.value)
+  }
+
   const listSize = 3
   return (
     <div className="history-container light-bg border">
-      <SearchBar size={30} />
+      <SearchBar
+        handleChange={e => handleChange(e)}
+        handleEnterDown={e => handleEnterDown(e)}
+        size={30}
+      />
       <h2 className="title-bordered">Post History</h2>
       <div>
         <p>
