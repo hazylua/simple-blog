@@ -26,8 +26,9 @@ const Snackbar = React.memo(({ id, style, message, displayTime, clear }) => {
     setNotif(
       setTimeout(() => {
         clear(id)
-      }, displayTime + 500)
+      }, displayTime + 1000)
     )
+    setTimeout(() => unMountStyle(), displayTime)
     return () => {
       setNotif(clearTimeout(notif))
     }
@@ -37,9 +38,9 @@ const Snackbar = React.memo(({ id, style, message, displayTime, clear }) => {
     setMount({ ...mount, transition: "all 1s ease", opacity: 1 })
   }
 
-  // const unMountStyle = () => {
-  //   setMount({ ...mount, transition: "all 1s ease", opacity: 0 })
-  // }
+  const unMountStyle = () => {
+    setMount({ ...mount, transition: "all 1s ease", opacity: 0 })
+  }
 
   return (
     <div className="snackbar" style={{ ...chooseStyle(style), ...mount }}>

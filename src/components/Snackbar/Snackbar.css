@@ -1,11 +1,12 @@
 .snackbar {
-  background-color: rgba(var(--color-primary-dark-rgb), 0.5);
+  background-color: rgba(var(--color-primary-dark-rgb), 0.9);
   border-radius: 30px;
   border: 1px solid var(--color-primary-light);
   color: var(--color-text-light);
   outline-offset: 5px;
+  overflow: hidden;
   padding: 10px 20px;
-  position: absolute;
+  position: fixed;
   text-align: center;
   transition: filter 50ms ease, background-color 50ms ease;
 }
