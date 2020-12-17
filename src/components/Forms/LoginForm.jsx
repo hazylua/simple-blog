@@ -3,17 +3,9 @@ import { navigate } from "gatsby"
 
 import { userLogin } from "src/services/user-auth"
 
-import "./LoginForm.css"
+import { notify } from "src/services/snackbar-notify"
 
-const notify = (status, actions) => {
-  const { addSnackbar } = actions
-  const options = {
-    message: status,
-    style: "middle",
-    displayTime: 2000,
-  }
-  addSnackbar(options)
-}
+import "./LoginForm.css"
 
 const LoginForm = ({ actions }) => {
   const [loginBody, setLoginBody] = useState({
@@ -33,11 +25,11 @@ const LoginForm = ({ actions }) => {
         user_data.admin,
         user_data.date_expire
       )
-      notify("Logged in sucessfully.", actions)
-      // navigate("/")
+      notify("Logged in sucessfully.", actions, "middle", 2000)
+      navigate("/")
     } catch (err) {
-      if (err.response) notify(`${err.response.data}`, actions)
-      else console.log(err.response)
+      if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
+      else console.log(err)
     }
   }
 

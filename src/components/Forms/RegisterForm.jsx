@@ -2,17 +2,9 @@ import React, { useState } from "react"
 
 import { userRegister } from "src/services/user-auth"
 
-import "./RegisterForm.css"
+import { notify } from "src/services/snackbar-notify"
 
-const notify = (status, actions) => {
-  const { addSnackbar } = actions
-  const options = {
-    message: status,
-    style: "middle",
-    displayTime: 2000,
-  }
-  addSnackbar(options)
-}
+import "./RegisterForm.css"
 
 const RegisterForm = ({ actions }) => {
   const [registerBody, setRegisterBody] = useState({
@@ -24,9 +16,14 @@ const RegisterForm = ({ actions }) => {
   const handleRegister = async credentials => {
     try {
       const response = await userRegister(credentials)
-      notify("Registration complete. You may now login.", actions)
+      notify(
+        "Registration complete. You may now login.",
+        actions,
+        "middle",
+        2000
+      )
     } catch (err) {
-      if (err.response) notify(`${err.response.data}`, actions)
+      if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
       else console.log(err)
     }
   }

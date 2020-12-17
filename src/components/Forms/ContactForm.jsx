@@ -2,17 +2,9 @@ import React, { useState } from "react"
 
 import { contactSubmit } from "src/services/contact"
 
-import "./ContactForm.css"
+import { notify } from "src/services/snackbar-notify"
 
-const notify = (status, actions) => {
-  const { addSnackbar } = actions
-  const options = {
-    message: status,
-    style: "middle",
-    displayTime: 2000,
-  }
-  addSnackbar(options)
-}
+import "./ContactForm.css"
 
 const ContactForm = ({ actions }) => {
   const [contactBody, setContactBody] = useState({
@@ -28,7 +20,7 @@ const ContactForm = ({ actions }) => {
       const response = await contactSubmit({ ...body, date: date })
       notify(`Contact message sent.`, actions)
     } catch (err) {
-      if (err.response) notify(`${err.response.data}`, actions)
+      if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
     }
   }
 
@@ -36,7 +28,7 @@ const ContactForm = ({ actions }) => {
     <>
       <form className="contact-form" onSubmit={handleContactSubmit}>
         <input
-          placeholder="A subject."
+          placeholder="The subject."
           type="text"
           onChange={e =>
             setContactBody({ ...contactBody, subject: e.target.value })
