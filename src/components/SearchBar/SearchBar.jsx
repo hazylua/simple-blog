@@ -7,15 +7,24 @@ const SearchIcon = ({ size }) => {
   return <AiOutlineSearch className="search__icon" size={size} />
 }
 
-const SearchInput = () => {
-  return <input className="search__input" />
+const SearchInput = ({ handleChange, handleEnterDown }) => {
+  return (
+    <input
+      onKeyDown={handleEnterDown}
+      onChange={handleChange}
+      className="search__input"
+    />
+  )
 }
 
-const SearchBar = ({ size }) => {
+const SearchBar = ({ size, handleChange, handleEnterDown }) => {
   return (
     <div className="search__wrapper">
       <SearchIcon size={size} />
-      <SearchInput />
+      <SearchInput
+        handleChange={handleChange}
+        handleEnterDown={handleEnterDown}
+      />
     </div>
   )
 }
