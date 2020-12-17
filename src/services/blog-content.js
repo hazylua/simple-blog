@@ -5,5 +5,13 @@ import api from "./api"
 // }
 
 export const postSubmit = body => {
-  return api().post("/blog/content", body)
+  return api().post("/blog/content", body, { withCredentials: true })
+}
+
+export const commentSubmit = body => {
+  return api().post("/blog/comment", body, { withCredentials: true })
+}
+
+export const commentsGetAll = body => {
+  return api().get("/blog/comment", body)
 }
