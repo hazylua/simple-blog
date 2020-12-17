@@ -4,7 +4,7 @@ const defaultState = {
   user: null,
   email: null,
   admin: false,
-  auth: false,
+  auth: null,
   date_expire: null,
 }
 
@@ -12,7 +12,7 @@ const UserSession = (state = defaultState, action) => {
   const { payload, type } = action
   switch (type) {
     case AUTH_SESSION:
-      console.log(state)
+      // console.log(state)
       return {
         user: payload.user,
         email: payload.email,
