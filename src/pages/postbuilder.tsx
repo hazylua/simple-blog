@@ -1,14 +1,21 @@
 import React, { useCallback, useMemo, useState } from "react"
 
-import axios from "axios"
+import PropTypes from "prop-types"
+
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { addSnackbar } from "../store/actions"
 
 import isHotkey from "is-hotkey"
 import { Editable, withReact, Slate } from "slate-react"
-import { Editor, createEditor, Node, Text } from "slate"
+import { Editor, createEditor, Node } from "slate"
 import { withHistory } from "slate-history"
 
-import Layout from "src/components/Layout"
-import Snackbar from "src/components/Snackbar"
+import Layout from "../components/Layout"
+import { PrivateRoute } from "../components/Auth"
+
+import { postSubmit } from "../services/blog-content"
+import { notify } from "../services/snackbar-notify"
 
 import "./styles/postbuilder.css"
 
@@ -33,7 +40,7 @@ const initialValue = [
   },
 ]
 
-const PostBuilder = () => {
+const PostBuilder = ({ UserSession, actions }) => {
   const [title, setTitle] = useState("")
   const [value, setValue] = useState<Node[]>(initialValue)
 
@@ -41,62 +48,67 @@ const PostBuilder = () => {
   const renderLeaf = useCallback(props => <Leaf {...props} />, [])
   const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
-  const newPost = async post => {
+  const handlePost = async () => {
     try {
-      const response = await axios.post(`http://localhost:5000/api/blog`, post)
+      const postBody = {
+        title: title,
+        author: UserSession.user,
+        date: new Date(),
+        body: value,
+      }
+      const response = await postSubmit(postBody)
       console.log(response.data)
+      notify("Post submitted.", actions, "middle", 2000)
     } catch (err) {
-     console.log(err)
+      if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
+      else console.log(err)
     }
   }
 
   return (
-    <Layout>
-      <div className="edit-area">
-        <div>
-          <input
-            className="post__title"
-            placeholder="Your title here."
-            onChange={e => setTitle(e.target.value)}
-          />
-          <Slate
-            editor={editor}
-            value={value}
-            onChange={value => setValue(value)}
-          >
-            <Editable
-              renderElement={renderElement}
-              renderLeaf={renderLeaf}
-              placeholder="Enter some rich text…"
-              spellCheck
-              autoFocus
-              onKeyDown={event => {
-                for (const hotkey in HOTKEYS) {
-                  if (isHotkey(hotkey, event as any)) {
-                    event.preventDefault()
-                    const mark = HOTKEYS[hotkey]
-                    toggleMark(editor, mark)
-                  }
-                }
-              }}
-            />
-          </Slate>
+    <PrivateRoute>
+      <Layout>
+        <div className="edit-area">
+          <div>
+            <div className="post__title border">
+              <input
+                placeholder="Your title here."
+                onChange={e => setTitle(e.target.value)}
+              />
+            </div>
+
+            <Slate
+              className="border"
+              editor={editor}
+              value={value}
+              onChange={value => setValue(value)}
+            >
+              <div className="post__editor border">
+                <Editable
+                  renderElement={renderElement}
+                  renderLeaf={renderLeaf}
+                  placeholder="Enter some rich text…"
+                  spellCheck
+                  autoFocus
+                  onKeyDown={event => {
+                    for (const hotkey in HOTKEYS) {
+                      if (isHotkey(hotkey, event as any)) {
+                        event.preventDefault()
+                        const mark = HOTKEYS[hotkey]
+                        toggleMark(editor, mark)
+                      }
+                    }
+                  }}
+                />
+              </div>
+            </Slate>
+          </div>
+          <button className="post__submit" onClick={() => handlePost()}>
+            Post
+          </button>
         </div>
-        <button
-          className="post__submit"
-          onClick={() =>
-            newPost({
-              title: title,
-              author: "No one",
-              date: Date.now,
-              body: value,
-            })
-          }
-        >
-          Post
-        </button>
-      </div>
-    </Layout>
+      </Layout>
+    </PrivateRoute>
   )
 }
 
@@ -154,4 +166,18 @@ const Leaf = ({ attributes, children, leaf }) => {
   return <span {...attributes}>{children}</span>
 }
 
-export default PostBuilder
+const mapStateToProps = state => ({
+  UserSession: state.UserSession,
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ addSnackbar }, dispatch),
+})
+
+PostBuilder.propTypes = {
+  actions: PropTypes.shape({
+    addSnackbar: PropTypes.func.isRequired,
+  }).isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostBuilder)
