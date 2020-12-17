@@ -5,7 +5,6 @@ import PropTypes from "prop-types"
 import _ from "lodash"
 
 import { BiLogOut, BiPencil } from "react-icons/bi"
-import { FaPencilAlt } from "react-icons/fa"
 
 import { addSnackbar, leaveSession } from "src/store/actions"
 import { bindActionCreators } from "redux"
@@ -14,13 +13,24 @@ import { connect } from "react-redux"
 import Layout from "src/components/Layout"
 import { PrivateRoute } from "src/components/Auth"
 
+import { notify } from "src/services/snackbar-notify"
+import { userLogout } from "src/services/user-auth"
+
 import "./styles/profile.css"
 
 const Profile = ({ UserSession, actions }) => {
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     const { leaveSession } = actions
-    leaveSession()
-    navigate("/")
+    try {
+      const response = await userLogout()
+      if (response) {
+        notify(`Logged out.`, actions, "middle", 2000)
+        leaveSession()
+        navigate("/")
+      }
+    } catch (err) {
+      notify(`An error happened.`, actions, "middle", 2000)
+    }
   }
 
   return (
@@ -44,9 +54,19 @@ const Profile = ({ UserSession, actions }) => {
               </div>
             </div>
             <div className="profile__body light-bg border">
-              <p>Your username: {UserSession.user}</p>
-              <p>Your e-mail: {UserSession.email}</p>
-              <p>User status: {UserSession.admin ? "admin" : "regular user"}</p>
+              <h2 className="user-info">User Information</h2>
+              <p>
+                <b>Your username</b>: {UserSession.user}
+              </p>
+              <p>
+                <b>Your e-mail</b>: {UserSession.email}
+              </p>
+              <p>
+                <b>User status</b>:{" "}
+                {UserSession.admin
+                  ? "is an administrator."
+                  : "is a regular user"}
+              </p>
             </div>
           </div>
         </Layout>

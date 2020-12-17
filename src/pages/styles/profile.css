@@ -44,3 +44,9 @@
 .profile-container > h1 {
   margin: 0;
 }
+
+.user-info {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: dotted 2px var(--color-primary);
+}
