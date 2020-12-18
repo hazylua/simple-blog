@@ -4,11 +4,6 @@
   max-width: 50%;
 }
 
-.comment-form__name {
-  margin-bottom: 10px;
-  padding: 10px;
-}
-
 .comment-form__comment {
   margin-bottom: 10px;
   padding: 10px;
@@ -17,7 +12,6 @@
 .comment-list {
   margin-top: 10px;
   padding: 1rem;
-  border: 1px solid black;
 }
 
 .comment-list-empty {
@@ -30,9 +24,31 @@
 }
 
 .comment__author {
+  text-decoration: underline;
   margin-bottom: 0;
 }
 
 .comment_timestamp {
   margin-bottom: 1rem;
+}
+
+.disabled {
+  color: var(--color-text-faded);
+}
+
+.comment-box__header {
+  border-bottom: dotted 2px var(--color-primary);
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comment__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.comment__body {
+  padding-bottom: 1rem;
 }

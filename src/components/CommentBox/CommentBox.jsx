@@ -1,22 +1,25 @@
-import axios from "axios"
 import React, { useState } from "react"
-import { Remarkable } from "remarkable"
+
+import { notify } from "src/services/snackbar-notify"
+import { commentSubmit } from "src/services/blog-content"
+
+import { v4 as uuidv4 } from "uuid"
 
 import "./CommentBox.css"
 
 const CommentList = ({ list }) => {
   const comments = list
   return (
-    <div className="comment-list">
+    <div className="comment-list border">
       {comments.length > 0 ? (
         comments.map(comment => {
           return (
             <Comment
-              key={comment.id}
-              author={comment.name}
-              timestamp={comment.timestamp}
+              key={uuidv4()}
+              author={comment.author}
+              timestamp={comment.date}
             >
-              {comment.comment}
+              {comment.body}
             </Comment>
           )
         })
@@ -29,44 +32,52 @@ const CommentList = ({ list }) => {
   )
 }
 
-const CommentForm = ({ update }) => {
-  const [name, setName] = useState("")
+const CommentForm = ({ actions, user, title }) => {
   const [comment, setComment] = useState("")
-
-  const updateName = e => setName(e.target.value)
-  const updateComment = e => setComment(e.target.value)
 
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      const body = { name: name, comment: comment }
-      const response = await axios({
-        method: "post",
-        url: "http://localhost:4000/comment",
-        data: body,
-      })
-      const data = await response
-      update(data)
+      const commentBody = {
+        title: title,
+        author: user.user,
+        date: new Date(),
+        body: comment,
+      }
+      const response = await commentSubmit(commentBody)
+      console.log(response)
+      notify(`Comment submitted.`, actions, "middle", 2000)
     } catch (err) {
-      alert(err)
+      if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
     }
   }
 
   return (
     <div>
-      <form className="comment-form" onSubmit={handleSubmit}>
-        <input
+      <form className="comment-form">
+        {/* <input
           className="comment-form__name"
-          placeholder="Name"
-          onChange={updateName}
-        ></input>
+          onChange={e => setName(e.target.value)}
+        /> */}
+        {user.auth ? (
+          <p>
+            <b>User:</b> {user.user}
+          </p>
+        ) : (
+          <p className="disabled">
+            You must login before commenting on a post.
+          </p>
+        )}
         <textarea
+          disabled={!user.auth}
           className="comment-form__comment"
-          placeholder="Comment"
-          onChange={updateComment}
+          placeholder="Write something here!"
+          onChange={e => setComment(e.target.value)}
         ></textarea>
-        <button>Submit</button>
       </form>
+      <button disabled={!user.auth} onClick={e => handleSubmit(e)}>
+        Submit
+      </button>
     </div>
   )
 }
@@ -74,22 +85,30 @@ const CommentForm = ({ update }) => {
 const Comment = ({ author, children, timestamp }) => {
   return (
     <div className="comment">
-      <h4 className="comment__author">Name: {author}</h4>
-      <small className="comment__timestamp">{timestamp}</small>
-      <div>{children}</div>
+      <div className="comment__header">
+        <p className="comment__author">{author}:</p>
+        <small className="comment__timestamp">
+          {new Date(timestamp).toLocaleString("pt-br")}
+        </small>
+      </div>
+      <div className="comment__body">{children}</div>
     </div>
   )
 }
 
-const CommentBox = ({ location, comments, setComments }) => {
+const CommentBox = ({ location, comments, actions, user }) => {
   return (
     <div className="comment-box">
-      <h3>
-        Comments - "<b>{location}</b>"
-      </h3>
-      <p>Post your thoughts about this post!</p>
-      <CommentForm update={setComments} />
-      <CommentList list={comments} />
+      <div className="comment-box__header">
+        <h3>
+          Comments - "<b>{location}</b>"
+        </h3>
+        <p>Post your thoughts below!</p>
+      </div>
+      <div className="comment-box__body">
+        <CommentForm title={location} actions={actions} user={user} />
+        <CommentList list={comments} />
+      </div>
     </div>
   )
 }

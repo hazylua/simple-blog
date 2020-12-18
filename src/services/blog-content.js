@@ -12,6 +12,6 @@ export const commentSubmit = body => {
   return api().post("/blog/comment", body, { withCredentials: true })
 }
 
-export const commentsGetAll = body => {
-  return api().get("/blog/comment", body)
+export const commentsGetByPageTitle = body => {
+  return api().get(`/blog/comment?title=${body}`)
 }

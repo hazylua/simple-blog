@@ -1,13 +1,34 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { addSnackbar } from "src/store/actions"
 
 import Layout from "src/components/Layout"
 import CommentBox from "src/components/CommentBox"
 import Serializer from "src/components/Serializer"
 
 import "src/pages/styles/blog-post.css"
+import { commentsGetByPageTitle } from "src/services/blog-content"
 
-const PostTemplate = ({ pageContext }) => {
-  const { title, author, content, date, comments } = pageContext
+const PostTemplate = ({ pageContext, actions, UserSession }) => {
+  const { title, author, content, date } = pageContext
+  const [comments, setComments] = useState([])
+
+  const handleComments = async () => {
+    try {
+      const response = await commentsGetByPageTitle(title)
+      const data = await response.data
+      console.log(data)
+      setComments(data)
+    } catch (err) {
+      if (err.response) console.log(err.response)
+    }
+  }
+
+  useEffect(() => {
+    handleComments()
+  }, [])
 
   return (
     <Layout>
@@ -30,11 +51,24 @@ const PostTemplate = ({ pageContext }) => {
         <div className="post-space"></div>
         <div className="rule"></div>
         <div className="post__comments">
-          <CommentBox location={title} comments={comments} />
+          <CommentBox
+            location={title}
+            comments={comments}
+            actions={actions}
+            user={UserSession}
+          />
         </div>
       </div>
     </Layout>
   )
 }
 
-export default PostTemplate
+const mapStateToProps = state => ({
+  UserSession: state.UserSession,
+})
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ addSnackbar }, dispatch),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostTemplate)
