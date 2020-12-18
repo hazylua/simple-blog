@@ -9,9 +9,11 @@ import { v4 as uuidv4 } from "uuid"
 const Serializer = ({ value }) => {
   const serialize = node => {
     if (Text.isText(node)) {
-      let text = <>{node.text}</>
-      if ("bold" in node && node["bold"] == true) text = <b>{text}</b>
-      if ("italic" in node && node["italic"] == true) text = <i>{text}</i>
+      let text = node.text
+      if ("bold" in node && node["bold"] == true)
+        text = <b key={uuidv4()}>{text}</b>
+      if ("italic" in node && node["italic"] == true)
+        text = <i key={uuidv4()}>{text}</i>
       return text
     }
 
