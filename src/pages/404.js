@@ -1,12 +1,16 @@
+import { Link } from "gatsby"
 import React from "react"
 
-import Layout from "src/components/Layout"
+import "./styles/404.css"
 
 const NotFoundPage = () => (
-  <Layout>
-    <h1>404</h1>
-    <h1>Page Not Found</h1>
-  </Layout>
+  <div className="not-found">
+    <h1>404 error.</h1>
+    <h1>Page not found!</h1>
+    <p>
+      <Link to="/">Click here to go back to the homepage.</Link>
+    </p>
+  </div>
 )
 
 export default NotFoundPage
