@@ -2,7 +2,7 @@ import axios from "axios"
 
 const api = () => {
   return axios.create({
-    baseURL: "http://localhost:5000/",
+    baseURL: "https://yb00-simple-blog-backend.herokuapp.com/",
     timeout: 5000,
   })
 }
