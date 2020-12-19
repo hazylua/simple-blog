@@ -14,7 +14,7 @@ const chooseStyle = style => {
   return {}
 }
 
-const Snackbar = React.memo(({ id, style, message, displayTime, clear }) => {
+const Snackbar = ({ id, style, message, displayTime, clear }) => {
   const [notif, setNotif] = useState(null)
   const [mount, setMount] = useState({
     opacity: 0,
@@ -47,7 +47,7 @@ const Snackbar = React.memo(({ id, style, message, displayTime, clear }) => {
       {message}
     </div>
   )
-})
+}
 
 Snackbar.propTypes = {
   id: PropTypes.any.isRequired,
