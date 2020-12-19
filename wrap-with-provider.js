@@ -12,13 +12,11 @@ export default ({ element }) => {
   //  - it will be called only once in browser, when React mounts
   const store = createStore()
   return (
-    <>
-      <Provider store={store}>
-        <AuthChecker>
-          <Snackbars />
-          {element}
-        </AuthChecker>
-      </Provider>
-    </>
+    <Provider store={store}>
+      <AuthChecker>
+        <Snackbars />
+        {element}
+      </AuthChecker>
+    </Provider>
   )
 }
