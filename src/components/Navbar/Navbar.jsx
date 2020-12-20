@@ -49,7 +49,7 @@ const Navbar = ({ UserSession }) => {
           Contact
         </Link>
         <span className="navbar-separator">/</span>
-        {UserSession.auth == true ? <ProfileIcon /> : <EnterIcon />}
+        {UserSession.auth === true ? <ProfileIcon /> : <EnterIcon />}
       </div>
     </nav>
   )

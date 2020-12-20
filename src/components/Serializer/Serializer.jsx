@@ -3,16 +3,16 @@
 // Where value is a state with Slate values.
 
 import React from "react"
-import { Editor, createEditor, Node, Text } from "slate"
+import { Text } from "slate"
 import { v4 as uuidv4 } from "uuid"
 
 const Serializer = ({ value }) => {
   const serialize = node => {
     if (Text.isText(node)) {
       let text = node.text
-      if ("bold" in node && node["bold"] == true)
+      if ("bold" in node && node["bold"] === true)
         text = <b key={uuidv4()}>{text}</b>
-      if ("italic" in node && node["italic"] == true)
+      if ("italic" in node && node["italic"] === true)
         text = <i key={uuidv4()}>{text}</i>
       return text
     }
@@ -23,7 +23,7 @@ const Serializer = ({ value }) => {
       case "paragraph":
         return <p key={uuidv4()}>{children}</p>
       case "link":
-        return <a href="${escapeHtml(node.url)}">{children}</a>
+        return <a href={node.url}>{children}</a>
       default:
         return children
     }
