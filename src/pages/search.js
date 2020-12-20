@@ -4,25 +4,13 @@ import { graphql, Link } from "gatsby"
 import Layout from "src/components/Layout"
 import PageRow from "src/components/PageRow"
 
+import "./styles/search.css"
+
 const Result = ({ title, path }) => {
   return (
-    <div
-      style={{
-        borderBottom: "1px dotted rgb(15, 15, 15)",
-        marginBottom: "1.45rem",
-        paddingBottom: "1rem",
-      }}
-    >
-      <h4 style={{ marginBottom: "1rem", color: "rgb(15, 15, 15)" }}>
-        {title}
-      </h4>
-      <Link
-        to={path}
-        style={{
-          textDecoration: "none",
-          color: "rebeccapurple",
-        }}
-      >
+    <div className="search-result">
+      <h4 className="search-result__title">{title}</h4>
+      <Link to={path} className="search-result__link">
         Read More
       </Link>
     </div>
@@ -58,7 +46,7 @@ const Search = ({ location, data }) => {
 
   return (
     <Layout>
-      <div className="main-body">
+      <div className="search-container border">
         <h3>Search Results</h3>
         <div>
           {results

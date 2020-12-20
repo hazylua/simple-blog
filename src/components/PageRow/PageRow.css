@@ -11,7 +11,3 @@
   transition: filter ease-in-out 500ms;
   width: 50px;
 }
-
-.page-select:hover {
-  filter: brightness(2);
-}

@@ -5,6 +5,7 @@
   padding: 0;
   box-sizing: inherit;
   -webkit-font-smoothing: antialiased;
+  -webkit-appearance: none;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -57,4 +58,17 @@ body {
   -ms-font-feature-settings: "kern", "liga", "clig", "calt";
   -webkit-font-feature-settings: "kern", "liga", "clig", "calt";
   font-feature-settings: "kern", "liga", "clig", "calt";
+}
+
+input {
+  outline: 0;
+}
+
+a {
+  outline: 0;
+  transition: ease filter 500ms;
+}
+
+a:hover {
+  filter: brightness(1.5);
 }

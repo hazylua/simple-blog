@@ -12,12 +12,8 @@ const Post = ({ title, author, date, path }) => {
     <div className="posts-container">
       <h3>{title}</h3>
       <div className="posts-info">
-        <p>
-          <i>Author</i>: {author}
-        </p>
-        <p>
-          <i>From</i>: {date}
-        </p>
+        <p>By: {author}</p>
+        <p>Posted on: {date}</p>
       </div>
       <Link to={path}>Read More</Link>
     </div>

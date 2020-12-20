@@ -16,8 +16,9 @@
 
 .posts-info {
   margin-bottom: 1rem;
+  color: var(--color-text-faded);
+  font-size: 16px;
 }
 .posts-info > p {
   margin: 0;
-  font-size: 90;
 }

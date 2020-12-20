@@ -16,12 +16,9 @@ textarea {
 }
 
 .contact-submit {
-  background: var(--color-primary-dark);
-  border-radius: 5px;
+  background-color: var(--color-primary-light);
   border: none;
-  color: var(--color-text-light);
   font-size: 20px;
-  padding: 0.25rem;
   padding: 10px;
-  width: 12rem;
+  width: 100%;
 }

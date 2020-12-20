@@ -49,6 +49,13 @@ const CommentForm = ({ actions, user, title }) => {
       notify(`Comment submitted.`, actions, "middle", 2000)
     } catch (err) {
       if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
+      else
+        notify(
+          "No response from the server. Try again later.",
+          actions,
+          "middle",
+          2000
+        )
     }
   }
 
@@ -75,7 +82,11 @@ const CommentForm = ({ actions, user, title }) => {
           onChange={e => setComment(e.target.value)}
         ></textarea>
       </form>
-      <button disabled={!user.auth} onClick={e => handleSubmit(e)}>
+      <button
+        className="comment-form__submit"
+        disabled={!user.auth}
+        onClick={e => handleSubmit(e)}
+      >
         Submit
       </button>
     </div>

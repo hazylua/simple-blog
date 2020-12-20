@@ -11,7 +11,7 @@ import { Editable, withReact, Slate } from "slate-react"
 import { Editor, createEditor, Node } from "slate"
 import { withHistory } from "slate-history"
 
-import Layout from "../components/Layout"
+import Navbar from "../components/Navbar"
 import { PrivateRoute } from "../components/Auth"
 
 import { postSubmit } from "../services/blog-content"
@@ -61,53 +61,57 @@ const PostBuilder = ({ UserSession, actions }) => {
       notify("Post submitted.", actions, "middle", 2000)
     } catch (err) {
       if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
-      else console.log(err)
+      else
+        notify(
+          "No response from the server. Try again later.",
+          actions,
+          "middle",
+          2000
+        )
     }
   }
 
   return (
     <PrivateRoute>
-      <Layout>
-        <div className="edit-area">
-          <div>
-            <div className="post__title border">
-              <input
-                placeholder="Your title here."
-                onChange={e => setTitle(e.target.value)}
+      <Navbar />
+      <div className="edit-area">
+        <div>
+          <div className="post__title">
+            <input
+              placeholder="Your title here."
+              onChange={e => setTitle(e.target.value)}
+            />
+          </div>
+
+          <Slate
+            editor={editor}
+            value={value}
+            onChange={value => setValue(value)}
+          >
+            <div className="post__editor">
+              <Editable
+                renderElement={renderElement}
+                renderLeaf={renderLeaf}
+                placeholder="Enter some rich text…"
+                spellCheck
+                autoFocus
+                onKeyDown={event => {
+                  for (const hotkey in HOTKEYS) {
+                    if (isHotkey(hotkey, event as any)) {
+                      event.preventDefault()
+                      const mark = HOTKEYS[hotkey]
+                      toggleMark(editor, mark)
+                    }
+                  }
+                }}
               />
             </div>
-
-            <Slate
-              className="border"
-              editor={editor}
-              value={value}
-              onChange={value => setValue(value)}
-            >
-              <div className="post__editor border">
-                <Editable
-                  renderElement={renderElement}
-                  renderLeaf={renderLeaf}
-                  placeholder="Enter some rich text…"
-                  spellCheck
-                  autoFocus
-                  onKeyDown={event => {
-                    for (const hotkey in HOTKEYS) {
-                      if (isHotkey(hotkey, event as any)) {
-                        event.preventDefault()
-                        const mark = HOTKEYS[hotkey]
-                        toggleMark(editor, mark)
-                      }
-                    }
-                  }}
-                />
-              </div>
-            </Slate>
-          </div>
-          <button className="post__submit" onClick={() => handlePost()}>
-            Post
-          </button>
+          </Slate>
         </div>
-      </Layout>
+        <button className="post__submit" onClick={() => handlePost()}>
+          Post
+        </button>
+      </div>
     </PrivateRoute>
   )
 }

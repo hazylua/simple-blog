@@ -22,7 +22,7 @@ const PostTemplate = ({ pageContext, actions, UserSession }) => {
         const data = await response.data
         setComments(data)
       } catch (err) {
-        if (err.response) console.log(err.response)
+        // if (err.response) console.log(err.response)
       }
     }
     handleComments()
