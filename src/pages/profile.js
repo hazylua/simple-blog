@@ -2,7 +2,6 @@ import React from "react"
 import { Link, navigate } from "gatsby"
 
 import PropTypes from "prop-types"
-import _ from "lodash"
 
 import { BiLogOut, BiPencil } from "react-icons/bi"
 
@@ -46,11 +45,17 @@ const Profile = ({ UserSession, actions }) => {
                     <BiPencil size={30} />
                   </span>
                 </Link>
-                <a onClick={() => handleLogOut()}>
+                <span
+                  id="logout"
+                  role="button"
+                  tabIndex="0"
+                  onClick={() => handleLogOut()}
+                  onKeyDown={() => handleLogOut()}
+                >
                   <span className="profile-icon">
                     <BiLogOut size={30} />
                   </span>
-                </a>
+                </span>
               </div>
             </div>
             <div className="profile__body light-bg border">
@@ -84,6 +89,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 Profile.propTypes = {
+  UserSession: PropTypes.object.isRequired,
   actions: PropTypes.shape({
     leaveSession: PropTypes.func.isRequired,
     addSnackbar: PropTypes.func.isRequired,

@@ -30,7 +30,8 @@
   position: relative;
 }
 
-.profile__actions > a {
+.profile__actions > a,
+.profile__actions > #logout {
   margin-left: 3rem;
   position: relative;
 }
