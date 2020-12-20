@@ -34,27 +34,27 @@ const Search = ({ location, data }) => {
   const [searchPage, setSearchPage] = useState(1)
   const maxResultsPerPage = 3
 
-  // Get all posts.
-  const { edges } = data.allSitePage
-  // Get query passed through search from header. If empty, query is "".
-  const query = location.state
-    ? new RegExp(location.state.query, "i")
-    : new RegExp("", "i")
-
-  // Create pages on first render.
-  const getSearchResults = () => {
-    // Filter through posts by title. Returns an array.
-    var searchResults = edges.filter(post =>
-      query.test(post.node.context.title)
-    )
-    // Set results in page state.
-    setResults(searchResults)
-  }
-
   // Runs everytime the query updates.
   useEffect(() => {
+    // Get all posts.
+    const { edges } = data.allSitePage
+    // Get query passed through search from header. If empty, query is "".
+    const query = location.state
+      ? new RegExp(location.state.query, "i")
+      : new RegExp("", "i")
+
+    // Create pages on first render.
+    const getSearchResults = () => {
+      // Filter through posts by title. Returns an array.
+      var searchResults = edges.filter(post =>
+        query.test(post.node.context.title)
+      )
+      // Set results in page state.
+      setResults(searchResults)
+    }
+    console.log("Search page.")
     getSearchResults()
-  }, [location])
+  }, [location, data.allSitePage])
 
   return (
     <Layout>

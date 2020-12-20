@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useCallback } from "react"
 
 import PropTypes from "prop-types"
 
@@ -16,8 +16,9 @@ import { signUser, logoutUser } from "./userActions"
 const AuthChecker = ({ UserSession, actions, children }) => {
   const { authSession, leaveSession } = actions
 
-  const getUser = async () => {
+  const getUser = useCallback(async () => {
     try {
+      console.log("Callback")
       const response = await tokenCheck()
       const user_data = await response.data
       const date_expire = new Date(user_data.exp * 1000)
@@ -31,11 +32,11 @@ const AuthChecker = ({ UserSession, actions, children }) => {
     } catch (err) {
       logoutUser(leaveSession)
     }
-  }
+  }, [authSession, leaveSession])
 
   useEffect(() => {
     getUser()
-  }, [])
+  }, [getUser])
 
   return <>{UserSession.auth !== null ? children : <Loading />}</>
 }

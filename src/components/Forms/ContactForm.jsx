@@ -18,9 +18,16 @@ const ContactForm = ({ actions }) => {
     const date = new Date()
     try {
       const response = await contactSubmit({ ...body, date: date })
-      notify(`Contact message sent.`, actions, "middle", 2000)
+      if (response) notify(`Contact message sent.`, actions, "middle", 2000)
     } catch (err) {
       if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
+      else
+        notify(
+          "No response from the server. Try again later.",
+          actions,
+          "middle",
+          2000
+        )
     }
   }
 

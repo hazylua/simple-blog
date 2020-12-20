@@ -60,8 +60,9 @@ const Blog = ({ data }) => {
   const { edges } = data.allSitePage
 
   useEffect(() => {
+    // console.log("Blog page.")
     setPosts(edges)
-  }, [])
+  }, [edges])
 
   return (
     <Layout>

@@ -16,15 +16,22 @@ const RegisterForm = ({ actions }) => {
   const handleRegister = async credentials => {
     try {
       const response = await userRegister(credentials)
-      notify(
-        "Registration complete. You may now login.",
-        actions,
-        "middle",
-        2000
-      )
+      if (response)
+        notify(
+          "Registration complete. You may now login.",
+          actions,
+          "middle",
+          2000
+        )
     } catch (err) {
       if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
-      else console.log(err)
+      else
+        notify(
+          "No response from the server. Try again later.",
+          actions,
+          "middle",
+          2000
+        )
     }
   }
 

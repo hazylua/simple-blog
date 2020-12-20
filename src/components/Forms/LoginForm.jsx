@@ -29,7 +29,13 @@ const LoginForm = ({ actions }) => {
       navigate("/")
     } catch (err) {
       if (err.response) notify(`${err.response.data}`, actions, "middle", 2000)
-      else console.log(err)
+      else
+        notify(
+          "No response from the server. Try again later.",
+          actions,
+          "middle",
+          2000
+        )
     }
   }
 
