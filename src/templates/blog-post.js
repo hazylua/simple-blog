@@ -15,20 +15,18 @@ const PostTemplate = ({ pageContext, actions, UserSession }) => {
   const { title, author, content, date } = pageContext
   const [comments, setComments] = useState([])
 
-  const handleComments = async () => {
-    try {
-      const response = await commentsGetByPageTitle(title)
-      const data = await response.data
-      console.log(data)
-      setComments(data)
-    } catch (err) {
-      if (err.response) console.log(err.response)
-    }
-  }
-
   useEffect(() => {
+    const handleComments = async () => {
+      try {
+        const response = await commentsGetByPageTitle(title)
+        const data = await response.data
+        setComments(data)
+      } catch (err) {
+        if (err.response) console.log(err.response)
+      }
+    }
     handleComments()
-  }, [])
+  }, [title])
 
   return (
     <Layout>
@@ -40,7 +38,7 @@ const PostTemplate = ({ pageContext, actions, UserSession }) => {
               <b>Author:</b> {author}
             </p>
             <p>
-              <b>Written on: {date}</b>
+              <b>Written on:</b> {date}
             </p>
           </div>
         </div>
