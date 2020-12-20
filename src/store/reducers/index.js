@@ -4,8 +4,8 @@ import snackbars from "./snackbars"
 import UserSession from "./user-auth"
 
 const rootReducer = combineReducers({
-  snackbars,
-  UserSession,
+  snackbars: snackbars,
+  UserSession: UserSession,
 })
 
 export default rootReducer
